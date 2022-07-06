@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>算法基础概念 | syh 的博客</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="算法基础概念" />
+<meta name="author" content="syh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. 什么是算法 算法可以看作一个过程，把每个输入映射到唯一的一个输出。" />
+<meta property="og:description" content="1. 什么是算法 算法可以看作一个过程，把每个输入映射到唯一的一个输出。" />
+<link rel="canonical" href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/06/%E7%AE%97%E6%B3%95-0000.html" />
+<meta property="og:url" content="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/06/%E7%AE%97%E6%B3%95-0000.html" />
+<meta property="og:site_name" content="syh 的博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-06T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="算法基础概念" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"syh"},"dateModified":"2022-07-06T00:00:00+08:00","datePublished":"2022-07-06T00:00:00+08:00","description":"1. 什么是算法 算法可以看作一个过程，把每个输入映射到唯一的一个输出。","headline":"算法基础概念","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/06/%E7%AE%97%E6%B3%95-0000.html"},"url":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/06/%E7%AE%97%E6%B3%95-0000.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="syh 的博客" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">syh 的博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">算法基础概念</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-07-06T00:00:00+08:00" itemprop="datePublished">
+        Jul 6, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-什么是算法">1. 什么是算法</h3>
+<p>算法可以看作一个过程，把每个输入映射到唯一的一个输出。</p>
+
+<p>如果算法对问题所有可能的输入都得到了正确的输出，那么就说算法<strong>解决</strong>了该问题。</p>
+
+<h3 id="2-评价算法">2. 评价算法</h3>
+<p>给定一个算法，如何评价算法？首先要验证算法是否正确，然后要评价算法的效率。</p>
+
+<h4 id="21-验证算法的正确性">2.1 验证算法的正确性。</h4>
+<p>如果算法的输入空间小，可以逐案例分析，但是这毕竟是少数的情况。更常见的情况是算法有任意多种情况的输入，输入空间无限大，例如对数组进行排序，数组的长度和项有无穷多种可能。那么如何对这类算法进行正确性验证呢？这时候就要采用数学证明上常用的<strong>数学归纳法</strong>，或者用计算机的语言说叫做递归证明。步骤如下：</p>
+<ul>
+  <li>首先证明基本情况成立。</li>
+  <li>假定子问题下算法成立，通过子问题推导出当前问题下算法成立。</li>
+</ul>
+
+<h4 id="22-评价算法的效率">2.2 评价算法的效率</h4>
+<p>算法效率方面要评价算法的<strong>时间复杂度</strong>和<strong>空间复杂度</strong>。在特定的输入规模下，空间复杂度评价算法的存储空间消耗，时间复杂度评价算法的快慢。</p>
+
+<p>在评价算法的复杂度时，有几点需要注意：</p>
+<ul>
+  <li>评价时希望时间复杂度独立于机器，因此是把算法中基本操作看作一个单位，对算法所涉及的基本操作进行计数，以所有的基本操作数目来评价算法的时间复杂度。例如，把加法、乘法、赋值等都看成执行时间相等的基本操作，算法所耗的时间就是这些基本操作的总数目。基本操作涉及到计算模型，详见下方。</li>
+  <li>假定输入规模为 n，得到的基本操作总数目的表达式可能非常复杂，难以直接比较，需要方法来简化。<strong>在输入规模 n 非常大的情况下</strong>，复杂度表达式会被高阶项所主导，低阶项就不那么重要，因此，我们在评价复杂度时，采用渐进复杂度，即<strong>忽略表达式中的常数因子和低阶项</strong>。常见的渐进复杂度记号有上界(O)，下界(Ω)，紧确界(Θ)。</li>
+</ul>
+
+<h3 id="3-计算模型">3. 计算模型</h3>
+<p>指定机器上执行什么操作消耗 O(1) 时间，用于时间复杂度评价。处理器可以在常数项时间内完成的操作有：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. 整数算术：+, -, *, //, %
+2. 逻辑操作：&amp;&amp;, \|\|, !, ==, &lt;, &gt;, &lt;=, &gt;=
+3. 位操作：&amp;, \|, &lt;&lt;, &gt;&gt;
+4. machine word 大小的内存读取和写入操作
+</code></pre></div></div>
+<p>这些操作就是汇编语言中的基础指令，在时间复杂度分析时，通过对这些基本操作进行计数，再通过渐进记号忽略掉不重要的常数因子和低阶项，最后得到的就是算法的时间复杂度。</p>
+
+
+  </div><a class="u-url" href="/%E7%AE%97%E6%B3%95/2022/07/06/%E7%AE%97%E6%B3%95-0000.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">syh</li>
+          <li><a class="u-email" href="mailto:songibicf@gmail.com">songibicf@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>记录计算机专业相关内容，Mens et Manus
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/syh-1" target="_blank" title="syh-1"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
