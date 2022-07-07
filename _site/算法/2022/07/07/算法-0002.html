@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>集合接口与排序 | syh 的博客</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="集合接口与排序" />
+<meta name="author" content="syh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. 集合接口 (Set Interface) 集合是由具有唯一性的对象所组成的无序多项集，常用的用途包括成员检测、从序列中去除重复项以及数学中的集合类计算。集合接口定义的操作包括：" />
+<meta property="og:description" content="1. 集合接口 (Set Interface) 集合是由具有唯一性的对象所组成的无序多项集，常用的用途包括成员检测、从序列中去除重复项以及数学中的集合类计算。集合接口定义的操作包括：" />
+<link rel="canonical" href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002.html" />
+<meta property="og:url" content="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002.html" />
+<meta property="og:site_name" content="syh 的博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-07T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="集合接口与排序" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"syh"},"dateModified":"2022-07-07T00:00:00+08:00","datePublished":"2022-07-07T00:00:00+08:00","description":"1. 集合接口 (Set Interface) 集合是由具有唯一性的对象所组成的无序多项集，常用的用途包括成员检测、从序列中去除重复项以及数学中的集合类计算。集合接口定义的操作包括：","headline":"集合接口与排序","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002.html"},"url":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="syh 的博客" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">syh 的博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95/">算法</a><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">集合接口与排序</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-07-07T00:00:00+08:00" itemprop="datePublished">
+        Jul 7, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-集合接口-set-interface">1. 集合接口 (Set Interface)</h3>
+<p>集合是由具有唯一性的对象所组成的无序多项集，常用的用途包括成员检测、从序列中去除重复项以及数学中的集合类计算。集合接口定义的操作包括：</p>
+
+<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0002-1.png" alt="集合接口定义的操作" /></p>
+
+<p>集合数据类型非常依赖于 find 操作，例如静态操作的 find(k)，动态操作也要先验证集合中的元素，排序操作需要找到特定键的元素。涉及到查找元素的操作，就离不开<strong>排序</strong>。对项进行排序后，才能用二分查找快速定位到项，才能快速找到最小项、最大项、前一个项、后一个项。</p>
+
+<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0002-2.png" alt="集合操作的时间复杂度" /></p>
+
+<h3 id="2-排序-sorting">2. 排序 (Sorting)</h3>
+<p>排序是数据结构中的基本算法，有多种不同时间复杂度的算法。</p>
+
+<ul>
+  <li>输入：长度为 n 的数组 A</li>
+  <li>输出：有序的数组 B，项依据 key 从小到大排列</li>
+</ul>
+
+<p>概念：</p>
+<ul>
+  <li>原位排序：在排序时只使用 O(1) 的额外空间</li>
+  <li>稳定性：输入数组中有相同值的项，在输出数组中排列的先后关系不变</li>
+</ul>
+
+<h4 id="21-permutation-sort">2.1 Permutation Sort</h4>
+<p>简单、暴力的排序方法。尝试每一种 A 的排列，直到找到有序的排列，返回时间复杂度为 Ω(n! · n)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def permutation_sort(A):
+    ''' sort A ''' 
+    for B in permutations(A):
+        if is_sorted(B):
+            return B
+</code></pre></div></div>
+<h4 id="22-选择排序-selection-sort">2.2 选择排序 (Selection Sort)</h4>
+<p>找到 A[:i+1] 中的最大值，把最大值交换到 A[i]，然后递归排序 A[:i]</p>
+
+<ul>
+  <li>时间复杂度为 O(n^2)</li>
+  <li>原位排序</li>
+  <li>不是稳定排序</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 递归实现
+def selection_sort(A, i=None):
+    ''' Sort A[:i+1] '''
+    if i is None: i = len(A)-1
+    if i &gt; 0:
+        j = prefix_max(A, i)
+        A[i], A[j] = A[j], A[i]  # swap
+        selection_sort(A, i-1)   # recursion
+def prefix_max(A, i):
+    ''' 找到 A[:i+1] 中返回最大值的索引，递归实现 '''
+    if i&gt;0:
+        j = prefix_max(A, i-1)
+        if A[i] &lt; A[j]:
+            return j
+    return i
+
+# 迭代实现
+def selection_sort(A):
+    for i in range(len(A)-1, 0, -1):
+        m = i
+        for j in range(i):
+            if A[m] &lt; A[j]:
+                m = j
+        A[m], A[i] = A[i], A[m]
+</code></pre></div></div>
+
+<h4 id="23-插入排序-insertion-sort">2.3 插入排序 (Insertion Sort)</h4>
+<p>递归排序 A[:i]，i 从 1 到 n。每次排序时，前面的项已经排好序，只需要把最后项插入到合适的位置。</p>
+
+<ul>
+  <li>时间复杂度为 O(n^2)</li>
+  <li>原位排序</li>
+  <li>稳定排序</li>
+</ul>
+
+<p>插入排序和选择排序比较类似，都是维持一个排好序的项的子集，然后不断往子集里增加项，直到所有元素都拍好序。不同点在于：</p>
+<ul>
+  <li>选择排序先排序最大的 i 项</li>
+  <li>插入排序先排序数组头 i 项</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 递归实现
+def insertion_sort(A, i=None):
+    if i is None:
+        i = len(A) - 1
+    if i &gt; 0:
+        insertion_sort(A, i-1)
+        insert_last(A, i)
+def insert_last(A, i):
+    '''把第i个元素插入到合适的位置'''
+    if i&gt;0 and A[i-1]&gt;A[i]:
+        A[i-1], A[i] = A[i], A[i-1]
+        insert_last(A, i-1)
+
+# 迭代实现
+def insertion_sort(A):
+    for i in range(1, len(A)):
+        j = i
+        while j&gt;0 and A[j]&lt;A[j-1]:
+            A[j-1], A[j] = A[j], A[j-1]
+            j = j - 1
+</code></pre></div></div>
+
+<h4 id="24-归并排序-merge-sort">2.4 归并排序 (Merge Sort)</h4>
+<p>分治法，把整个数据分成两半，对两个子数组递归排序，然后经过 O(n) 的合并步骤，得到最后的排序结果。</p>
+
+<ul>
+  <li>递归表达式为 T(n) = 2T(n/2) + Θ(n)，时间复杂度为 Θ(nlogn)</li>
+  <li>不是原位排序</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def merge_sort(A, a=0, b=None):
+    if b is None:  b = len(A)
+    if b-a &gt; 1:
+        c = (a+b+1)//2
+        merge_sort(A, a, c)
+        merge_sort(A, c, b)
+        L, R = A[a:c], A[c:b]
+        merge(L, R, A, len(L), len(R), a, b)
+
+def merge(L, R, A, i, j, a, b):
+    ''' 
+    Merge sorted L[:i], and R[:j] into A[a:b] 
+    递归实现，每次从 L 和 R 中选出最大值，放入到 A[b-1] 处，然后递归
+    '''
+    if a &lt; b:
+        if (j&lt;=0) or (i&gt;0 and L[i-1]&gt;R[j-1]): # R 没有元素或最大值在 L 中
+            A[b-1] = L[i-1]
+            i -= 1
+        else:  # L 没有元素或最大值在 R 中
+            A[b-1] = R[j-1]
+            j -= 1
+        merge(L, R, A, i, j, a, b-1)
+</code></pre></div></div>
+
+<h3 id="3-递归表达式的求解">3. 递归表达式的求解</h3>
+<p>递归在算法中非常重要，一方面算法的正确性证明要用到递归，另一方面算法本身要用到递归。通过递归把问题分解成子问题，可以降低问题的求解难度，写出非常易于理解的代码。</p>
+
+<p>利用递归法求解问题要经历三个步骤：</p>
+<ol>
+  <li>分解：把问题分解成子问题。最基础的情况称为基本情况，写在函数开头。</li>
+  <li>解决：递归调用方法，解决子问题</li>
+  <li>合并：通过子问题求解得到的结果，合并出问题的解</li>
+</ol>
+
+<p>分析递归算法的时间复杂度，需要求解得到的递归表达式。递归表达式是规模为 n 的问题的时间复杂度 T(n) 与较小规模子问题的时间复杂度(根据子问题的规模而定，常见的有 T(n-1), T(n/2))的关系。通过递归表达式，可以得到 T(n) 的值。</p>
+
+<p>递归表达式的求解方法：</p>
+<ul>
+  <li>代入法 (Substitution): 猜测一个解，带入到表达式中，证明表达式成立</li>
+  <li>递归树法 (Recurrence Tree): 画出表示递归调用的树，累加结点的值</li>
+  <li>主方法 (Master Theorem): 代入公式求解</li>
+</ul>
+
+<p>一些递归表达式求解结果：</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>递归表达式</th>
+      <th>T(n)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>T(n) = T(n/2) + O(1)</td>
+      <td>O(logn)</td>
+    </tr>
+    <tr>
+      <td>T(n) = T(n-1) + O(1)</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>T(n) = T(n-1) + O(n)</td>
+      <td>O(n^2)</td>
+    </tr>
+    <tr>
+      <td>T(n) =2T(n-1) + O(1)</td>
+      <td>O(2^n)</td>
+    </tr>
+    <tr>
+      <td>T(n) = T(2n/3)+ O(1)</td>
+      <td>O(logn)</td>
+    </tr>
+    <tr>
+      <td>T(n) =2T(n/2) + O(1)</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>T(n) = T(n/2) + O(n)</td>
+      <td>O(n)</td>
+    </tr>
+    <tr>
+      <td>T(n) =4T(n/2) + O(n)</td>
+      <td>O(n^2)</td>
+    </tr>
+  </tbody>
+</table>
+
+  </div><a class="u-url" href="/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">syh</li>
+          <li><a class="u-email" href="mailto:songibicf@gmail.com">songibicf@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>记录计算机专业相关内容，Mens et Manus
+</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/syh-1" target="_blank" title="syh-1"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
