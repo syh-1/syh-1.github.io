@@ -1,5 +1,136 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-07T23:57:20+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">数据结构与序列接口</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0001.html" rel="alternate" type="text/html" title="数据结构与序列接口" /><published>2022-07-07T00:00:00+08:00</published><updated>2022-07-07T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0001</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0001.html"><![CDATA[<h3 id="1-数据结构">1. 数据结构</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-08T23:55:19+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">数字化抽象 (Digital Abstraction)</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000.html" rel="alternate" type="text/html" title="数字化抽象 (Digital Abstraction)" /><published>2022-07-08T00:00:00+08:00</published><updated>2022-07-08T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000.html"><![CDATA[<h3 id="1-数字化简介">1. 数字化简介</h3>
+<p>信号可分为两类，模拟信号和数字信号。模拟信号中值是连续的，可以表示任意精度的值。数字信号中值是离散的，往往是模拟信号经过量化过程，得到的离散值。</p>
+
+<p>数字化系统在现代社会无处不在。数字化在有些应用中是明显的，例如计算机、网络交换机。但是数字化系统绝不仅这些，例如当在手机上讲话时，声音信号也是经过数字化并通过数字通信设备传输；当看电视时，图像以数字化格式传输并被数字电路所处理。</p>
+
+<p>大多数现代的电子产品仅仅在边缘使用模拟电路，例如电路和传感器的接口。在电子产品内部，外部输入的模拟信号会立马转换为数字信号，并且信号处理、存储、传输全部采用数字信号。数字信号什么时候转换成模拟信号呢？只有在输出端才会转换，例如喇叭播放音频时。</p>
+
+<p>数字化的历史并不长，20 世纪 60 年代的电子设备 ( TV, 广播，录音机，电话 ) 还大都使用模拟信号。大规模的转向数字电路，主要得益于集成电路的发展。随着集成电路的复杂化，其能够执行的信号处理任务也越来越广泛。调制、错误校验、压缩这些技术也因数字化变得可行。数字信号还有一个非常大的优势。数字信号可以容忍噪声，消除大部分噪声的影响，不会像模拟信号一样产生噪声的叠加现象。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000-0.png" width="500" />
+</div>
+
+<h3 id="2-数字化抽象">2. 数字化抽象</h3>
+<p>Digital Abstraction 在计算机组成课程中经常提到，一般在介绍 CPU 实现前介绍。数字化抽象的基础是值的离散化，即把一个区间内的信号值映射为单个值。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000-1.png" width="500" />
+</div>
+
+<p>虽然数字化看似浪费了信号的动态范围，使得信号从表示无穷多值变为只能表示有限值，但是数字信号在容忍 noise 方面有巨大优势。如下图所示，sender 往 receiver 发送信号，在信号传输过程中添加了 0.2 V 的噪声。模拟信号源发送的是 2.4 V，接收到的是 2.6 V，接受值与发送值不一致。假定 0 由 [0V, 2.5V] 区间内电压表示，数字信号源发送的是 1.25 V，接收端收到的是 1.45 V，依旧落在 [0V, 2.5V] 区间内，仍然表示为 0，传输过程中增加的 0.2 V 噪声没有影响接受信号的正确性。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000-2.png" width="400" />
+</div>
+
+<p>数字化也并不是没有缺点。模拟信号可以表示任何电压值，如 1.1 V，2.9 V，0.9999999 V。但是在数字信号中，信号只有两个值：0 和 1。假如要用这两个值表示其余精度的值，就得使用多位二进制数，这与 CPU 内的数字表示类似。利用多位二进制可以表示任意的整数 ( 例如 python 中的 int 类型)。浮点数可依据 IEEE-754 来表示，但只能表示有限精度，python 中浮点数表示精度可通过 <code class="language-plaintext highlighter-rouge">sys.float_info</code> 查看。</p>
+
+<h3 id="3-电压等级与静态约束-voltage-levels-and-the-static-discipline">3 电压等级与静态约束 (voltage levels and the static discipline)</h3>
+
+<p>静态约束是数字设备的规范 (specification)，目的是规定发送方和接收方把什么区间内的电压解释为逻辑 0 和逻辑 1。假如数字设备符合 static discipline，不同厂商生产的设备之间就能正常的通信。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000-3.png" />
+</div>
+
+<ol>
+  <li>左边的图是最简单的情况，指定逻辑 0 用区间 [0.0 V, 2.5 V] 表示，逻辑 1 用区间 [2.5 V, 5.0 V] 表示。
+    <ul>
+      <li>缺点：在 2.5 V 附近的电压只要有小的噪声，就会产生<strong>错误</strong>的结果。</li>
+    </ul>
+  </li>
+  <li>中间的图加入了禁止区 ( forbidden region )。禁止区把两个区间分隔开来，禁止区内接收方的行为未定义。V<sub>L</sub> 叫做低电压阈值，V<sub>H</sub> 叫做高电压阈值。发送方即使发送 V<sub>L</sub>、V<sub>H</sub> 附近的电压叠加了噪声，也不会产生错误结果，只会产生 “Undefined” 的结果。
+    <ul>
+      <li>逻辑 0 由区间 [0, V<sub>L</sub>] 表示</li>
+      <li>逻辑 1 用区间 [V<sub>H</sub>, 5] 表示</li>
+      <li>如果接收方接收到禁止区间内的电压，不规定接收方的行为。</li>
+      <li>缺点：发送方可以发送 V<sub>L</sub>，V<sub>H</sub> 附近的电压，阈值边缘的电压非常容易落入禁止区。对发送方的行为没有做出限制，即没有噪声容限 (noise margin)。</li>
+    </ul>
+  </li>
+  <li>右边的图对发送方做出限制，发送方的区间范围要窄于接收方的区间范围，有一定的噪声容限。发送方是输出信号，电压阈值用 V<sub>OL</sub>、V<sub>OH</sub> 表示。接收方的电压阈值用 V<sub>IL</sub>、V<sub>IH</sub> 表示。</li>
+</ol>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">-</th>
+      <th style="text-align: center">表示逻辑 0 的区间</th>
+      <th style="text-align: center">表示逻辑 1 的区间</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">发送方</td>
+      <td style="text-align: center">[0, V<sub>OL</sub>]</td>
+      <td style="text-align: center">[V<sub>OH</sub>, 5]</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">接收方</td>
+      <td style="text-align: center">[0, V<sub>IL</sub>]</td>
+      <td style="text-align: center">[V<sub>IH</sub>, 5]</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">噪声容限</td>
+      <td style="text-align: center">V<sub>IL</sub> - V<sub>OL</sub></td>
+      <td style="text-align: center">V<sub>OH</sub> - V<sub>IH</sub></td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="4-布尔逻辑-boolean-logic">4 布尔逻辑 (Boolean Logic)</h3>
+
+<p>布尔逻辑的表示方法：</p>
+<ol>
+  <li>布尔表达式 ( boolean equation )
+    <ul>
+      <li>AND, OR, NOT</li>
+      <li>·， +， ~</li>
+    </ul>
+  </li>
+  <li>逻辑门的组合 (combinational gates)
+    <ul>
+      <li>逻辑门电路遵循<strong>静态约束</strong>，输入合适范围内的电压值，电路会产生合适的输出电压</li>
+      <li>门：电路的一种抽象，满足两个属性
+        <ol>
+          <li>输出只是输入的函数，没有状态</li>
+          <li>满足静态约束</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="41-乘积和形式">4.1 乘积和形式</h4>
+
+<p>乘积和形式：</p>
+<ul>
+  <li>逻辑表达式的标准形式 ( standard or canonic form )</li>
+  <li>表达式由多个乘积项 ( product terms ) 组成</li>
+  <li>每个乘积项由多个变量相乘得到</li>
+  <li>乘积项通过 OR 函数组合</li>
+</ul>
+
+<p>真值表 ==&gt; 乘积和表达式：</p>
+<ul>
+  <li>对每一个输出为 1 的行，写乘积项，然后对所有得到的乘积项相加。</li>
+  <li>每个乘积项由所有输入变量通过 AND 得到，如果输入变量是 0，写成 true form，如果输入变量是 1，写成 complement form</li>
+</ul>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000-4.png" width="500" />
+</div>
+
+<h4 id="42-逻辑表达式的简化-simplifying-logic-expressions">4.2 逻辑表达式的简化 (simplifying logic expressions)</h4>
+
+<p>逻辑表达式简化的目的：最小化硬件实现代价</p>
+
+<p>主要的规则：</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000-5.png" width="300" />
+</div>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 数字化简介 信号可分为两类，模拟信号和数字信号。模拟信号中值是连续的，可以表示任意精度的值。数字信号中值是离散的，往往是模拟信号经过量化过程，得到的离散值。]]></summary></entry><entry><title type="html">数据结构与序列接口</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0001.html" rel="alternate" type="text/html" title="数据结构与序列接口" /><published>2022-07-07T00:00:00+08:00</published><updated>2022-07-07T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0001</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0001.html"><![CDATA[<h3 id="1-数据结构">1. 数据结构</h3>
 <ul>
   <li><strong>数据结构</strong>是存储数据的一种方式，通过实现特定算法来支持特定的数据操作。</li>
   <li>
