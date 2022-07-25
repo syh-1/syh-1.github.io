@@ -1,5 +1,77 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-18T10:29:17+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">MOSFET 开关</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" rel="alternate" type="text/html" title="MOSFET 开关" /><published>2022-07-11T00:00:00+08:00</published><updated>2022-07-11T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/11/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html"><![CDATA[<h3 id="开关">开关</h3>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[开关]]></summary></entry><entry><title type="html">数字化抽象 (Digital Abstraction)</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000.html" rel="alternate" type="text/html" title="数字化抽象 (Digital Abstraction)" /><published>2022-07-08T00:00:00+08:00</published><updated>2022-07-08T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000.html"><![CDATA[<h3 id="1-数字化简介">1. 数字化简介</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-25T18:49:30+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">MOSFET 开关</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" rel="alternate" type="text/html" title="MOSFET 开关" /><published>2022-07-18T00:00:00+08:00</published><updated>2022-07-18T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html"><![CDATA[<h3 id="1-开关">1. 开关</h3>
+
+<p>开关可以看成一个三端装置 (three-terminal device)，这三个端包括一个控制端、一个输入端和一个输出端。开关的 v-i 曲线如下：</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-1.png" width="300" />
+</div>
+
+<p>当控制端为逻辑 0 时，无论电压多大，电流都为 0；当控制端为 1 时，开关闭合，电流可能为任意值，但开关两端的电压为 0 。</p>
+
+<p>一对开关可以通过串联和并联可以实现逻辑函数。左边的电路两个开关只有都闭合灯泡才会点亮，为 AND 函数，右边的两个开关只要有一个闭合灯泡就会点亮，为 OR 函数。用开关实现的数字逻辑叫做控制逻辑 (steering logic)。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-2.png" width="500" />
+</div>
+
+<p>用机械开关的一个缺点是控制端必须得由压力来控制，这使得用机械开关来构建逻辑电路非常复杂。因为一个电路的输出必须得转换为压力，才能输入到用机械开关实现的逻辑电路中。</p>
+
+<h3 id="2-mosfet">2. MOSFET</h3>
+
+<p>MOSFET 属于晶体管。 MOSFET 是三端装置，包含控制端、输入端、输出端。MOSFET 用以下电路符号来表示。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-3.png" width="300" />
+</div>
+<p>控制端叫做栅极 (gate G)，输入端叫做漏极 (drain D)，输出端叫做源极 (source S)。漏极和源极的方向根据实际情况而定，规定电流从漏极流向 源极，漏极的电压高。MOSFET 中涉及的记号如下图：</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-4.png" width="200" />
+</div>
+
+<p>栅极和源极两端的电压差表示为 V<sub>GS</sub>，漏极和源极两端的电压差表示为 V<sub>DS</sub>，栅极端流经的电流叫做 i<sub>G</sub>，漏极端流经的电流叫做 i<sub>DS</sub>。</p>
+
+<p>MOSFET 的特性复杂，有不同的模型可以来表示。用简单的开关来表示叫做 MOSFET’s Switch Model 或者 S Model。</p>
+<ul>
+  <li>当 V<sub>GS</sub> 超过了阈值电压 V<sub>T</sub> 时，装置为 ON 状态，否则为 OFF 状态。对于 n 通道的 MOSFETs 来说，V<sub>T</sub> 的典型值为 0.7 V。</li>
+  <li>当为 ON 状态时，S 模型把漏极和源极之间的连接近似为短路。在实际的情况下，在漏极和源极之间存在非 0 的电阻值，但是在 S 模型中忽略该电阻。</li>
+  <li>当为 OFF 状态时，在漏极和源极之间为开路。</li>
+  <li>栅极和源极之间，栅极和漏极之间永远保持开路，因此 i<sub>G</sub> 一直为 0</li>
+</ul>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-5.png" width="300" />
+</div>
+
+<h3 id="3-mosfet-实现逻辑门">3. MOSFET 实现逻辑门</h3>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-6.png" width="500" />
+</div>
+
+<p>左图由 MOSFET、一个负载电阻，一个 5V 电压源组成。电路的输入连接到栅极，源极接地，漏极与电阻、电压源相连。右图是简化图。该电路实现了非门。</p>
+
+<p>假设逻辑高为 5 V，逻辑低为 0 V。当 v<sub>in</sub> 为高时，MOSFET 处于 ON 状态，因此输出电压为低。当 v<sub>in</sub> 为低时，MOSFET 为 OFF，输出由 R<sub>L</sub> 提升到高。</p>
+
+<h3 id="4-sr-模型">4. SR 模型</h3>
+
+<p>S 模型是 MOSFET 的简化，在实际中当 MOSFET 处于 ON 状态时，漏极和源极之间有非 0 电阻。因此，在 ON 状态时，可以在漏极和栅极之间添加 R<sub>ON</sub> 电阻，形成 SR 模型。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-7.png" width="400" />
+</div>
+
+<h3 id="5-mosfet-物理结构">5. MOSFET 物理结构</h3>
+
+<p>MOSFET 在称为晶片的平面单晶硅表面构建。一般包含多层，包含：</p>
+<ul>
+  <li>氧化晶片表面产生的二氧化硅构成的绝缘层 (insulating layer)</li>
+  <li>金属沉积物或者多晶硅构成的导电层 (conducting layer)</li>
+  <li>通过在硅中掺杂其他材料构成的半导体层 (semiconducting layer)</li>
+</ul>
+
+<p>掺杂了富含电子的材料的硅称为 n 型半导体，类似地，掺杂了富含空穴的材料的硅被称为 p 型半导体。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 开关]]></summary></entry><entry><title type="html">数字化抽象 (Digital Abstraction)</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000.html" rel="alternate" type="text/html" title="数字化抽象 (Digital Abstraction)" /><published>2022-07-08T00:00:00+08:00</published><updated>2022-07-08T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/08/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0000.html"><![CDATA[<h3 id="1-数字化简介">1. 数字化简介</h3>
 <p>信号可分为两类，模拟信号和数字信号。模拟信号中值是连续的，可以表示任意精度的值。数字信号中值是离散的，往往是模拟信号经过量化过程，得到的离散值。</p>
 
 <p>数字化系统在现代社会无处不在。数字化在有些应用中是明显的，例如计算机、网络交换机。但是数字化系统绝不仅这些，例如当在手机上讲话时，声音信号也是经过数字化并通过数字通信设备传输；当看电视时，图像以数字化格式传输并被数字电路所处理。</p>

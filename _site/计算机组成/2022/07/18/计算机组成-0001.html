@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>MOSFET 开关 | syh 的博客</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="MOSFET 开关" />
+<meta name="author" content="syh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. 开关" />
+<meta property="og:description" content="1. 开关" />
+<link rel="canonical" href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" />
+<meta property="og:url" content="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" />
+<meta property="og:site_name" content="syh 的博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-18T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="MOSFET 开关" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"syh"},"dateModified":"2022-07-18T00:00:00+08:00","datePublished":"2022-07-18T00:00:00+08:00","description":"1. 开关","headline":"MOSFET 开关","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html"},"url":"http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="syh 的博客" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">syh 的博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95.html">算法</a><a class="page-link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">计算机组成</a><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">MOSFET 开关</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-07-18T00:00:00+08:00" itemprop="datePublished">
+        Jul 18, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-开关">1. 开关</h3>
+
+<p>开关可以看成一个三端装置 (three-terminal device)，这三个端包括一个控制端、一个输入端和一个输出端。开关的 v-i 曲线如下：</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-1.png" width="300" />
+</div>
+
+<p>当控制端为逻辑 0 时，无论电压多大，电流都为 0；当控制端为 1 时，开关闭合，电流可能为任意值，但开关两端的电压为 0 。</p>
+
+<p>一对开关可以通过串联和并联可以实现逻辑函数。左边的电路两个开关只有都闭合灯泡才会点亮，为 AND 函数，右边的两个开关只要有一个闭合灯泡就会点亮，为 OR 函数。用开关实现的数字逻辑叫做控制逻辑 (steering logic)。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-2.png" width="500" />
+</div>
+
+<p>用机械开关的一个缺点是控制端必须得由压力来控制，这使得用机械开关来构建逻辑电路非常复杂。因为一个电路的输出必须得转换为压力，才能输入到用机械开关实现的逻辑电路中。</p>
+
+<h3 id="2-mosfet">2. MOSFET</h3>
+
+<p>MOSFET 属于晶体管。 MOSFET 是三端装置，包含控制端、输入端、输出端。MOSFET 用以下电路符号来表示。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-3.png" width="300" />
+</div>
+<p>控制端叫做栅极 (gate G)，输入端叫做漏极 (drain D)，输出端叫做源极 (source S)。漏极和源极的方向根据实际情况而定，规定电流从漏极流向 源极，漏极的电压高。MOSFET 中涉及的记号如下图：</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-4.png" width="200" />
+</div>
+
+<p>栅极和源极两端的电压差表示为 V<sub>GS</sub>，漏极和源极两端的电压差表示为 V<sub>DS</sub>，栅极端流经的电流叫做 i<sub>G</sub>，漏极端流经的电流叫做 i<sub>DS</sub>。</p>
+
+<p>MOSFET 的特性复杂，有不同的模型可以来表示。用简单的开关来表示叫做 MOSFET’s Switch Model 或者 S Model。</p>
+<ul>
+  <li>当 V<sub>GS</sub> 超过了阈值电压 V<sub>T</sub> 时，装置为 ON 状态，否则为 OFF 状态。对于 n 通道的 MOSFETs 来说，V<sub>T</sub> 的典型值为 0.7 V。</li>
+  <li>当为 ON 状态时，S 模型把漏极和源极之间的连接近似为短路。在实际的情况下，在漏极和源极之间存在非 0 的电阻值，但是在 S 模型中忽略该电阻。</li>
+  <li>当为 OFF 状态时，在漏极和源极之间为开路。</li>
+  <li>栅极和源极之间，栅极和漏极之间永远保持开路，因此 i<sub>G</sub> 一直为 0</li>
+</ul>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-5.png" width="300" />
+</div>
+
+<h3 id="3-mosfet-实现逻辑门">3. MOSFET 实现逻辑门</h3>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-6.png" width="500" />
+</div>
+
+<p>左图由 MOSFET、一个负载电阻，一个 5V 电压源组成。电路的输入连接到栅极，源极接地，漏极与电阻、电压源相连。右图是简化图。该电路实现了非门。</p>
+
+<p>假设逻辑高为 5 V，逻辑低为 0 V。当 v<sub>in</sub> 为高时，MOSFET 处于 ON 状态，因此输出电压为低。当 v<sub>in</sub> 为低时，MOSFET 为 OFF，输出由 R<sub>L</sub> 提升到高。</p>
+
+<h3 id="4-sr-模型">4. SR 模型</h3>
+
+<p>S 模型是 MOSFET 的简化，在实际中当 MOSFET 处于 ON 状态时，漏极和源极之间有非 0 电阻。因此，在 ON 状态时，可以在漏极和栅极之间添加 R<sub>ON</sub> 电阻，形成 SR 模型。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-7.png" width="400" />
+</div>
+
+<h3 id="5-mosfet-物理结构">5. MOSFET 物理结构</h3>
+
+<p>MOSFET 在称为晶片的平面单晶硅表面构建。一般包含多层，包含：</p>
+<ul>
+  <li>氧化晶片表面产生的二氧化硅构成的绝缘层 (insulating layer)</li>
+  <li>金属沉积物或者多晶硅构成的导电层 (conducting layer)</li>
+  <li>通过在硅中掺杂其他材料构成的半导体层 (semiconducting layer)</li>
+</ul>
+
+<p>掺杂了富含电子的材料的硅称为 n 型半导体，类似地，掺杂了富含空穴的材料的硅被称为 p 型半导体。</p>
+
+
+  </div><a class="u-url" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">syh</li>
+          <li><a class="u-email" href="mailto:songibicf@gmail.com">songibicf@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>记录计算机专业相关内容，Mens et Manus
+</p>
+      </div>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/syh-1" target="_blank" title="syh-1"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+    
+
+  </div>
+
+</footer>
+</body>
+
+</html>
