@@ -1,5 +1,181 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-07-25T18:49:30+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">MOSFET 开关</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" rel="alternate" type="text/html" title="MOSFET 开关" /><published>2022-07-18T00:00:00+08:00</published><updated>2022-07-18T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html"><![CDATA[<h3 id="1-开关">1. 开关</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-16T16:50:41+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">存储器层次结构</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html" rel="alternate" type="text/html" title="存储器层次结构" /><published>2022-07-26T00:00:00+08:00</published><updated>2022-07-26T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html"><![CDATA[<h3 id="1-为什么采用存储器层次结构">1. 为什么采用存储器层次结构</h3>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-1.png" width="400" />
+</div>
+
+<p>计算机包含几个部分：</p>
+<ul>
+  <li>处理器，又分为控制器和数据通路，从内存中读取指令和数据，执行运算，并把结果保存到寄存器或者写回内存中。</li>
+  <li>存储器，内存中包含程序的机器码和数据</li>
+  <li>输入设备</li>
+  <li>输出设备</li>
+</ul>
+
+<p>计算机的运行时离不开数据的读取和写入操作。由于存储程序概念，指令和数据均以数字的形式存储与存储器中，处理器的要不停的从存储器中读取指令和数据。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-2.png" width="600" />
+</div>
+
+<p>处理器的执行速度和内存 (DRAM) 的读写速度比较如上图所示。在 1980 年，处理器执行一条指令的时间和内存访问的速度差不多，存储器的访问速度并不会拖慢计算机的运行。但是处理器性能以每年 55% 的速度飞速增长，而 DRAM 的性能增速却只有 7%，两者的差距越来越大。以至于 DRAM 访问一条指令，处理器可以执行 1000 多条指令。</p>
+
+<p>这巨大的速度差异如何来弥补？总不能让处理器每执行一条指令就停止，等 DRAM 中下一条指令的到来，如果有一个速度更快的存储器就好了。</p>
+
+<p>这就要提到存储器有两个相互矛盾的属性，一个是容量，一个是访问速度。存储器一般容量大，速度就会慢，例如 <strong>DRAM</strong>。存储器速度快，容量就会小，例如 <strong>SRAM</strong>，一般只有几兆，而访问速度最快的<strong>寄存器</strong>在 RISC-V 中只有 32 个。</p>
+
+<p>单纯使用 DRAM 或者 SRAM 都无法达到好的效果，处理器需要的是一个访问速度快，存储容量大的存储器。存储器的层次结构就是为了构建这样一个虚拟的存储器。这个虚拟的存储器的内部结构不需要处理器知道，处理器只需要正常的访问，就好像在访问一个速度快，容量大的存储器。</p>
+
+<h3 id="2-存储器层次结构的原理">2. 存储器层次结构的原理</h3>
+
+<p>为什么把不同性能的存储器结合起来可以抽象出一个速度快，容量大的存储器？原理可以用图书馆例子来形象的说明。假如你需要在图书馆查找些书籍来完成一篇报告，可能有以下过程：</p>
+
+<ol>
+  <li>在书架上找到书籍，拿到了图书馆的书桌上。通过翻阅书籍，找到需要的信息。</li>
+  <li>如果需要别的书籍，去书架上拿，再次放到书桌上。书桌上一直保存着你查找过的书籍。</li>
+</ol>
+
+<p>图书馆相当于内存，容量大，但是查找速度慢。书桌相当于 cache，容量小，但是可以很快的找到你要的书籍。并且在书桌上一直保存查找过的书籍，当再次需要这本书的时候，直接拿起就行。图书馆和书桌构成了一个虚拟的访问速度快，容量大的图书馆。</p>
+
+<p>存储器也是这样，cache 中存放了内存中之前取得的一部分数据以及该数据周围的一些数据，当处理器再次需要这些数据或者周围的数据时，可以直接从 cache 中读取。cache 一般集成在 CPU 内部，保留的数据为内存中一部分数据的复制。大多数的处理器都有单独的指令 cache 和数据 cache。</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-3.png" width="300" />
+</div>
+
+<p>存储器的层次结构由以上 4 部分组成，包含寄存器、cache、内存、磁盘。如果存储器越靠近处理器，那么存储器就会更小、更快、更昂贵。最低等级的存储器，一般是磁盘，包含了所有的数据。存储器的层次结构抽象出一个容量大、访问速度快的存储器。</p>
+
+<p>具体的来说，存储器层次结构利用的是局部性原理，包含：</p>
+
+<ul>
+  <li>时间局部性：如果现在使用了某一数据，不久有可能还要使用这一数据
+    <ul>
+      <li>可以在 cache 中保持最近使用过的数据</li>
+    </ul>
+  </li>
+  <li>空间局部性：如果使用了存储器中的一条数据，不久有可能使用与这条数据相邻的数据
+    <ul>
+      <li>按 block 移动数据，而不只是移动一条数据</li>
+    </ul>
+  </li>
+</ul>
+
+<p>添加 cache 之后，计算机结构如下图所示：</p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-4.png" width="400" />
+</div>
+<h3 id="3-访问存储器的流程">3. 访问存储器的流程</h3>
+
+<p>以 <code class="language-plaintext highlighter-rouge">lw t0 0(t1)</code> 指令为例，假设 t1 寄存器中包含的地址为 0x12F0，内存中相应的值为 99。</p>
+
+<p>假如没有 cache，访问流程如下：</p>
+
+<ol>
+  <li>处理器将地址 0x12F0 发送给内存</li>
+  <li>内存读取地址 0x12F0 中的值 99</li>
+  <li>内存发送 99 到处理器</li>
+  <li>处理器把 99 放入寄存器 t0 中</li>
+</ol>
+
+<p>假如有 cache，访问流程如下：</p>
+
+<ol>
+  <li>处理器将地址 0x12F0 发送给 cache</li>
+  <li>cache 检查是否包含该地址中的数据
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (1) 如果包含，cache 读取 99，发送给处理器
+  (2) 如果不包含 (Miss)，cache 将地址 0x12F0 发送到内存
+      a. 内存读取地址 0x12F0 中的值 99
+      b. 内存将 99 发送给 cache
+      c. cache 将地址 0x12F0 和 99 存储起来
+      d. cache 将 99 发送给处理器
+</code></pre></div>    </div>
+  </li>
+  <li>处理器把 99 放入寄存器 t0 中</li>
+</ol>
+
+<p><strong>cache hit</strong>：表示要查找的数据在 cache 中，可以直接在 cache 中读取出数据传入处理器中。</p>
+
+<p><strong>cache miss</strong>：表示要查找的数据不在 cache 中，需要在内存中找到数据，并且把该数据放入 cache 中，然后才可以传入处理器。</p>
+
+<h3 id="4-cache-中的数据存储方式">4. cache 中的数据存储方式</h3>
+
+<p>cache 中存储方式有三种：</p>
+<ol>
+  <li>全相联 (Fully Associative)</li>
+  <li>直接映射 (Direct Mapped)</li>
+  <li>组相联 (Set-Associative)</li>
+</ol>
+
+<h4 id="41-全相联-cache">4.1 全相联 cache</h4>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-5.png" width="400" />
+</div>
+
+<p>正如名称中 associate 的含义，全相联中把地址和数据存储在 cache 的一个行中。cache 中包含有效位、标签位、数据位等。</p>
+
+<p><strong>cache line / block：</strong></p>
+<ul>
+  <li>利用局部性原理，cache 中存储的是 block，即一块数据。在 cache 中这一个块存储在一行中，因此也叫做 cache line。</li>
+  <li>典型的 cache line / block 为 64 字节，可以充分利用空间局部性</li>
+</ul>
+
+<p><strong>line size / block size:</strong></p>
+<ul>
+  <li>每个 cache line 中的字节数</li>
+</ul>
+
+<p><strong>容量：</strong></p>
+<ul>
+  <li>cache 中可以存储的总数据量，以 byte 为单位</li>
+  <li>最上面的图中 line size 为 4 bytes，有 4 行，因此容量为 16 bytes</li>
+</ul>
+
+<p><strong>有效位：</strong></p>
+<ul>
+  <li>因为在<strong>运行一个新程序</strong>时，cache 中没有任何有效的数据，需要有效位来标识所有的数据都是无效的，此时所有的有效位都是 0</li>
+  <li>只有有效位为 1，且 address 与 tag 相符合，才是 cache hit</li>
+</ul>
+
+<p><strong>标签位：</strong></p>
+<ul>
+  <li>用来区分数据，cache 中地址与数据一一对应，因此数据用内存地址来标识。</li>
+  <li>标签位不需要存储 Full Address，因为 cache 中存储的是 block，有 4 bytes，用来区分字节中位置的末尾部分不需要，因此只有地址前面部分用作 tag</li>
+  <li>byte offset bits = log(line size)</li>
+  <li>tag bits = address bits - offset bits</li>
+</ul>
+
+<p>当 cache 满了以后，需要替换策略，来把不用的 line 删除，放入新的数据。常用的方法是把最长时间没有使用的数据删除，该策略叫做 LRU (Least-Recently Used)。为了记录每行的访问历史，在每行中又包含了 <strong>LRU 位</strong>。当要删除数据时，会删除 LRU 值最大的行。</p>
+
+<h4 id="42-write-through-vs-write-back-policies">4.2 write-through vs write-back policies</h4>
+
+<p>cache 会加快存储器的访问速度，但是在写数据时也会造成数据不一致的问题。处理器要修改存储器中的一个数据，假如该数据在 cache 中被修改，与内存中的旧数据会不一致，因此必须指定修改数据的方式。</p>
+
+<p><strong>写直达 (write-through):</strong></p>
+<ul>
+  <li>把要修改的数据同时写入 cache 和内存中</li>
+  <li>因为要写入内存，耗费的时间长</li>
+</ul>
+
+<p><strong>写回 (write-back):</strong></p>
+<ul>
+  <li>把修改的数据写入 cache 中，设置 <strong>dirty bit</strong> 为 1</li>
+  <li>当该行从 cache 删除时，再把该行写入内存</li>
+</ul>
+
+<h4 id="43-直接映射-cache">4.3 直接映射 cache</h4>
+<p>直接映射中，内存中特定地址的数据，只能存储在 cache 中特定的位置。存储快的位置为 <code class="language-plaintext highlighter-rouge">(块号) mod (cache 中的块数)</code></p>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-6.png" width="400" />
+</div>
+
+<p>上图内存中相同颜色的块会放入 cache 中同颜色的位置中，例如 0、4、8、C都会放入 cache 中的 0 位置。如果 cache 中特定位置已经有数据，必须得把该数据替换，才能把新数据放入。直接映射 cache 相较于全相连 cache，会有更多的冲突。</p>
+
+<h4 id="44-组相联">4.4 组相联</h4>
+<p>组相联可以看作全相联和直接映射的结合。组相联中，数据只能存储在一个索引位置，但是在一个位置有多个 slot。先用 tag 找到特定的组，再在组内找到特定的 slot。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 为什么采用存储器层次结构]]></summary></entry><entry><title type="html">MOSFET 开关</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" rel="alternate" type="text/html" title="MOSFET 开关" /><published>2022-07-18T00:00:00+08:00</published><updated>2022-07-18T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html"><![CDATA[<h3 id="1-开关">1. 开关</h3>
 
 <p>开关可以看成一个三端装置 (three-terminal device)，这三个端包括一个控制端、一个输入端和一个输出端。开关的 v-i 曲线如下：</p>
 
@@ -19,12 +195,13 @@
 
 <h3 id="2-mosfet">2. MOSFET</h3>
 
-<p>MOSFET 属于晶体管。 MOSFET 是三端装置，包含控制端、输入端、输出端。MOSFET 用以下电路符号来表示。</p>
+<p>MOSFET 属于晶体管，是三端装置，包含控制端、输入端、输出端。MOSFET 用以下电路符号来表示。</p>
 
 <div align="center">
 <img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-3.png" width="300" />
 </div>
-<p>控制端叫做栅极 (gate G)，输入端叫做漏极 (drain D)，输出端叫做源极 (source S)。漏极和源极的方向根据实际情况而定，规定电流从漏极流向 源极，漏极的电压高。MOSFET 中涉及的记号如下图：</p>
+
+<p>控制端叫做栅极 (gate，G)，输入端叫做漏极 (drain，D)，输出端叫做源极 (source，S)。漏极和源极的方向根据实际情况而定，规定电流从漏极流向 源极，漏极的电压高。MOSFET 中涉及的记号如下图：</p>
 
 <div align="center">
 <img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-4.png" width="200" />
