@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T21:54:21+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-17T22:42:20+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
 </subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">并行</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0003.html" rel="alternate" type="text/html" title="并行" /><published>2022-08-16T00:00:00+08:00</published><updated>2022-08-16T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0003</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/16/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0003.html"><![CDATA[<h3 id="1-并行的原因">1. 并行的原因</h3>
 
 <p>为什么要并行化？</p>
@@ -94,7 +94,7 @@ values = _mm_loadu_si128((__m128i*) arrayB);
 
 <p>操作系统将多个线程多路复用到可用的硬件线程。操作系统通过<strong>时分复用</strong>将软件线程分配到硬件线程上，以在特定的处理器上同时执行非常多的任务。时分复用是指把时间分成不同的时间间隔，任一线程只能执行几个时间间隔。当该线程时间耗尽或者阻塞时，操作系统中断该线程，把 context，包括寄存器、PC 存入内存中，并且操作系统会运行另一个线程。</p>
 
-<h3 id="5-openmp-并行编程">5. OpenMP 并行编程</h3>
+<h4 id="41-openmp-并行编程">4.1 OpenMP 并行编程</h4>
 
 <p>OpenMP 是用于多线程并行编程的语言扩展。其编程模型如下图所示。</p>
 
@@ -104,7 +104,42 @@ values = _mm_loadu_si128((__m128i*) arrayB);
 
 <p>开始是单个线程，master thread，并且为顺序执行，直到遇到 parallel region。在并行区主线程会创建多个并行线程，每个线程会执行并行区的语句，直到所有线程全部完成，此时会进行 JOIN，只留下主线程。</p>
 
-<p>数据竞争 (data race)：并行编程中常见的问题。如果多个线程尝试访问相同的内存位置，并且至少有一个线程进行写操作，那么有可能形成数据竞争。此时程序运行的结果不确定，需要通过同步指令来明确访问顺序，以产生确定的结果。主要通过锁来控制线程对关键部分的访问，使得一次只能有一个线程进行操作。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 并行的原因]]></summary></entry><entry><title type="html">存储器层次结构</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html" rel="alternate" type="text/html" title="存储器层次结构" /><published>2022-07-26T00:00:00+08:00</published><updated>2022-07-26T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html"><![CDATA[<h3 id="1-为什么采用存储器层次结构">1. 为什么采用存储器层次结构</h3>
+<p>数据竞争 (data race)：并行编程中常见的问题。如果多个线程尝试访问相同的内存位置，并且至少有一个线程进行写操作，那么有可能形成数据竞争。此时程序运行的结果不确定，需要通过同步指令来明确访问顺序，以产生确定的结果。主要通过锁来控制线程对关键部分的访问，使得一次只能有一个线程进行操作。</p>
+
+<h3 id="5-smp">5. SMP</h3>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0003-5.png" width="400" />
+</div>
+
+<p>SMP 指的对称多处理机 (Symmetric Multiprocessor)，满足以下条件：</p>
+<ul>
+  <li>包含两个或者多个相同的 CPUs/Cores</li>
+  <li>单个的共享内存</li>
+</ul>
+
+<p>所有的处理器共享同一个物理地址空间。处理器之间通过内存里共享的变量进行通信，共享数据必须通过同步原语来访问。</p>
+
+<h4 id="51-多处理器中的-cache">5.1 多处理器中的 cache</h4>
+
+<div align="center">
+<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0003-6.png" width="400" />
+</div>
+
+<p>即使只有一个处理器，内存也是性能瓶颈，因此使用 cache 来减少对内存访问的带宽需求。每个 core 有自己的私有 cache，只有当 cache miss 时才需要访问内存。</p>
+
+<p>多处理器中要处理 cache 中数据一致性问题。总线上的两个 CPU 都读取相同的数据； 每个处理器都获得数据的副本并将其存储在他们的 cache 中。假如一个 CPU 执行了一次写操作，该 CPU 的 cache 是最新的，但是其他处理器的 cache 中存有过时的数据。因此要确保一个 CPU 改变了数据，别的 CPU 数据也应该进行更新。</p>
+
+<p>解决方案：追踪 block 的状态。每个 cache 使用 valid bit、dirty bit、shared bit 追踪存储的每个块的状态，状态包含：</p>
+
+<ol>
+  <li><strong>Shared</strong>: up-to-date data, other caches may have a copy (Valid Bit set, shared bit set)</li>
+  <li><strong>Modified</strong>: up-to-date data, <strong>changed (dirty)</strong>, no other cache has a copy, OK to write, memory out-of-date (Valid and Dirty bit is set)</li>
+  <li><strong>Exclusive</strong>: up-to-date data, no other cache has a copy, OK to write, memory up-to-date</li>
+  <li><strong>Owner</strong>: up-to-date data, other caches may have a copy (they must be in Shared state), memory is not up-to-date</li>
+</ol>
+
+<p>该 cache coherency protocol 叫做 MOESI。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 并行的原因]]></summary></entry><entry><title type="html">存储器层次结构</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html" rel="alternate" type="text/html" title="存储器层次结构" /><published>2022-07-26T00:00:00+08:00</published><updated>2022-07-26T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html"><![CDATA[<h3 id="1-为什么采用存储器层次结构">1. 为什么采用存储器层次结构</h3>
 
 <div align="center">
 <img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-1.png" width="400" />
