@@ -1,5 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-08-24T17:27:20+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">操作系统</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0004.html" rel="alternate" type="text/html" title="操作系统" /><published>2022-08-17T00:00:00+08:00</published><updated>2022-08-17T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0004</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0004.html"><![CDATA[<h3 id="1-简介">1. 简介</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-06T16:44:26+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">Hashing</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/02/%E7%AE%97%E6%B3%95-0003.html" rel="alternate" type="text/html" title="Hashing" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/02/%E7%AE%97%E6%B3%95-0003</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/02/%E7%AE%97%E6%B3%95-0003.html"><![CDATA[<h3 id="1-比较模型">1. 比较模型</h3>
+
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0003-1.png" width="500" />
+<p></p>
+</div>
+
+<p>在序列接口常用的操作中，普通的 Array 实现，时间复杂度都为 O(n)，这些操作都需要遍历整个数组。而 Sorted Array 由于在内部保持元素的有序性，在 find 操作上占优势。那么，可以实现更快的查找和动态操作吗，可以让 find 操作时间复杂度小于 O(log n)吗？</p>
+
+<p><strong>比较模型：</strong></p>
+<ul>
+  <li>在该模型中，算法仅能通过比较来区分不同的元素</li>
+  <li>可比较的项相当于一个黑盒，只能支持两个项之间的比较操作</li>
+  <li>比较操作有：&lt;, &lt;=, &gt;, &gt;=, ==, !=</li>
+  <li><strong>目标</strong>：在 n 个可比较项的集合上，实现 find(k) 操作</li>
+  <li>比较的次数决定了运行时间的下界，因此，评估时间复杂度，要数比较操作的次数。</li>
+</ul>
+
+<p><strong>决策树：</strong></p>
+<ul>
+  <li>任何比较模型的 find 算法可以看作执行比较操作的决策树(decision tree)</li>
+  <li>内部结点表示两个元素的比较，分支代表结果为 True 或 False</li>
+  <li>叶子结点代表算法结束，产生算法的输出</li>
+  <li>由根结点到叶子结点的路径表示在特定输出时算法所执行的操作</li>
+  <li>对于每个算法的输出，都需要一个叶子结点，因此决策树最少有 n+1 个叶子结点。这 n+1 个叶子结点分别对应数组内的 n 个元素，以及数组内不包含要查找元素这个特殊情况。</li>
+</ul>
+
+<p><strong>注意：</strong>这里的目的是实现 find 操作，决策树也是对应的 find 操作，与算法导论第 8 章中的排序决策树有差别。</p>
+
+<p>通过比较操作来查找某一元素的时间复杂度：</p>
+<ul>
+  <li>可以对比较操作进行计数，来确定时间复杂度的下界</li>
+  <li>由于最少有 n+1 个叶子结点，因此，二叉树的最小高度为 Ω(log n)，运行时间的下界为 Ω(log n)</li>
+</ul>
+
+<p>如何实现更快的 find 操作？</p>
+
+<h3 id="2-hashing">2. Hashing</h3>
+
+<p>通过比较操作来查找元素，下界为 Ω(log n)，假如要实现更快的 find 操作，可以通过直接访问的方法。这有点类似于内存访问。</p>
+
+<h3 id="21-直接访问数组-direct-access-arrays">2.1 直接访问数组 (Direct Access Arrays)</h3>
+
+<p>假如要存储 n 个项，给每个项分配一个在 [0, u-1] 范围内的独特整数值，那么可以直接把这 n 个项存储在长度为 u 的直接访问数组中。数组中索引为 i 个位置存储的是分配到整数 i 的项。如果要查找该项，只要访问数组中索引 i 位置即可。</p>
+
+<p>直接访问数组的 order 操作时间复杂度会高，因为项并不是依次分配整数值，在数组中一个位置可能不存在项，但之后的位置可能存在项。要查找下一个元素，必须依次往后面找。</p>
+
+<p>直接访问数组的 find 操作时间复杂度取决于 n 和 u 的关系。当 u » n，不会发生冲突，但是数组中存在空间的浪费。当 u &lt; n 时，这也是常见的情况，必须要处理项之间冲突的问题。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class DirectAccressArray:
+    def __init__(self, u):   self.A  =[None] * u   # 初始化空间为 u 的数组
+    def find(self, k):       return self.A[k]      # 查找索引为 k 的项
+    def insert(self, x):     self.A[x.key] = x     # 按 key 存入项
+    def delete(self, k):     self.A[k] = None      # 删除索引为 k 的项
+    def find_next(self, k):
+        for i in range(k, len(self.A)):   # 从索引 k 开始依次往后找
+            if A[i] is not None:
+                return A[i]
+    def find_max(self):                   # 从后往前找
+        for i in range(len(self.A)-1, -1, -1):
+            if A[i] is not None:
+                return A[i]
+    def delete_max(self):
+        for i in range(len(self.A)-1, -1, -1):
+            x = A[i]
+            if x is not None:
+                A[i] = None
+                return x
+</code></pre></div></div>
+
+<h3 id="22-hashing">2.2 hashing</h3>
+
+<p>直接访问数组可以 O(1) 时间复杂度实现 find，insert，delete操作，但是前提是 u » n。当 n « u 时，如何用 O(n) 空间来实现直接访问数组呢？</p>
+
+<p>可以把 n 项存储在一个小空间的数组中，数组的尺寸不为 u，而是 m = O(n)。给项分配整数值后也不能直接存入数组，得通过映射过程，把 [0, u-1] 范围内的值映射到 [0, m-1]。这样的映射函数叫做 hash 函数。</p>
+
+<ul>
+  <li>通过 hash 函数，把项映射到数组中特定的位置</li>
+  <li>hash 函数：h(k) : {0, . . . , u − 1} → {0, . . . , m − 1}
+    <ul>
+      <li>u 是所有项可能的取值，m 是数组的尺寸</li>
+    </ul>
+  </li>
+  <li>长度比项所有可能取值 u 更小的直接访问数组，叫做 hash 表，空间为 m。</li>
+  <li>如果两个元素a，b，h(a) = h(b)，那么发生了冲突。
+    <ul>
+      <li>要么通过开放寻址来解决，存储在数组中的其他位置</li>
+      <li>要么通过链接来解决，把具有相同的 hash 值元素存储在一块，然后链接到索引位置。</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="23-hash-函数">2.3 hash 函数</h3>
+
+<p>最简单的 hash 函数： h(k) = (k mod m)</p>
+<ul>
+  <li>当所有的 key 是均匀分布时，可以有好的效果</li>
+  <li>m 一般选大的质数</li>
+</ul>
+
+<p>通用 hash 函数： hab(k) = (((ak + b) mod p) mod m)</p>
+<ul>
+  <li>a, b ∈ {0, . . . , p − 1} and a 不为 0</li>
+  <li>在多个 hash 函数中，随机选择 a，b，确定一个 hash 函数</li>
+  <li>可以达到更短的链长度，即冲突少。m = Ω(n) 时，在每个索引位置的链长度期望值为 O(1)</li>
+</ul>
+
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0003-2.png" width="600" />
+</div>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 比较模型]]></summary></entry><entry><title type="html">操作系统</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0004.html" rel="alternate" type="text/html" title="操作系统" /><published>2022-08-17T00:00:00+08:00</published><updated>2022-08-17T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0004</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/08/17/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0004.html"><![CDATA[<h3 id="1-简介">1. 简介</h3>
 
 <div align="center">
 <img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0004-1.png" width="600" />
@@ -640,34 +749,38 @@ values = _mm_loadu_si128((__m128i*) arrayB);
 <h3 id="2-序列接口-sequence-interface">2. 序列接口 (Sequence Interface)</h3>
 <p>序列由多个有特定顺序的项组成，例如长度为 n 的序列可以表示为 (x0, x1, x2, …, xn-1)。序列接口指定的操作有：</p>
 
-<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-1.png" alt="序列操作" /></p>
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-1.png" width="500" />
+</div>
 
 <h3 id="3-序列的三种实现方式">3. 序列的三种实现方式</h3>
-<p>序列接口指定了序列所要支持的创建操作、静态操作、动态操作。序列数据结构有三种实现方式：数组序列 ( Array Sequence )、链表序列 ( Linked List Sequence )、动态数组序列 ( Dynamic Array Sequence )。这三种数据结构有一致的序列接口，但是内部的实现方式不同，导致的结果是操作的时间复杂度不同。</p>
+<p>序列接口指定了序列所要支持的 container 操作、静态操作、动态操作。序列数据结构有三种实现方式：数组序列 ( Array Sequence )、链表序列 ( Linked List Sequence )、动态数组序列 ( Dynamic Array Sequence )。这三种数据结构有一致的序列接口，但是内部的实现方式不同，导致的结果是操作的时间复杂度不同。</p>
 
 <h4 id="31-数组序列">3.1 数组序列</h4>
 <ul>
-  <li>数组序列维持内存中固定尺寸的存储空间，并把序列中的每个项依次放入内存中。例如创建有 10 个项的 int 数组，那么就需要调用 (int *)malloc(sizeof(int) * 10) 来分配固定尺寸的空间。</li>
+  <li>数组序列维持内存中固定尺寸的存储空间，并把序列中的每个项依次放入内存中。例如创建有 10 个项的 int 数组，那么就需要调用 <code class="language-plaintext highlighter-rouge">(int *)malloc(sizeof(int) * 10)</code> 来分配固定尺寸的空间。</li>
   <li>由于第 i 项的地址可以直接计算出来，静态操作中的访问和设置花费 O(1) 时间。</li>
   <li>动态操作比较特殊。由于内存中分配的存储空间尺寸是固定的，因此对数组的任何动态修改，都需要重新分配存储空间，然后执行复制操作，时间复杂度为 O(n)。</li>
 </ul>
 
-<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-2.png" alt="数组序列的的时间复杂度" /></p>
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-2.png" width="700" />
+</div>
 
 <h4 id="32-链表序列">3.2 链表序列</h4>
-<p>存储：</p>
+<p><strong>存储：</strong></p>
 <ul>
   <li>通过指针来实现。</li>
-  <li>每个项存储在结点 ( node ) 中，每个结点包含项 ( node.item )，同时包含指向下一个结点的指针 ( node.next )。</li>
+  <li>每个项存储在结点 (node) 中，每个结点包含项 (node.item)，同时包含指向下一个结点的指针 (node.next)。</li>
   <li>链表序列保持了指向第一个结点的指针，一般叫做 head</li>
 </ul>
 
-<p>静态操作：</p>
+<p><strong>静态操作：</strong></p>
 <ul>
   <li>无法直接计算出项的地址，只能从 head 结点依次往后遍历，时间复杂度为 O(n)</li>
 </ul>
 
-<p>动态操作：</p>
+<p><strong>动态操作：</strong></p>
 <ul>
   <li>在链表头插入和删除结点只需要 O(1) 时间复杂度，修改指针即可完成。</li>
   <li>由于项的顺序是通过指针来链接起来的，通过修改指针，就可以实现重排结点。不需要像数组序列一样移动大量的项。</li>
@@ -676,22 +789,24 @@ values = _mm_loadu_si128((__m128i*) arrayB);
 
 <p>链表序列相比于数组序列，在静态操作上不占优势。在动态操作上，优势也只在 insert_first, delete_first 操作上。</p>
 
-<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-3.png" alt="链表序列的时间复杂度" /></p>
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-3.png" width="700" />
+</div>
 
 <h4 id="33-动态数组序列">3.3 动态数组序列</h4>
-<p>主要目的：保持访问操作为 O(1) 的前提下，实现 insert_last, delete_last 时间复杂度为 O(1)。python 中的 list 类型为动态数组。</p>
+<p>主要目的：保持访问操作为 O(1) 的前提下，实现 insert_last, delete_last 时间复杂度为 O(1)。python 中的 list 类型用动态数组来实现。</p>
 
-<p>存储：</p>
+<p><strong>存储：</strong></p>
 <ul>
   <li>主要方法：既然数组序列中动态操作的时间花费在往新分配的存储空间复制元素上，那么就一次分配相对大的存储空间。只要存储空间不占满，对末尾元素的修改就不需要执行耗时的分配空间和复制操作。序列长度与存储空间长度的比值 r 要维持在一定的比例。</li>
 </ul>
 
-<p>静态操作：</p>
+<p><strong>静态操作：</strong></p>
 <ul>
   <li>由于在数组的基础上实现，可以实现随机访问。</li>
 </ul>
 
-<p>动态操作：</p>
+<p><strong>动态操作：</strong></p>
 <ul>
   <li>和数组差别在于每次操作都得检查 r, 判断是否需要重新分配存储空间。</li>
   <li>末尾插入
@@ -711,16 +826,22 @@ values = _mm_loadu_si128((__m128i*) arrayB);
 
 <p>三种序列实现所涉及操作的时间复杂度：</p>
 
-<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-4.png" alt="动态数组序列的时间复杂度" /></p>
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0001-4.png" width="700" />
+</div>
 
 <p>三种序列数据结构各有特点，以上介绍的只是基本实现，这些数据结构有非常多种的变形，以达到不同的应用目的。例如，除了上面介绍的单链表，还有双链表、循环链表，除了在末尾动态分配空间的动态数组，还可以在序列开头也进行动态分配。要根据实际的操作选择合适的数据结构。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 数据结构 数据结构是存储数据的一种方式，通过实现特定算法来支持特定的数据操作。 数据结构所支持的所有操作的集合叫做接口 (interface/API/ADT)]]></summary></entry><entry><title type="html">集合接口与排序</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002.html" rel="alternate" type="text/html" title="集合接口与排序" /><published>2022-07-07T00:00:00+08:00</published><updated>2022-07-07T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/07/07/%E7%AE%97%E6%B3%95-0002.html"><![CDATA[<h3 id="1-集合接口-set-interface">1. 集合接口 (Set Interface)</h3>
 <p>集合是由具有唯一性的对象所组成的无序多项集，常用的用途包括成员检测、从序列中去除重复项以及数学中的集合类计算。集合接口定义的操作包括：</p>
 
-<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0002-1.png" alt="集合接口定义的操作" /></p>
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0002-1.png" width="600" />
+</div>
 
-<p>集合数据类型非常依赖于 find 操作，例如静态操作的 find(k)，动态操作也要先验证集合中的元素，排序操作需要找到特定键的元素。涉及到查找元素的操作，就离不开<strong>排序</strong>。对项进行排序后，才能用二分查找快速定位到项，才能快速找到最小项、最大项、前一个项、后一个项。</p>
+<p>集合数据类型非常依赖于 find 操作，例如静态操作的 find(k)，动态操作也要先验证集合中的元素，order 操作需要找到特定键的元素。涉及到查找元素的操作，就离不开<strong>排序</strong>。对项进行排序后，才能用二分查找快速定位到项，才能快速找到最小项、最大项、前一个项、后一个项。</p>
 
-<p><img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0002-2.png" alt="集合操作的时间复杂度" /></p>
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0002-2.png" width="700" />
+</div>
 
 <h3 id="2-排序-sorting">2. 排序 (Sorting)</h3>
 <p>排序是数据结构中的基本算法，有多种不同时间复杂度的算法。</p>
@@ -733,7 +854,7 @@ values = _mm_loadu_si128((__m128i*) arrayB);
 <p>概念：</p>
 <ul>
   <li>原位排序：在排序时只使用 O(1) 的额外空间</li>
-  <li>稳定性：输入数组中有相同值的项，在输出数组中排列的先后关系不变</li>
+  <li>稳定性：输入数组中有相同键值的项，在输出数组中排列的先后关系不变</li>
 </ul>
 
 <h4 id="21-permutation-sort">2.1 Permutation Sort</h4>
@@ -916,10 +1037,11 @@ def merge(L, R, A, i, j, a, b):
 <p>如果算法对问题所有可能的输入都得到了正确的输出，那么就说算法<strong>解决</strong>了该问题。</p>
 
 <h3 id="2-评价算法">2. 评价算法</h3>
-<p>给定一个算法，如何评价算法？首先要验证算法是否正确，然后要评价算法的效率。</p>
+<p>给定一个算法，如何评价算法？首先要验证算法<strong>是否正确</strong>，然后要评价算法的<strong>效率</strong>。</p>
 
 <h4 id="21-验证算法的正确性">2.1 验证算法的正确性。</h4>
 <p>如果算法的输入空间小，可以逐案例分析，但是这毕竟是少数的情况。更常见的情况是算法有任意多种情况的输入，输入空间无限大，例如对数组进行排序，数组的长度和项有无穷多种可能。那么如何对这类算法进行正确性验证呢？这时候就要采用数学证明上常用的<strong>数学归纳法</strong>，或者用计算机的语言说叫做递归证明。步骤如下：</p>
+
 <ul>
   <li>首先证明基本情况成立。</li>
   <li>假定子问题下算法成立，通过子问题推导出当前问题下算法成立。</li>
@@ -929,9 +1051,10 @@ def merge(L, R, A, i, j, a, b):
 <p>算法效率方面要评价算法的<strong>时间复杂度</strong>和<strong>空间复杂度</strong>。在特定的输入规模下，空间复杂度评价算法的存储空间消耗，时间复杂度评价算法的快慢。</p>
 
 <p>在评价算法的复杂度时，有几点需要注意：</p>
+
 <ul>
-  <li>评价时希望时间复杂度独立于机器，因此是把算法中基本操作看作一个单位，对算法所涉及的基本操作进行计数，以所有的基本操作数目来评价算法的时间复杂度。例如，把加法、乘法、赋值等都看成执行时间相等的基本操作，算法所耗的时间就是这些基本操作的总数目。基本操作涉及到计算模型，详见下方。</li>
-  <li>假定输入规模为 n，得到的基本操作总数目的表达式可能非常复杂，难以直接比较，需要方法来简化。<strong>在输入规模 n 非常大的情况下</strong>，复杂度表达式会被高阶项所主导，低阶项就不那么重要，因此，我们在评价复杂度时，采用渐进复杂度，即<strong>忽略表达式中的常数因子和低阶项</strong>。常见的渐进复杂度记号有上界(O)，下界(Ω)，紧确界(Θ)。</li>
+  <li>评价时希望时间复杂度独立于机器，因此是<strong>把算法中基本操作看作一个单位</strong>，对算法所涉及的基本操作进行计数，以所有的基本操作数目来评价算法的时间复杂度。例如，把加法、乘法、赋值等都看成执行时间相等的基本操作，算法所耗的时间就是这些基本操作的总数目。基本操作涉及到计算模型，详见下方计算模型处。</li>
+  <li>假定输入规模为 n，得到的基本操作总数目的表达式可能非常复杂，难以直接比较，需要方法来简化。<strong>在输入规模 n 非常大的情况下</strong>，复杂度表达式会被高阶项所主导，低阶项就不那么重要，因此，我们在评价复杂度时，采用<strong>渐进复杂度</strong>，即<strong>忽略表达式中的常数因子和低阶项</strong>。常见的渐进复杂度记号有上界(O)，下界(Ω)，紧确界(Θ)。</li>
 </ul>
 
 <h3 id="3-计算模型">3. 计算模型</h3>
