@@ -49,6 +49,7 @@ minima:
 # this and add the path to the pages in order as they should show up
 header_pages:
  - 算法.md
+ - 软件构造.md
  - 计算机组成.md
  - about.md
 

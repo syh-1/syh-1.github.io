@@ -1,5 +1,223 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-21T23:14:46+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">二叉树 II</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006.html" rel="alternate" type="text/html" title="二叉树 II" /><published>2022-09-21T00:00:00+08:00</published><updated>2022-09-21T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006.html"><![CDATA[<h3 id="1-平衡二叉树">1. 平衡二叉树</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-09-26T22:31:06+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">测试</title><link href="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/26/%E8%BD%AF%E4%BB%B6-0004.html" rel="alternate" type="text/html" title="测试" /><published>2022-09-26T00:00:00+08:00</published><updated>2022-09-26T00:00:00+08:00</updated><id>http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/26/%E8%BD%AF%E4%BB%B6-0004</id><content type="html" xml:base="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/26/%E8%BD%AF%E4%BB%B6-0004.html"><![CDATA[<h3 id="1-validation">1. Validation</h3>
+
+<p>测试是 Validation 的重要一步。验证的目的是发现程序中存在的问题。Validation 包括：</p>
+<ul>
+  <li>形式推理 (Formal reasoning)：通过推导，证明程序的正确性。</li>
+  <li>代码审查 (Code review)：让其他人仔细阅读你的代码。</li>
+  <li>测试 (Testing)：在精心选择的输入上验证程序的输出。</li>
+</ul>
+
+<p>即使进行了最好的验证，在软件上也很难实现最好的质量。典型的 residual defect rates:</p>
+<ul>
+  <li>1 - 10 defects/kloc: 典型的工业软件</li>
+  <li>0.1 - 1 defects/kloc: 高质量验证的软件，例如成熟浏览器的 JavaScript 库</li>
+  <li>0.01 - 0.1 defects/kloc: 最好的、安全关键的验证。例如航空领域软件</li>
+</ul>
+
+<p>软件测试中的有些方法是不可行的：</p>
+<ul>
+  <li>详尽测试</li>
+  <li>Haphazard testing</li>
+  <li>随机或者统计测试</li>
+</ul>
+
+<h3 id="2-test-first-编程">2. Test-first 编程</h3>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Validation]]></summary></entry><entry><title type="html">TypeScript 基础</title><link href="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/23/%E8%BD%AF%E4%BB%B6-0003.html" rel="alternate" type="text/html" title="TypeScript 基础" /><published>2022-09-23T00:00:00+08:00</published><updated>2022-09-23T00:00:00+08:00</updated><id>http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/23/%E8%BD%AF%E4%BB%B6-0003</id><content type="html" xml:base="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/23/%E8%BD%AF%E4%BB%B6-0003.html"><![CDATA[<h3 id="1-snapshot-图">1. Snapshot 图</h3>
+<p>snapshot 图：表示程序运行时的内部状态，包括 stack (运行中的方法和局部变量) 和 heap (当前存在的对象)。</p>
+
+<p>改变一个变量或字段：改变了变量的箭头指向
+改变一个可修改对象的内容：改变值内部的引用</p>
+
+<p>string 是不可修改的类型，当创建之后，<strong>值</strong>不能被改变。可修改对象则是可以改变对象的值。</p>
+
+<p><strong>不可重新分配的引用</strong>：变量只能赋值一次，并且永远不能被重新赋值，用 const 来声明。</p>
+
+<p>不可重新分配的引用可以指向可修改的值，例如</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const arr:Array&lt;string&gt; = ["a"];
+arr.push("b")
+</code></pre></div></div>
+
+<p>可重新分配的引用可以指向不可修改的值，此时变量的值可以改变。例如：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let s:string = "a";
+s = "ab";
+</code></pre></div></div>
+
+<p>函数调用中参数传递为值传递，即参数接受一个初始值，在函数内部参数可以任意的重新分配，不会影响到 caller。大多数的编程语言都是值传递，例如 Python, Java, C。少数语言，如 C++，C# 提供引用传递。</p>
+
+<h3 id="2-typescript-基础">2. TypeScript 基础</h3>
+
+<p>TypeScript 中的 Array 与 Python 中的 list 类似。</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>TypeScript</td>
+      <td>Python</td>
+    </tr>
+    <tr>
+      <td>lst.length</td>
+      <td>len(lst)</td>
+    </tr>
+    <tr>
+      <td>lst.push(e)</td>
+      <td>lst.append(e)</td>
+    </tr>
+    <tr>
+      <td>if (lst.length === 0)</td>
+      <td>if not list: …</td>
+    </tr>
+    <tr>
+      <td>lst.includes(e)</td>
+      <td>e in lst</td>
+    </tr>
+    <tr>
+      <td>lst.splice(i, 1)</td>
+      <td>del lst[i]</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Map 与 Python 中字典相似。在 Python 中，键必须是可哈希的。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Python 中的可哈希：一个对象的哈希值如果在其生命周期内绝不改变，并可以同其他对象进行比较 (具有 __eq__ 方法)，就被称为可哈希的 (它需要具有 __hash__ 方法)。
+
+可哈希行使得对象能够作为字典键或集合成员使用，这些数据结构在内部使用哈希值。
+</code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td>TypeScript</td>
+      <td>Python</td>
+    </tr>
+    <tr>
+      <td>map.set(key, val)</td>
+      <td>map[key] = val</td>
+    </tr>
+    <tr>
+      <td>map.get(key)</td>
+      <td>map[key]</td>
+    </tr>
+    <tr>
+      <td>map.has(key)</td>
+      <td>key in map</td>
+    </tr>
+    <tr>
+      <td>map.delete(key)</td>
+      <td>del map[key]</td>
+    </tr>
+    <tr>
+      <td>map.size</td>
+      <td>len(map)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Set 类型
+| TypeScript | Python |
+| s.has(e) | e in s|
+| s.add(e) | s.add(e) |
+| s.delete(e) | s.remove(e) |
+| s.size | len(s) |</p>
+
+<h4 id="21-generics">2.1 Generics</h4>
+<p>不像 Python 中的容器类型。 TypeScript 中的容器可以严格限定容器中对象的类型。当向容器中添加项时，TypeScript 会对项进行静态检查。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 容器例子
+let cities: Array&lt;string&gt;;
+let cities: string[]
+let number: Set&lt;number&gt;;
+let turtles: Map&lt;string, Turtle&gt;
+</code></pre></div></div>
+
+<h4 id="22-iteration">2.2 Iteration</h4>
+
+<p>Python 中：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for city in cities:
+    print(city)
+
+for num in numbers:
+    print(num)
+
+for key in turtles:
+    print("%s: %s" %(key, turtles[key]))
+</code></pre></div></div>
+
+<p>TypeScript:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (const city of cities) {
+    console.log(city);
+}
+
+for (const num of numbers) {
+    console.log(num);
+}
+
+for (const key of turtles.keys()) {
+    console.log(key + ":" + turtles.get(key));
+}
+</code></pre></div></div>
+
+<p>在 array 和 map 中使用 <code class="language-plaintext highlighter-rouge">get()</code> 去访问一个 key，如果 key 不存在，会返回特殊的值 <code class="language-plaintext highlighter-rouge">undefined</code></p>
+
+<p>JavaScript 中数组实际上是 sparse 的，可以在任意的索引位置放置一个新元素。</p>
+
+<h4 id="23-变量声明">2.3 变量声明</h4>
+
+<p>JavaScript 中可以使用 let、const、var 来声明一个变量。let 声明的变量可重新赋值，const 声明的为不可重新分配的变量。var 为旧的风格，因为声明变量的 scope 为整个 functions，而 let 声明的变量 scope 为闭合花括号内。</p>
+
+<h4 id="24-对象字面量和对象类型">2.4 对象字面量和对象类型</h4>
+
+<p>record type: 一个对象，只有 named fields，没有方法。在 C/C++ 里面叫做 struct。</p>
+
+<p>TypeScript 可以使用 {field1:value1, field2:value2, …}，快速创建具有特定值的 record type 对象。</p>
+
+<p>解构赋值：通过解构赋值，可以将属性/值从对象/数组中取出，赋值给其他变量。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let a, b, rest;
+[a, b] = [10, 20]
+
+[a, b, ...rest] = [10, 20, 30, 40, 50];
+
+({a, b} = {a:10, b:20});
+</code></pre></div></div>
+
+<h3 id="3-api-文档与工具">3. API 文档与工具</h3>
+
+<ul>
+  <li>MDN： JavaScript 的通用功能，包含浏览器指定的 API</li>
+  <li>Node.js: outside-the-browser API</li>
+  <li>TypeScript Handbook：与 TypeScript 有关的 API</li>
+</ul>
+
+<p>MDN 文档的结构：</p>
+
+<ol>
+  <li>Description
+    <ul>
+      <li>类的简短描述</li>
+    </ul>
+  </li>
+  <li>Constructor</li>
+  <li>Instance properties</li>
+  <li>Instance methods
+    <ul>
+      <li>method signature</li>
+      <li>full description</li>
+      <li>parameters</li>
+      <li>returns</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Node.js：JavaScript 的解释器
+npm：”Node Package Manager”，有两个功能。首先，它管理用于程序的外部包库。其次，npm 是其他编程工具的通用运行环境。</p>
+
+<p>使用 TypeScript prompt:</p>
+<ol>
+  <li>npm install ts-node</li>
+  <li>npx ts-node</li>
+</ol>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Snapshot 图 snapshot 图：表示程序运行时的内部状态，包括 stack (运行中的方法和局部变量) 和 heap (当前存在的对象)。]]></summary></entry><entry><title type="html">二叉树 II</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006.html" rel="alternate" type="text/html" title="二叉树 II" /><published>2022-09-21T00:00:00+08:00</published><updated>2022-09-21T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006.html"><![CDATA[<h3 id="1-平衡二叉树">1. 平衡二叉树</h3>
 
 <p>之前提到二叉树目的是对于树高为 h 的树，使得算法的时间复杂度为 O(h), 并且尽可能维持 h = O(logn)，最终 O(h)=O(logn)。那么，如何维持树的高度 h = O(logn) ?</p>
 
@@ -310,7 +528,7 @@ git config --list
   <li>string，表示字符序列</li>
 </ul>
 
-<p>Operation：有输入，并且产生输出的函数，syntax 包括：</p>
+<p>Operation：有输入，并且产生输出的<strong>函数</strong>，syntax 包括：</p>
 <ul>
   <li>operator</li>
   <li>function</li>
@@ -318,7 +536,130 @@ git config --list
   <li>property</li>
 </ul>
 
-<p>TypeScript 是静态类型语言，变量会被分配一个类型，在编译时进行类型检查，而且编译器可以推导出表达式的类型。JavaScript 和 Python 是动态类型语言，只有在运行时才可进行类型检查。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Types]]></summary></entry><entry><title type="html">线性排序</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004.html" rel="alternate" type="text/html" title="线性排序" /><published>2022-09-08T00:00:00+08:00</published><updated>2022-09-08T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004.html"><![CDATA[<h3 id="1-比较排序的时间复杂度下界">1. 比较排序的时间复杂度下界</h3>
+<p>TypeScript 是静态类型语言，变量可以被指定一个类型，在编译时会进行类型检查，并且编译器可以推导出表达式的类型。JavaScript 和 Python 是动态类型语言，只有在运行时才可进行类型检查。</p>
+
+<p>TypeScript 相比于 JavaScript 增加了静态类型检查，反映了软件工程领域一条规则，即对于创建和维护大型的软件来说，使用静态类型是不可或缺的。</p>
+
+<h3 id="2-静态检查动态检查不检查">2. 静态检查，动态检查，不检查</h3>
+
+<p>语言可以提供的三类自动检查：</p>
+<ul>
+  <li>静态检查：在编译时就可以发现程序中的类型错误</li>
+  <li>动态检查：在代码实际运行时发现错误</li>
+  <li>不检查：语言不提供任何检查功能</li>
+</ul>
+
+<p>提供静态检查比提供动态检查要好，提供动态检查比不检查要好。</p>
+
+<p>静态检查能发现的错误：</p>
+<ul>
+  <li>句式错误：例如多余的标点符号或者可疑的词。</li>
+  <li>错误拼写的名称：例如 Math.sine(2)</li>
+  <li>错误的参数数目：例如 Math.sin(30, 20)</li>
+  <li>错误的参数类型：例如 Math.sin(“30”)</li>
+  <li>错误的返回值：  例如一个函数声明返回 number，却 return “30”，</li>
+</ul>
+
+<p>动态检查可以发现的错误：</p>
+<ul>
+  <li>特定的不合法的参数值：例如表达式 x/y，当 y 是 0 时，引发错误。</li>
+  <li>不合法的类型转换：例如 int(“hello”)</li>
+  <li>索引越界：数组中的 IndexError</li>
+  <li>在错误的对象引用上调用方法：例如 underfined 或者 null 上调用方法</li>
+</ul>
+
+<p>静态类型可以检测与变量类型有关的错误，但是通常不能发现与合法类型中特定值有关的错误。</p>
+
+<p>在 TypeScript 中，TypeScript 提供静态检查，但是运行时的行为完全由 JavaScript 提供。但是 JavaScript 在设计时，对于大多数的动态检查都不支持。例如，当 string 或者 array 越界，JavaScript 返回一个特殊的值 undefined，而不是像 Python 一样 throw IndexError；当除以 0 时，JavaScript 返回代表 infinity 的特殊值，同样不是引发错误。不提供检查使得 bug 更难被发现，因为特殊的值可能会继续进行接下来的计算，直到发生错误。</p>
+
+<h4 id="21-surprisenumber-is-not-a-true-number">2.1 Surprise：<code class="language-plaintext highlighter-rouge">number</code> is not a true number</h4>
+
+<p>TypeScript 的另一个陷阱是，数字类型有几个例子，与常见的实数运算不同。</p>
+
+<ul>
+  <li>整数的有限精度：在 TypeScript 中，所有的数字都是浮点数，这意味着大的整数只能近似表示。从 -2^53 到 2^53 的整数可以准确表示，但是当超过这个范围，只能保留最高有效二进制位。</li>
+  <li>特殊的值：<code class="language-plaintext highlighter-rouge">number</code> 有几个特殊的值，这些值不是实数，例如 <code class="language-plaintext highlighter-rouge">Number.NaN</code>， <code class="language-plaintext highlighter-rouge">Number.POSITIVE_INFINITY</code>, <code class="language-plaintext highlighter-rouge">Number.NEGATIVE_INFINITY</code></li>
+  <li>overflow 和 underflow：不能表示非常大的数与非常小的数。当表示超过 Number.MAX_VALUE 的数，结果是 POSITIVE_INFINITY。</li>
+</ul>
+
+<h3 id="3-javascript">3. JavaScript</h3>
+
+<h4 id="31-array">3.1 Array</h4>
+
+<p>Array：可变长度的序列，可以保持任何的类型，与 Python 中的 list 相似。</p>
+
+<p>创建空数组：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let array: Arary&lt;number&gt; = [];
+</code></pre></div></div>
+
+<h4 id="32-functions">3.2 Functions</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
+ * Compute a hailstone sequence.
+ * @param n starting number for sequence. Assumes n &gt; 0
+ * @returns hailstone sequence starting with n and ending with 1
+ */
+function hailstoneSequence(n:number): Array&lt;number&gt; {
+    let array: Array&lt;number&gt; = [];
+    while (n != 1) {
+        array.push(n);
+        if (n % 2 === 0) {
+            n = n / 2;
+        } else {
+            n = 3 * n + 1;
+        }
+    }
+    array.push(n);
+    return array;
+}
+</code></pre></div></div>
+
+<h4 id="33-可修改的值-vs-重新分配变量">3.3 可修改的值 vs. 重新分配变量</h4>
+
+<p>不可变类型：一旦创建，值不能改变的类型。string 类型在 Python 和 JavaScript 中都不可变。</p>
+
+<p>TypeScript 允许声明不可变引用。变量一旦被赋值，永远不能重新分配。使用 const 来声明不可变引用。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const n: number = 5;
+</code></pre></div></div>
+
+<h3 id="4-文档假设">4. 文档假设</h3>
+
+<p>写变量的类型其实对变量做出了假设，变量有自己的取值范围。 程序员必须有以下两个目标：</p>
+<ul>
+  <li>与计算机交流。首先得让编译器知道程序是正确的，例如句式是正确的，类型也正确。</li>
+  <li>与其他人交流。程序得益于理解，其他人可以修改程序。</li>
+</ul>
+
+<h4 id="41-hacking-vs-engineering">4.1 hacking vs. engineering</h4>
+
+<p>haching：</p>
+<ul>
+  <li>不进行代码测试</li>
+  <li>把所有的细节都记在脑子里，假设你会永远记住它们，而不是把它们写在你的代码中。</li>
+  <li>假设 bug 不存在或者很容易修复</li>
+</ul>
+
+<p>工程：</p>
+<ul>
+  <li>一次写一点，逐步测试</li>
+  <li>在代码内附带上你的假设</li>
+  <li>远离愚蠢的错误，静态检查有许多帮助</li>
+</ul>
+
+<p>6.031 目标：</p>
+<ul>
+  <li>Safe from bugs</li>
+  <li>Easy to understand</li>
+  <li>Ready for change</li>
+</ul>
+
+<p>为什么使用 TypeScript：</p>
+
+<ul>
+  <li>安全：TypeScript 有静态检查</li>
+  <li>无处不在：TypeScript 直接编译成 JavaScript，广泛用在各领域中。相比于 Java，TypeScript 有更为丰富的类型系统，更适合创建现代用户接口和网页应用。</li>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Types]]></summary></entry><entry><title type="html">线性排序</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004.html" rel="alternate" type="text/html" title="线性排序" /><published>2022-09-08T00:00:00+08:00</published><updated>2022-09-08T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004.html"><![CDATA[<h3 id="1-比较排序的时间复杂度下界">1. 比较排序的时间复杂度下界</h3>
 
 <p>之前通过 hash，可以用  Θ(n) 的空间，实现时间复杂度为 O(1) 的 find 操作。目前从前往后依次介绍了 Array、Sorted Array、Direct Access Array、Hash Table，那么能够实现快速的排序吗？</p>
 
@@ -799,253 +1140,4 @@ values = _mm_loadu_si128((__m128i*) arrayB);
   <li><strong>Owner</strong>: up-to-date data, other caches may have a copy (they must be in Shared state), memory is not up-to-date</li>
 </ol>
 
-<p>该 cache coherency protocol 叫做 MOESI。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 并行的原因]]></summary></entry><entry><title type="html">存储器层次结构</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html" rel="alternate" type="text/html" title="存储器层次结构" /><published>2022-07-26T00:00:00+08:00</published><updated>2022-07-26T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/26/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002.html"><![CDATA[<h3 id="1-为什么采用存储器层次结构">1. 为什么采用存储器层次结构</h3>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-1.png" width="400" />
-</div>
-
-<p>计算机包含几个部分：</p>
-<ul>
-  <li>处理器，又分为控制器和数据通路，从内存中读取指令和数据，执行运算，并把结果保存到寄存器或者写回内存中。</li>
-  <li>存储器，内存中包含程序的机器码和数据</li>
-  <li>输入设备</li>
-  <li>输出设备</li>
-</ul>
-
-<p>计算机的运行时离不开数据的读取和写入操作。由于存储程序概念，指令和数据均以数字的形式存储与存储器中，处理器的要不停的从存储器中读取指令和数据。</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-2.png" width="600" />
-</div>
-
-<p>处理器的执行速度和内存 (DRAM) 的读写速度比较如上图所示。在 1980 年，处理器执行一条指令的时间和内存访问的速度差不多，存储器的访问速度并不会拖慢计算机的运行。但是处理器性能以每年 55% 的速度飞速增长，而 DRAM 的性能增速却只有 7%，两者的差距越来越大。以至于 DRAM 访问一条指令，处理器可以执行 1000 多条指令。</p>
-
-<p>这巨大的速度差异如何来弥补？总不能让处理器每执行一条指令就停止，等 DRAM 中下一条指令的到来，如果有一个速度更快的存储器就好了。</p>
-
-<p>这就要提到存储器有两个相互矛盾的属性，一个是容量，一个是访问速度。存储器一般容量大，速度就会慢，例如 <strong>DRAM</strong>。存储器速度快，容量就会小，例如 <strong>SRAM</strong>，一般只有几兆，而访问速度最快的<strong>寄存器</strong>在 RISC-V 中只有 32 个。</p>
-
-<p>单纯使用 DRAM 或者 SRAM 都无法达到好的效果，处理器需要的是一个访问速度快，存储容量大的存储器。存储器的层次结构就是为了构建这样一个虚拟的存储器。这个虚拟的存储器的内部结构不需要处理器知道，处理器只需要正常的访问，就好像在访问一个速度快，容量大的存储器。</p>
-
-<h3 id="2-存储器层次结构的原理">2. 存储器层次结构的原理</h3>
-
-<p>为什么把不同性能的存储器结合起来可以抽象出一个速度快，容量大的存储器？原理可以用图书馆例子来形象的说明。假如你需要在图书馆查找些书籍来完成一篇报告，可能有以下过程：</p>
-
-<ol>
-  <li>在书架上找到书籍，拿到了图书馆的书桌上。通过翻阅书籍，找到需要的信息。</li>
-  <li>如果需要别的书籍，去书架上拿，再次放到书桌上。书桌上一直保存着你查找过的书籍。</li>
-</ol>
-
-<p>图书馆相当于内存，容量大，但是查找速度慢。书桌相当于 cache，容量小，但是可以很快的找到你要的书籍。并且在书桌上一直保存查找过的书籍，当再次需要这本书的时候，直接拿起就行。图书馆和书桌构成了一个虚拟的访问速度快，容量大的图书馆。</p>
-
-<p>存储器也是这样，cache 中存放了内存中之前取得的一部分数据以及该数据周围的一些数据，当处理器再次需要这些数据或者周围的数据时，可以直接从 cache 中读取。cache 一般集成在 CPU 内部，保留的数据为内存中一部分数据的复制。大多数的处理器都有单独的指令 cache 和数据 cache。</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-3.png" width="300" />
-</div>
-
-<p>存储器的层次结构由以上 4 部分组成，包含寄存器、cache、内存、磁盘。如果存储器越靠近处理器，那么存储器就会更小、更快、更昂贵。最低等级的存储器，一般是磁盘，包含了所有的数据。存储器的层次结构抽象出一个容量大、访问速度快的存储器。</p>
-
-<p>具体的来说，存储器层次结构利用的是局部性原理，包含：</p>
-
-<ul>
-  <li>时间局部性：如果现在使用了某一数据，不久有可能还要使用这一数据
-    <ul>
-      <li>可以在 cache 中保持最近使用过的数据</li>
-    </ul>
-  </li>
-  <li>空间局部性：如果使用了存储器中的一条数据，不久有可能使用与这条数据相邻的数据
-    <ul>
-      <li>按 block 移动数据，而不只是移动一条数据</li>
-    </ul>
-  </li>
-</ul>
-
-<p>添加 cache 之后，计算机结构如下图所示：</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-4.png" width="400" />
-</div>
-<h3 id="3-访问存储器的流程">3. 访问存储器的流程</h3>
-
-<p>以 <code class="language-plaintext highlighter-rouge">lw t0 0(t1)</code> 指令为例，假设 t1 寄存器中包含的地址为 0x12F0，内存中相应的值为 99。</p>
-
-<p>假如没有 cache，访问流程如下：</p>
-
-<ol>
-  <li>处理器将地址 0x12F0 发送给内存</li>
-  <li>内存读取地址 0x12F0 中的值 99</li>
-  <li>内存发送 99 到处理器</li>
-  <li>处理器把 99 放入寄存器 t0 中</li>
-</ol>
-
-<p>假如有 cache，访问流程如下：</p>
-
-<ol>
-  <li>处理器将地址 0x12F0 发送给 cache</li>
-  <li>cache 检查是否包含该地址中的数据
-    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  (1) 如果包含，cache 读取 99，发送给处理器
-  (2) 如果不包含 (Miss)，cache 将地址 0x12F0 发送到内存
-      a. 内存读取地址 0x12F0 中的值 99
-      b. 内存将 99 发送给 cache
-      c. cache 将地址 0x12F0 和 99 存储起来
-      d. cache 将 99 发送给处理器
-</code></pre></div>    </div>
-  </li>
-  <li>处理器把 99 放入寄存器 t0 中</li>
-</ol>
-
-<p><strong>cache hit</strong>：表示要查找的数据在 cache 中，可以直接在 cache 中读取出数据传入处理器中。</p>
-
-<p><strong>cache miss</strong>：表示要查找的数据不在 cache 中，需要在内存中找到数据，并且把该数据放入 cache 中，然后才可以传入处理器。</p>
-
-<h3 id="4-cache-中的数据存储方式">4. cache 中的数据存储方式</h3>
-
-<p>cache 中存储方式有三种：</p>
-<ol>
-  <li>全相联 (Fully Associative)</li>
-  <li>直接映射 (Direct Mapped)</li>
-  <li>组相联 (Set-Associative)</li>
-</ol>
-
-<h4 id="41-全相联-cache">4.1 全相联 cache</h4>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-5.png" width="400" />
-</div>
-
-<p>正如名称中 associate 的含义，全相联中把地址和数据存储在 cache 的一个行中。cache 中包含有效位、标签位、数据位等。</p>
-
-<p><strong>cache line / block：</strong></p>
-<ul>
-  <li>利用局部性原理，cache 中存储的是 block，即一块数据。在 cache 中这一个块存储在一行中，因此也叫做 cache line。</li>
-  <li>典型的 cache line / block 为 64 字节，可以充分利用空间局部性</li>
-</ul>
-
-<p><strong>line size / block size:</strong></p>
-<ul>
-  <li>每个 cache line 中的字节数</li>
-</ul>
-
-<p><strong>容量：</strong></p>
-<ul>
-  <li>cache 中可以存储的总数据量，以 byte 为单位</li>
-  <li>最上面的图中 line size 为 4 bytes，有 4 行，因此容量为 16 bytes</li>
-</ul>
-
-<p><strong>有效位：</strong></p>
-<ul>
-  <li>因为在<strong>运行一个新程序</strong>时，cache 中没有任何有效的数据，需要有效位来标识所有的数据都是无效的，此时所有的有效位都是 0</li>
-  <li>只有有效位为 1，且 address 与 tag 相符合，才是 cache hit</li>
-</ul>
-
-<p><strong>标签位：</strong></p>
-<ul>
-  <li>用来区分数据，cache 中地址与数据一一对应，因此数据用内存地址来标识。</li>
-  <li>标签位不需要存储 Full Address，因为 cache 中存储的是 block，有 4 bytes，用来区分字节中位置的末尾部分不需要，因此只有地址前面部分用作 tag</li>
-  <li>byte offset bits = log(line size)</li>
-  <li>tag bits = address bits - offset bits</li>
-</ul>
-
-<p>当 cache 满了以后，需要替换策略，来把不用的 line 删除，放入新的数据。常用的方法是把最长时间没有使用的数据删除，该策略叫做 LRU (Least-Recently Used)。为了记录每行的访问历史，在每行中又包含了 <strong>LRU 位</strong>。当要删除数据时，会删除 LRU 值最大的行。</p>
-
-<h4 id="42-write-through-vs-write-back-policies">4.2 write-through vs write-back policies</h4>
-
-<p>cache 会加快存储器的访问速度，但是在写数据时也会造成数据不一致的问题。处理器要修改存储器中的一个数据，假如该数据在 cache 中被修改，与内存中的旧数据会不一致，因此必须指定修改数据的方式。</p>
-
-<p><strong>写直达 (write-through):</strong></p>
-<ul>
-  <li>把要修改的数据同时写入 cache 和内存中</li>
-  <li>因为要写入内存，耗费的时间长</li>
-</ul>
-
-<p><strong>写回 (write-back):</strong></p>
-<ul>
-  <li>把修改的数据写入 cache 中，设置 <strong>dirty bit</strong> 为 1</li>
-  <li>当该行从 cache 删除时，再把该行写入内存</li>
-</ul>
-
-<h4 id="43-直接映射-cache">4.3 直接映射 cache</h4>
-<p>直接映射中，内存中特定地址的数据，只能存储在 cache 中特定的位置。存储快的位置为 <code class="language-plaintext highlighter-rouge">(块号) mod (cache 中的块数)</code></p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0002-6.png" width="400" />
-</div>
-
-<p>上图内存中相同颜色的块会放入 cache 中同颜色的位置中，例如 0、4、8、C都会放入 cache 中的 0 位置。如果 cache 中特定位置已经有数据，必须得把该数据替换，才能把新数据放入。直接映射 cache 相较于全相连 cache，会有更多的冲突。</p>
-
-<h4 id="44-组相联">4.4 组相联</h4>
-<p>组相联可以看作全相联和直接映射的结合。组相联中，数据只能存储在一个索引位置，但是在一个位置有多个 slot。先用 tag 找到特定的组，再在组内找到特定的 slot。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 为什么采用存储器层次结构]]></summary></entry><entry><title type="html">MOSFET 开关</title><link href="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html" rel="alternate" type="text/html" title="MOSFET 开关" /><published>2022-07-18T00:00:00+08:00</published><updated>2022-07-18T00:00:00+08:00</updated><id>http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001</id><content type="html" xml:base="http://localhost:4000/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/2022/07/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001.html"><![CDATA[<h3 id="1-开关">1. 开关</h3>
-
-<p>开关可以看成一个三端装置 (three-terminal device)，这三个端包括一个控制端、一个输入端和一个输出端。开关的 v-i 曲线如下：</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-1.png" width="300" />
-</div>
-
-<p>当控制端为逻辑 0 时，无论电压多大，电流都为 0；当控制端为 1 时，开关闭合，电流可能为任意值，但开关两端的电压为 0 。</p>
-
-<p>一对开关可以通过串联和并联可以实现逻辑函数。左边的电路两个开关只有都闭合灯泡才会点亮，为 AND 函数，右边的两个开关只要有一个闭合灯泡就会点亮，为 OR 函数。用开关实现的数字逻辑叫做控制逻辑 (steering logic)。</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-2.png" width="500" />
-</div>
-
-<p>用机械开关的一个缺点是控制端必须得由压力来控制，这使得用机械开关来构建逻辑电路非常复杂。因为一个电路的输出必须得转换为压力，才能输入到用机械开关实现的逻辑电路中。</p>
-
-<h3 id="2-mosfet">2. MOSFET</h3>
-
-<p>MOSFET 属于晶体管，是三端装置，包含控制端、输入端、输出端。MOSFET 用以下电路符号来表示。</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-3.png" width="300" />
-</div>
-
-<p>控制端叫做栅极 (gate，G)，输入端叫做漏极 (drain，D)，输出端叫做源极 (source，S)。漏极和源极的方向根据实际情况而定，规定电流从漏极流向 源极，漏极的电压高。MOSFET 中涉及的记号如下图：</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-4.png" width="200" />
-</div>
-
-<p>栅极和源极两端的电压差表示为 V<sub>GS</sub>，漏极和源极两端的电压差表示为 V<sub>DS</sub>，栅极端流经的电流叫做 i<sub>G</sub>，漏极端流经的电流叫做 i<sub>DS</sub>。</p>
-
-<p>MOSFET 的特性复杂，有不同的模型可以来表示。用简单的开关来表示叫做 MOSFET’s Switch Model 或者 S Model。</p>
-<ul>
-  <li>当 V<sub>GS</sub> 超过了阈值电压 V<sub>T</sub> 时，装置为 ON 状态，否则为 OFF 状态。对于 n 通道的 MOSFETs 来说，V<sub>T</sub> 的典型值为 0.7 V。</li>
-  <li>当为 ON 状态时，S 模型把漏极和源极之间的连接近似为短路。在实际的情况下，在漏极和源极之间存在非 0 的电阻值，但是在 S 模型中忽略该电阻。</li>
-  <li>当为 OFF 状态时，在漏极和源极之间为开路。</li>
-  <li>栅极和源极之间，栅极和漏极之间永远保持开路，因此 i<sub>G</sub> 一直为 0</li>
-</ul>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-5.png" width="300" />
-</div>
-
-<h3 id="3-mosfet-实现逻辑门">3. MOSFET 实现逻辑门</h3>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-6.png" width="500" />
-</div>
-
-<p>左图由 MOSFET、一个负载电阻，一个 5V 电压源组成。电路的输入连接到栅极，源极接地，漏极与电阻、电压源相连。右图是简化图。该电路实现了非门。</p>
-
-<p>假设逻辑高为 5 V，逻辑低为 0 V。当 v<sub>in</sub> 为高时，MOSFET 处于 ON 状态，因此输出电压为低。当 v<sub>in</sub> 为低时，MOSFET 为 OFF，输出由 R<sub>L</sub> 提升到高。</p>
-
-<h3 id="4-sr-模型">4. SR 模型</h3>
-
-<p>S 模型是 MOSFET 的简化，在实际中当 MOSFET 处于 ON 状态时，漏极和源极之间有非 0 电阻。因此，在 ON 状态时，可以在漏极和栅极之间添加 R<sub>ON</sub> 电阻，形成 SR 模型。</p>
-
-<div align="center">
-<img src="/image/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90-0001-7.png" width="400" />
-</div>
-
-<h3 id="5-mosfet-物理结构">5. MOSFET 物理结构</h3>
-
-<p>MOSFET 在称为晶片的平面单晶硅表面构建。一般包含多层，包含：</p>
-<ul>
-  <li>氧化晶片表面产生的二氧化硅构成的绝缘层 (insulating layer)</li>
-  <li>金属沉积物或者多晶硅构成的导电层 (conducting layer)</li>
-  <li>通过在硅中掺杂其他材料构成的半导体层 (semiconducting layer)</li>
-</ul>
-
-<p>掺杂了富含电子的材料的硅称为 n 型半导体，类似地，掺杂了富含空穴的材料的硅被称为 p 型半导体。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 开关]]></summary></entry></feed>
+<p>该 cache coherency protocol 叫做 MOESI。</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="计算机组成" /><summary type="html"><![CDATA[1. 并行的原因]]></summary></entry></feed>

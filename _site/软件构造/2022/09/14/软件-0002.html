@@ -41,7 +41,7 @@
           </span>
         </label>
 
-        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95.html">算法</a><a class="page-link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">计算机组成</a><a class="page-link" href="/about/">关于我</a></div>
+        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95.html">算法</a><a class="page-link" href="/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0.html">软件构造</a><a class="page-link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">计算机组成</a><a class="page-link" href="/about/">关于我</a></div>
       </nav></div>
 </header>
 <main class="page-content" aria-label="Content">
@@ -67,7 +67,7 @@
   <li>string，表示字符序列</li>
 </ul>
 
-<p>Operation：有输入，并且产生输出的函数，syntax 包括：</p>
+<p>Operation：有输入，并且产生输出的<strong>函数</strong>，syntax 包括：</p>
 <ul>
   <li>operator</li>
   <li>function</li>
@@ -75,8 +75,130 @@
   <li>property</li>
 </ul>
 
-<p>TypeScript 是静态类型语言，变量会被分配一个类型，在编译时进行类型检查，而且编译器可以推导出表达式的类型。JavaScript 和 Python 是动态类型语言，只有在运行时才可进行类型检查。</p>
+<p>TypeScript 是静态类型语言，变量可以被指定一个类型，在编译时会进行类型检查，并且编译器可以推导出表达式的类型。JavaScript 和 Python 是动态类型语言，只有在运行时才可进行类型检查。</p>
 
+<p>TypeScript 相比于 JavaScript 增加了静态类型检查，反映了软件工程领域一条规则，即对于创建和维护大型的软件来说，使用静态类型是不可或缺的。</p>
+
+<h3 id="2-静态检查动态检查不检查">2. 静态检查，动态检查，不检查</h3>
+
+<p>语言可以提供的三类自动检查：</p>
+<ul>
+  <li>静态检查：在编译时就可以发现程序中的类型错误</li>
+  <li>动态检查：在代码实际运行时发现错误</li>
+  <li>不检查：语言不提供任何检查功能</li>
+</ul>
+
+<p>提供静态检查比提供动态检查要好，提供动态检查比不检查要好。</p>
+
+<p>静态检查能发现的错误：</p>
+<ul>
+  <li>句式错误：例如多余的标点符号或者可疑的词。</li>
+  <li>错误拼写的名称：例如 Math.sine(2)</li>
+  <li>错误的参数数目：例如 Math.sin(30, 20)</li>
+  <li>错误的参数类型：例如 Math.sin(“30”)</li>
+  <li>错误的返回值：  例如一个函数声明返回 number，却 return “30”，</li>
+</ul>
+
+<p>动态检查可以发现的错误：</p>
+<ul>
+  <li>特定的不合法的参数值：例如表达式 x/y，当 y 是 0 时，引发错误。</li>
+  <li>不合法的类型转换：例如 int(“hello”)</li>
+  <li>索引越界：数组中的 IndexError</li>
+  <li>在错误的对象引用上调用方法：例如 underfined 或者 null 上调用方法</li>
+</ul>
+
+<p>静态类型可以检测与变量类型有关的错误，但是通常不能发现与合法类型中特定值有关的错误。</p>
+
+<p>在 TypeScript 中，TypeScript 提供静态检查，但是运行时的行为完全由 JavaScript 提供。但是 JavaScript 在设计时，对于大多数的动态检查都不支持。例如，当 string 或者 array 越界，JavaScript 返回一个特殊的值 undefined，而不是像 Python 一样 throw IndexError；当除以 0 时，JavaScript 返回代表 infinity 的特殊值，同样不是引发错误。不提供检查使得 bug 更难被发现，因为特殊的值可能会继续进行接下来的计算，直到发生错误。</p>
+
+<h4 id="21-surprisenumber-is-not-a-true-number">2.1 Surprise：<code class="language-plaintext highlighter-rouge">number</code> is not a true number</h4>
+
+<p>TypeScript 的另一个陷阱是，数字类型有几个例子，与常见的实数运算不同。</p>
+
+<ul>
+  <li>整数的有限精度：在 TypeScript 中，所有的数字都是浮点数，这意味着大的整数只能近似表示。从 -2^53 到 2^53 的整数可以准确表示，但是当超过这个范围，只能保留最高有效二进制位。</li>
+  <li>特殊的值：<code class="language-plaintext highlighter-rouge">number</code> 有几个特殊的值，这些值不是实数，例如 <code class="language-plaintext highlighter-rouge">Number.NaN</code>， <code class="language-plaintext highlighter-rouge">Number.POSITIVE_INFINITY</code>, <code class="language-plaintext highlighter-rouge">Number.NEGATIVE_INFINITY</code></li>
+  <li>overflow 和 underflow：不能表示非常大的数与非常小的数。当表示超过 Number.MAX_VALUE 的数，结果是 POSITIVE_INFINITY。</li>
+</ul>
+
+<h3 id="3-javascript">3. JavaScript</h3>
+
+<h4 id="31-array">3.1 Array</h4>
+
+<p>Array：可变长度的序列，可以保持任何的类型，与 Python 中的 list 相似。</p>
+
+<p>创建空数组：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let array: Arary&lt;number&gt; = [];
+</code></pre></div></div>
+
+<h4 id="32-functions">3.2 Functions</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
+ * Compute a hailstone sequence.
+ * @param n starting number for sequence. Assumes n &gt; 0
+ * @returns hailstone sequence starting with n and ending with 1
+ */
+function hailstoneSequence(n:number): Array&lt;number&gt; {
+    let array: Array&lt;number&gt; = [];
+    while (n != 1) {
+        array.push(n);
+        if (n % 2 === 0) {
+            n = n / 2;
+        } else {
+            n = 3 * n + 1;
+        }
+    }
+    array.push(n);
+    return array;
+}
+</code></pre></div></div>
+
+<h4 id="33-可修改的值-vs-重新分配变量">3.3 可修改的值 vs. 重新分配变量</h4>
+
+<p>不可变类型：一旦创建，值不能改变的类型。string 类型在 Python 和 JavaScript 中都不可变。</p>
+
+<p>TypeScript 允许声明不可变引用。变量一旦被赋值，永远不能重新分配。使用 const 来声明不可变引用。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const n: number = 5;
+</code></pre></div></div>
+
+<h3 id="4-文档假设">4. 文档假设</h3>
+
+<p>写变量的类型其实对变量做出了假设，变量有自己的取值范围。 程序员必须有以下两个目标：</p>
+<ul>
+  <li>与计算机交流。首先得让编译器知道程序是正确的，例如句式是正确的，类型也正确。</li>
+  <li>与其他人交流。程序得益于理解，其他人可以修改程序。</li>
+</ul>
+
+<h4 id="41-hacking-vs-engineering">4.1 hacking vs. engineering</h4>
+
+<p>haching：</p>
+<ul>
+  <li>不进行代码测试</li>
+  <li>把所有的细节都记在脑子里，假设你会永远记住它们，而不是把它们写在你的代码中。</li>
+  <li>假设 bug 不存在或者很容易修复</li>
+</ul>
+
+<p>工程：</p>
+<ul>
+  <li>一次写一点，逐步测试</li>
+  <li>在代码内附带上你的假设</li>
+  <li>远离愚蠢的错误，静态检查有许多帮助</li>
+</ul>
+
+<p>6.031 目标：</p>
+<ul>
+  <li>Safe from bugs</li>
+  <li>Easy to understand</li>
+  <li>Ready for change</li>
+</ul>
+
+<p>为什么使用 TypeScript：</p>
+
+<ul>
+  <li>安全：TypeScript 有静态检查</li>
+  <li>无处不在：TypeScript 直接编译成 JavaScript，广泛用在各领域中。相比于 Java，TypeScript 有更为丰富的类型系统，更适合创建现代用户接口和网页应用。</li>
+</ul>
 
   </div><a class="u-url" href="/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/14/%E8%BD%AF%E4%BB%B6-0002.html" hidden></a>
 </article>
