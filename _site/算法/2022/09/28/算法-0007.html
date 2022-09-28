@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Binary Heaps | syh 的博客</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Binary Heaps" />
+<meta name="author" content="syh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. 优先队列接口" />
+<meta property="og:description" content="1. 优先队列接口" />
+<link rel="canonical" href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html" />
+<meta property="og:url" content="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html" />
+<meta property="og:site_name" content="syh 的博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-09-28T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Binary Heaps" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"syh"},"dateModified":"2022-09-28T00:00:00+08:00","datePublished":"2022-09-28T00:00:00+08:00","description":"1. 优先队列接口","headline":"Binary Heaps","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html"},"url":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="syh 的博客" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">syh 的博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95.html">算法</a><a class="page-link" href="/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0.html">软件构造</a><a class="page-link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">计算机组成</a><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Binary Heaps</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-09-28T00:00:00+08:00" itemprop="datePublished">
+        Sep 28, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-优先队列接口">1. 优先队列接口</h3>
+
+<ul>
+  <li>存储多个项，可以快速的访问、移除最重要的项，实际例子有：
+    <ul>
+      <li>有限带宽的路由器必须优先处理重要的信息</li>
+      <li>操作系统内核中的进程调度</li>
+      <li>离散事件模拟</li>
+      <li>图算法</li>
+    </ul>
+  </li>
+  <li>优先队列是按照优先级对项进行了排序，所以也可以看作 Set 接口</li>
+  <li>对于特定集合操作进行了优化：
+    <ul>
+      <li>build(X)</li>
+      <li>insert(x)</li>
+      <li>delete_max()</li>
+      <li>find_max()</li>
+    </ul>
+  </li>
+  <li>关注 insert 和 delete_max 操作</li>
+  <li>优先队列有多种实现方法，例如 array， sorted array， set AVL tree。</li>
+</ul>
+
+<h3 id="2-优先队列排序">2. 优先队列排序</h3>
+
+<ul>
+  <li>在任何的优先队列中，都可以按以下方法对 A 进行排序
+    <ul>
+      <li>build(A)，例如依次 insert 每一项</li>
+      <li>然后重复 delete_max()</li>
+    </ul>
+  </li>
+  <li>时间复杂度：T<sub>build</sub> + n * T<sub>delete_max</sub> = n * T<sub>insert</sub> + n * T<sub>delete_max</sub></li>
+  <li>在以下的优先队列实现中，应用优先队列排序的时间复杂度如下图。并且在特定实现中，优先队列排序和一些排序算法很相似。</li>
+</ul>
+
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0007-1.png" width="600" />
+<p></p>
+</div>
+
+<h4 id="21-优先队列set-avl-tree">2.1 优先队列：Set AVL Tree</h4>
+
+<ul>
+  <li>Set AVL 树支持 insert(x), find_min(), find_max(), delete_min() 和 delete_max() 操作，并且时间复杂度全部为 O(logn)</li>
+  <li>按照优先队列排序，时间复杂度为 O(nlogn)</li>
+  <li>但是这个数据结构复杂，并且排序不是原位的</li>
+</ul>
+
+<h4 id="22-优先队列array">2.2 优先队列：Array</h4>
+
+<ul>
+  <li>在动态数组中以无序的方式存储元素</li>
+  <li>insert(x)：O(1)</li>
+  <li>delete_max(): 找到最大值，交换到末尾，并且移除</li>
+  <li>insert 很快，但是 delete_max() 慢</li>
+  <li>在 array 实现中进行优先队列排序，基本上和选择排序一样</li>
+</ul>
+
+<h4 id="23-优先队列sorted-array">2.3 优先队列：Sorted Array</h4>
+
+<ul>
+  <li>在有序的动态数组中存储元素</li>
+  <li>insert(x)：把 x 放入末尾，并将 x 交换到合适的位置</li>
+  <li>delete_max(x)：直接从末尾删除</li>
+  <li>delete_max 快，但是 insert 慢</li>
+  <li>在 sorted array 上进行优先队列排序，基本上就是插入排序</li>
+</ul>
+
+<h3 id="3-heap">3. heap</h3>
+
+<p>那么，可以在以上的优先队列实现中找到一个平衡吗？既保持排序算法的<strong>低时间复杂度</strong>，又是<strong>原位排序</strong>算法。</p>
+
+<p>idea：<strong>把数组看作一个完全二叉树</strong>，除了最后一层，完全二叉树在深度为 i 的层上都有 2^i 个结点。在最后一层上所有的结点都是左对齐的。</p>
+
+<p>完全二叉树填充数组时，是按照<strong>层次遍历</strong>的顺序放入，从根到叶子结点，一层一层从左往右依次放入。这样，完全二叉树和数组建立了对应关系，完全二叉树不是由指针来确定结点关系，而是由数组中的位置来确定结点关系。</p>
+
+<p>根结点在索引 0 处。结点 i 的左孩子在索引 2i+1 处，右孩子在索引 2i+2 处，父结点在 math.floor((i-1)/2) 处。</p>
+
+<h4 id="31-binary-heaps">3.1 Binary Heaps</h4>
+
+<p>idea：元素越大，在树中放置的高度越高。</p>
+
+<p>最大堆属性：在结点 i 处，Q[i] &gt;= Q[j] for j ∈ {left(i), right(i)}</p>
+
+<p><strong>最大堆</strong>：在所有结点上都满足最大堆属性的<strong>数组</strong></p>
+
+<p>在最大堆中，可以证明对于结点 i，Q[i] &gt;= Q[j]，j 可以是子树中任一结点。</p>
+
+<h4 id="32-heap-insert">3.2 Heap Insert</h4>
+
+<ul>
+  <li>把要插入的元素 x 放入数组的末尾，相当于插入到树的叶子结点中</li>
+  <li>max_heapify_up(i): 为了维持最大堆属性，依次与父结点交换
+    <ul>
+      <li>检查是否 Q[parent(i)] &gt;= Q[i]</li>
+      <li>如果不是，交换结点，递归执行 max_heapify_up(parent(i))</li>
+    </ul>
+  </li>
+  <li>运行时间：树的高度 O(logn)</li>
+</ul>
+
+<h4 id="33-heap-delete-max">3.3 Heap Delete Max</h4>
+
+<ul>
+  <li>在数组中只能容易的移除最后的元素，但是最大项却在索引 0 的位置</li>
+  <li>所以，把索引 0 的项和最后一项进行交换，并删除交换后的最后一项</li>
+  <li>然后执行 max_heapify_down(i)：从上往下维持最大堆属性
+    <ul>
+      <li>检查是否 Q[i] &gt;= Q[j] for j ∈ {left(i), right(i)}</li>
+      <li>如果不是，把 Q[i] 和 最大的孩子结点交换，并递归执行 max_heapify_down</li>
+    </ul>
+  </li>
+  <li>运行时间：树的高度 O(logn)</li>
+</ul>
+
+<h4 id="34-heap-sort">3.4 Heap Sort</h4>
+
+<p>堆排序时间复杂度为 O(nlogn)</p>
+
+<p>线性时间内建堆：</p>
+<ul>
+  <li>假如是依次插入 n 个元素到堆中，那么得调用 max_heapify_up(i) n 次，每次都得经过整个树高，时间复杂度为 Ω(n lg n)</li>
+  <li>idea: 把数组看作完全二叉树，从 n-1 到 0 依次调用 max_heapify_down(i)，调用时只用确保子树，时间复杂度为 O(n)</li>
+</ul>
+
+
+  </div><a class="u-url" href="/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">syh</li>
+          <li><a class="u-email" href="mailto:songibicf@gmail.com">songibicf@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>记录计算机专业相关内容，Mens et Manus
+</p>
+      </div>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/syh-1" target="_blank" title="syh-1"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+    
+
+  </div>
+
+</footer>
+</body>
+
+</html>
