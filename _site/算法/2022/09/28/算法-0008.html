@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>BFS | syh 的博客</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="BFS" />
+<meta name="author" content="syh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. Graph" />
+<meta property="og:description" content="1. Graph" />
+<link rel="canonical" href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0008.html" />
+<meta property="og:url" content="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0008.html" />
+<meta property="og:site_name" content="syh 的博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-09-28T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="BFS" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"syh"},"dateModified":"2022-09-28T00:00:00+08:00","datePublished":"2022-09-28T00:00:00+08:00","description":"1. Graph","headline":"BFS","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0008.html"},"url":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0008.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="syh 的博客" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">syh 的博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95.html">算法</a><a class="page-link" href="/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0.html">软件构造</a><a class="page-link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">计算机组成</a><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">BFS</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-09-28T00:00:00+08:00" itemprop="datePublished">
+        Sep 28, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-graph">1. Graph</h3>
+
+<p>图的应用例子：</p>
+<ul>
+  <li>任何网络系统，例如道路交通、计算机网络、社交网络</li>
+  <li>任何离散系统的状态空间可以表示为图，例如 Chess、Teris、Rubik’s cube</li>
+</ul>
+
+<p><strong>图定义：</strong></p>
+<ul>
+  <li>G = (V, E)</li>
+  <li>有向边由有序对表示，例如 (u, v)，无向边由无序对表示，例如 {u, v}</li>
+  <li>简单图：
+    <ul>
+      <li>edges are distinct</li>
+      <li>边连接不同的顶点</li>
+      <li>|E| = O(|V|^2)</li>
+    </ul>
+  </li>
+  <li>出边集：Adj<sup>+</sup>(u) = {v ∈ V | (u, v) ∈ E}</li>
+  <li>入边集: Adj<sup>-</sup>(u) = {v ∈ V | (v, u) ∈ E}</li>
+  <li>出度: deg<sup>+</sup>(u) = |Adj<sup>+</sup>(u)|</li>
+  <li>入度: deg<sup>-</sup>(u) = |Adj<sup>-</sup>(u)|</li>
+  <li>对于无向图 Adj<sup>-</sup>(u) = Adj<sup>+</sup>(u)， deg<sup>-</sup>(u) = deg<sup>+</sup>(u)</li>
+</ul>
+
+<p><strong>图的表示：</strong></p>
+<ul>
+  <li>对于图 G = (V, E)，存储 u 的所有出边 Adj(u)。</li>
+  <li>使用 Set 来存储所有的顶点，可以使用直接访问数组或哈希表，size 为 Θ(|V|)</li>
+  <li>对于每个顶点，为了存储邻接的顶点，使用数组或者链表。每个顶点邻接列表 size 为 Θ(deg(u))</li>
+  <li>图存储需要 Θ(|V| + |E|) 空间</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 图的直接访问数组表示
+A1 = [
+      [1, 4, 3],
+      [0],
+      [3],
+      [0, 2],
+      [0]
+    ]
+
+# 图的哈希表表示
+A1 = {
+      0: {1, 3, 4},
+      1: {0},
+      2: {3},
+      3: {0, 2},
+      4: {0}
+    }
+</code></pre></div></div>
+
+<p><strong>路径：</strong></p>
+<ul>
+  <li>路径：顶点序列 p = (v1, v2, . . . , vk)，(vi, vi+1) ∈ E</li>
+  <li>简单路径：没有重复顶点，或者说没有环的路径</li>
+  <li>路径的长度：路径中的边数</li>
+  <li>u 和 v 之间的距离：从 u 到 v 的最短路径的长度</li>
+</ul>
+
+<p><strong>图路径问题：</strong></p>
+<ul>
+  <li>single_pair_reachability(G, s, t): 从 s 到 t 有路径吗</li>
+  <li>single_pair_shortest_path(G, s, t): 找到 s 到 t 的最短路径</li>
+  <li>single_source_shortest_paths(G, s): 返回 s 到其它所有顶点的最短路径树</li>
+</ul>
+
+<p><strong>Shortest Paths Tree：</strong></p>
+<ul>
+  <li>得到从 s 到其他所有顶点的最短路径</li>
+  <li>用 P(v) 代表从 s 到 v 顶点最短路径上的 v 的上一个顶点</li>
+</ul>
+
+<h3 id="2-bfs">2. BFS</h3>
+<p><strong>BFS：</strong></p>
+<ul>
+  <li>对于 v ∈ V，如何计算 δ(s, v) 和 P(v)</li>
+  <li>在一个集合数据类型中存储 δ(s, v) 和 P(v)，把 v 映射到距离和 P(v)</li>
+  <li><strong>Idea:</strong> 按距离递增的顺序探索图结点</li>
+  <li>Goal：计算所有的 Level sets L<sub>i</sub> = {v | v ∈ V and d(s, v) = i}</li>
+  <li>Claim: L<sub>i</sub> 中每个顶点 v 一定与 L<sub>i-1</sub> 中的某个顶点 u 邻接，v ∈ Adj(u)</li>
+  <li><strong>Invariant:</strong> δ(s, v) and P(v) have been computed correctly for all v in any L<sub>j</sub> for j &lt; i。对于当前层的顶点，上一层的顶点已经全部得到了最短的路径。</li>
+</ul>
+
+<p>BFS 按照层次顺序得到顶点 L<sub>i</sub>，且 L<sub>i</sub> 中的顶点是最短路径为 i 可以到达的顶点。</p>
+
+<p><strong>BFS 步骤：</strong></p>
+<ul>
+  <li>base case (i=1): L0 = {s}, δ(s, s) = 0, P(s) = None</li>
+  <li>Inductive Step: 为了计算 L<sub>i</sub>:
+    <ul>
+      <li>对于 L<sub>i-1</sub> 中每个顶点 u
+        <ul>
+          <li>对于每个顶点 v ∈ Adj(u)，并且 v 不出现在之前的层中，把 v 添加到 L<sub>i</sub>，设置 δ(s, v) = i，P(v) = u</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>重复计算 L<sub>i</sub>，直到 L<sub>i</sub> 不能再添加顶点</li>
+  <li>对于剩余的顶点，设置 δ(s, v) = ∞</li>
+</ul>
+
+<p>BFS 的运行时间为 O(|V| + |E|)</p>
+
+  </div><a class="u-url" href="/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0008.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">syh</li>
+          <li><a class="u-email" href="mailto:songibicf@gmail.com">songibicf@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>记录计算机专业相关内容，Mens et Manus
+</p>
+      </div>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/syh-1" target="_blank" title="syh-1"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+    
+
+  </div>
+
+</footer>
+</body>
+
+</html>
