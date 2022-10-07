@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>加权最短路径 | syh 的博客</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="加权最短路径" />
+<meta name="author" content="syh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. 加权图" />
+<meta property="og:description" content="1. 加权图" />
+<link rel="canonical" href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html" />
+<meta property="og:url" content="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html" />
+<meta property="og:site_name" content="syh 的博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-03T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="加权最短路径" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"syh"},"dateModified":"2022-10-03T00:00:00+08:00","datePublished":"2022-10-03T00:00:00+08:00","description":"1. 加权图","headline":"加权最短路径","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html"},"url":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="syh 的博客" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">syh 的博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95.html">算法</a><a class="page-link" href="/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0.html">软件构造</a><a class="page-link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">计算机组成</a><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">加权最短路径</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-10-03T00:00:00+08:00" itemprop="datePublished">
+        Oct 3, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-加权图">1. 加权图</h3>
+
+<p>review:</p>
+<ul>
+  <li>单源最短路径：BFS， O(|V| + |E|)</li>
+  <li>单源可达性：BFS 或者 DFS，O(|E|) (因为只返回可以到达的顶点)</li>
+  <li>连通性：Full-BFS 或者 Full-DFS, O(|V| + |E|)</li>
+  <li>拓扑排序：Full-DFS, O(|V| + |E|)</li>
+</ul>
+
+<p>之前最短路径按照 distance = number of edges in path 来算，现在考虑加权图中的最短路径。</p>
+
+<p>加权图：</p>
+<ul>
+  <li>带有权重函数 w 的图，例如给图中的每条边 e = (u, v) 分配一个整数权重 w(e) = w(u, v)</li>
+  <li>加权图的应用：
+    <ul>
+      <li>道路交通中的距离</li>
+      <li>网络连接中的延迟</li>
+      <li>社交网络中的关系好坏程度</li>
+    </ul>
+  </li>
+  <li>表示权重的两种方式：
+    <ul>
+      <li>直接在邻接表中存储权重</li>
+      <li>或者存储一个 set 数据结构，把边映射到权重</li>
+    </ul>
+  </li>
+</ul>
+
+<p>加权路径：</p>
+<ul>
+  <li>一条路径的权重 w(π) 是路径中所有边的权重之和</li>
+  <li>在加权图中，从 s 到 t 的加权最短路径是权重最小的路径</li>
+</ul>
+
+<p>加权最短路径算法：</p>
+
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0010-1.png" width="600" />
+<p></p>
+</div>
+
+<h3 id="2-计算最短路径树">2. 计算最短路径树</h3>
+<ul>
+  <li>对于 BFS，在搜索时一直记录 parent。但是，也可以从每个顶点的最短距离计算出来。</li>
+  <li>如果知道所有顶点 v 的 δ(s, v)， 可以用 <code class="language-plaintext highlighter-rouge">O(|V|+|E|)</code> 的时间创建出最短路径树</li>
+</ul>
+
+<p>使用 δ(s, v) 计算最短路径树，步骤如下：</p>
+<ul>
+  <li>初始化 P，设置 P(s) = None</li>
+  <li>对于每个顶点 u，δ(s, u) 是有限的：
+    <ul>
+      <li>对于 u 的 outgoing neighbor v:</li>
+      <li>如果 P(v) 没有被分配，并且 δ(s, v) = δ(s, u) + w(u, v)</li>
+      <li>那么在 (u, v) 之间存在最短路径，设置 P(v) = u</li>
+    </ul>
+  </li>
+  <li>父指针可能会遍历零权重的环路，标记在环中的所有顶点</li>
+  <li>对于所有未标记的顶点 u
+    <ul>
+      <li>对于 u 的邻接点 v，且 v 已经被标记，并且 δ(s, v) = δ(s, u) + w(u, v)</li>
+      <li>从 v 开始遍历父指针，取消标记该环中的顶点</li>
+      <li>设置 P(v) = u, 打破环</li>
+    </ul>
+  </li>
+</ul>
+
+<p>该算法可以在线性时间内计算出最短路径树结点中的父指针。</p>
+
+<h3 id="3-dag-relaxation">3. DAG Relaxation</h3>
+
+<p>relaxation: 对于一个优化问题，要得到最优解， 可以从一个非最优解开始然后逐渐迭代来改进解，直到达到问题的最优解。</p>
+
+<ul>
+  <li>记录距离估计 d(s, v)，初始化为无穷大。该距离估计一定是真实距离 δ(s, v) 的上界，接下来需要逐步减少距离，直到 d(s, v) = δ(s, v)</li>
+  <li>
+    <p>什么时候降低 d(s, v)？在边违反<strong>三角不等式</strong>的时候</p>
+  </li>
+  <li>三角不等式：从 u 到 v 的最短路径权重不能大于从 u 经另一个顶点 x 到 v 的最短路径权重，即 δ(u, v) ≤ δ(u, x)+ δ(x, v) for all u, v, x ∈ V</li>
+  <li>如果 d(s, v) &gt; d(s, u) + w(u, v)，违反了三角不等式</li>
+  <li>fix 方法：降低 d(s, v) 为 d(s, u) + w(u, v)。</li>
+</ul>
+
+<p>可以证明最短路径估计 d(s, v) 永远不会小于真实的最短路径权重 δ(s, v)</p>
+<ul>
+  <li>Safety Lemma: 在 relax 过程中，d(s, v) 会一直大于等于 δ(s, v)</li>
+  <li>证明：证明更强的声明，对于所有的 v，d(s, v) 在迭代时要么是无穷大，要么是 s 到 v 的<strong>某一条路径</strong>的权重，即 d(s, v) 会一直大于等于 δ(s, v)。
+    <ul>
+      <li>在初始的时候正确，d(s, v) 为无穷大</li>
+      <li>假设在某一时刻声明为正确，relax 边 (u, v)。relax 边会让 d(s, v) 减少到 d(s, u) + w(u, v)，即 d(s, v) 变为从 s 出发，经过 u 到 v 路径的权重。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>在 DAG 中，不存在环路，relaxation 最后一定会结束。按照拓扑顺序依次放松出边，可以正确的计算出最短路径。该算法叫做 DAG Relaxation。</p>
+
+<p>步骤：</p>
+<ul>
+  <li>设置 d(s, v) = ∞, d(s, s) = 0</li>
+  <li>对于图 G 中的所有顶点，按照拓扑顺序处理每一个顶点 u
+    <ul>
+      <li>对于 u 的 outgoing neighbor v ∈ Adj<sup>+</sup>(u)</li>
+      <li>如果 d(s, v) &gt; d(s, u) + w(u, v)</li>
+      <li>设置 d(s, v) = d(s, u) + w(u, v)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>运行时间：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">O(|V| + |E|)</code></li>
+</ul>
+
+  </div><a class="u-url" href="/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">syh</li>
+          <li><a class="u-email" href="mailto:songibicf@gmail.com">songibicf@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>记录计算机专业相关内容，Mens et Manus
+</p>
+      </div>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/syh-1" target="_blank" title="syh-1"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+    
+
+  </div>
+
+</footer>
+</body>
+
+</html>

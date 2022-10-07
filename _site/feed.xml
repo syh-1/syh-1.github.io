@@ -1,5 +1,168 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-01T11:30:43+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">Binary Heaps</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html" rel="alternate" type="text/html" title="Binary Heaps" /><published>2022-09-28T00:00:00+08:00</published><updated>2022-09-28T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html"><![CDATA[<h3 id="1-优先队列接口">1. 优先队列接口</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-07T17:54:17+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">加权最短路径</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html" rel="alternate" type="text/html" title="加权最短路径" /><published>2022-10-03T00:00:00+08:00</published><updated>2022-10-03T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html"><![CDATA[<h3 id="1-加权图">1. 加权图</h3>
+
+<p>review:</p>
+<ul>
+  <li>单源最短路径：BFS， O(|V| + |E|)</li>
+  <li>单源可达性：BFS 或者 DFS，O(|E|) (因为只返回可以到达的顶点)</li>
+  <li>连通性：Full-BFS 或者 Full-DFS, O(|V| + |E|)</li>
+  <li>拓扑排序：Full-DFS, O(|V| + |E|)</li>
+</ul>
+
+<p>之前最短路径按照 distance = number of edges in path 来算，现在考虑加权图中的最短路径。</p>
+
+<p>加权图：</p>
+<ul>
+  <li>带有权重函数 w 的图，例如给图中的每条边 e = (u, v) 分配一个整数权重 w(e) = w(u, v)</li>
+  <li>加权图的应用：
+    <ul>
+      <li>道路交通中的距离</li>
+      <li>网络连接中的延迟</li>
+      <li>社交网络中的关系好坏程度</li>
+    </ul>
+  </li>
+  <li>表示权重的两种方式：
+    <ul>
+      <li>直接在邻接表中存储权重</li>
+      <li>或者存储一个 set 数据结构，把边映射到权重</li>
+    </ul>
+  </li>
+</ul>
+
+<p>加权路径：</p>
+<ul>
+  <li>一条路径的权重 w(π) 是路径中所有边的权重之和</li>
+  <li>在加权图中，从 s 到 t 的加权最短路径是权重最小的路径</li>
+</ul>
+
+<p>加权最短路径算法：</p>
+
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0010-1.png" width="600" />
+<p></p>
+</div>
+
+<h3 id="2-计算最短路径树">2. 计算最短路径树</h3>
+<ul>
+  <li>对于 BFS，在搜索时一直记录 parent。但是，也可以从每个顶点的最短距离计算出来。</li>
+  <li>如果知道所有顶点 v 的 δ(s, v)， 可以用 <code class="language-plaintext highlighter-rouge">O(|V|+|E|)</code> 的时间创建出最短路径树</li>
+</ul>
+
+<p>使用 δ(s, v) 计算最短路径树，步骤如下：</p>
+<ul>
+  <li>初始化 P，设置 P(s) = None</li>
+  <li>对于每个顶点 u，δ(s, u) 是有限的：
+    <ul>
+      <li>对于 u 的 outgoing neighbor v:</li>
+      <li>如果 P(v) 没有被分配，并且 δ(s, v) = δ(s, u) + w(u, v)</li>
+      <li>那么在 (u, v) 之间存在最短路径，设置 P(v) = u</li>
+    </ul>
+  </li>
+  <li>父指针可能会遍历零权重的环路，标记在环中的所有顶点</li>
+  <li>对于所有未标记的顶点 u
+    <ul>
+      <li>对于 u 的邻接点 v，且 v 已经被标记，并且 δ(s, v) = δ(s, u) + w(u, v)</li>
+      <li>从 v 开始遍历父指针，取消标记该环中的顶点</li>
+      <li>设置 P(v) = u, 打破环</li>
+    </ul>
+  </li>
+</ul>
+
+<p>该算法可以在线性时间内计算出最短路径树结点中的父指针。</p>
+
+<h3 id="3-dag-relaxation">3. DAG Relaxation</h3>
+
+<p>relaxation: 对于一个优化问题，要得到最优解， 可以从一个非最优解开始然后逐渐迭代来改进解，直到达到问题的最优解。</p>
+
+<ul>
+  <li>记录距离估计 d(s, v)，初始化为无穷大。该距离估计一定是真实距离 δ(s, v) 的上界，接下来需要逐步减少距离，直到 d(s, v) = δ(s, v)</li>
+  <li>
+    <p>什么时候降低 d(s, v)？在边违反<strong>三角不等式</strong>的时候</p>
+  </li>
+  <li>三角不等式：从 u 到 v 的最短路径权重不能大于从 u 经另一个顶点 x 到 v 的最短路径权重，即 δ(u, v) ≤ δ(u, x)+ δ(x, v) for all u, v, x ∈ V</li>
+  <li>如果 d(s, v) &gt; d(s, u) + w(u, v)，违反了三角不等式</li>
+  <li>fix 方法：降低 d(s, v) 为 d(s, u) + w(u, v)。</li>
+</ul>
+
+<p>可以证明最短路径估计 d(s, v) 永远不会小于真实的最短路径权重 δ(s, v)</p>
+<ul>
+  <li>Safety Lemma: 在 relax 过程中，d(s, v) 会一直大于等于 δ(s, v)</li>
+  <li>证明：证明更强的声明，对于所有的 v，d(s, v) 在迭代时要么是无穷大，要么是 s 到 v 的<strong>某一条路径</strong>的权重，即 d(s, v) 会一直大于等于 δ(s, v)。
+    <ul>
+      <li>在初始的时候正确，d(s, v) 为无穷大</li>
+      <li>假设在某一时刻声明为正确，relax 边 (u, v)。relax 边会让 d(s, v) 减少到 d(s, u) + w(u, v)，即 d(s, v) 变为从 s 出发，经过 u 到 v 路径的权重。</li>
+    </ul>
+  </li>
+</ul>
+
+<p>在 DAG 中，不存在环路，relaxation 最后一定会结束。按照拓扑顺序依次放松出边，可以正确的计算出最短路径。该算法叫做 DAG Relaxation。</p>
+
+<p>步骤：</p>
+<ul>
+  <li>设置 d(s, v) = ∞, d(s, s) = 0</li>
+  <li>对于图 G 中的所有顶点，按照拓扑顺序处理每一个顶点 u
+    <ul>
+      <li>对于 u 的 outgoing neighbor v ∈ Adj<sup>+</sup>(u)</li>
+      <li>如果 d(s, v) &gt; d(s, u) + w(u, v)</li>
+      <li>设置 d(s, v) = d(s, u) + w(u, v)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>运行时间：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">O(|V| + |E|)</code></li>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 加权图]]></summary></entry><entry><title type="html">DFS</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/01/%E7%AE%97%E6%B3%95-0009.html" rel="alternate" type="text/html" title="DFS" /><published>2022-10-01T00:00:00+08:00</published><updated>2022-10-01T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/01/%E7%AE%97%E6%B3%95-0009</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/01/%E7%AE%97%E6%B3%95-0009.html"><![CDATA[<h3 id="1-dfs">1. DFS</h3>
+
+<p>BFS 用来解决单源最短路径问题，得到从一个顶点到其余所有顶点的最短路径，运行时间为 <code class="language-plaintext highlighter-rouge">O(|V| + |E|)</code></p>
+
+<p>DFS:</p>
+<ul>
+  <li>解决单源可达性问题，而不是最短路径问题</li>
+  <li>
+    <p>return (not necessarily shortest) parent tree of parent pointers back to s</p>
+  </li>
+  <li>Idea: vist outgoing adjacencies recursively, but never revisit a vertex</li>
+  <li>
+    <p>i.e., 沿着一条路径前进，直到无法再前进，接着回溯，直到找到一条未探索过的路径。对于可以从 s 到达的任何顶点 v，DFS 都会访问 v 并正确设置 P(v)。一次 DFS 后，在图中未访问过的顶点上依次调用 DFS，即可遍历图中所有顶点。</p>
+  </li>
+  <li>P(s) = None, 接着 visit(s)</li>
+  <li>visit(u):
+    <ul>
+      <li>对于 u 的所有未出现在 P 中的邻接点，设置 P(v) = u，递归调用 visit(v)</li>
+    </ul>
+  </li>
+  <li>如果还有未访问到的顶点，在该顶点上再次调用 DFS</li>
+</ul>
+
+<p>运行时间 <code class="language-plaintext highlighter-rouge">O(|V| + |E|) </code></p>
+
+<h3 id="2-拓扑排序">2. 拓扑排序</h3>
+
+<ul>
+  <li>DAG 图：有向无环图</li>
+  <li>拓扑顺序：对顶点分配顺序 f，使得对于每条边 (u, v) ∈ E 满足 f(u) &lt; f(v)。</li>
+  <li>DAG 图可以得到顶点的拓扑排序</li>
+</ul>
+
+<p>步骤：</p>
+<ul>
+  <li>Finishing Order 是 DFS <strong>完成访问顶点</strong>的顺序，即 visit(u) 结束的顺序</li>
+  <li>Claim: 对于图 G，如果 G 是 DAG 图，finishing order 的翻转序列是拓扑排序</li>
+  <li>Proof: 需要证明对于每条边 (u, v) ∈ E，u 排在 v 前面，DFS 先访问完 v。分成两种情况：
+    <ul>
+      <li>如果 u 在 v 前面访问：在访问 u 结束前，会访问 v，因此访问 v 先结束</li>
+      <li>如果在 v 在 u 前面访问，由于图是无环图，从 v 不能到达 u，因此v 在 u 前面结束访问</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-cycle-detection">3. Cycle Detection</h3>
+
+<ul>
+  <li>如果图 G 是无环的，DFS 可以找到拓扑顺序</li>
+  <li>如果反向 finishing order 不是拓扑排序，那么图中一定存在环</li>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. DFS]]></summary></entry><entry><title type="html">Binary Heaps</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html" rel="alternate" type="text/html" title="Binary Heaps" /><published>2022-09-28T00:00:00+08:00</published><updated>2022-09-28T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/28/%E7%AE%97%E6%B3%95-0007.html"><![CDATA[<h3 id="1-优先队列接口">1. 优先队列接口</h3>
 
 <ul>
   <li>存储多个项，可以快速的访问、移除最重要的项，实际例子有：
@@ -913,237 +1076,4 @@ function hailstoneSequence(n:number): Array&lt;number&gt; {
 <ul>
   <li>安全：TypeScript 有静态检查</li>
   <li>无处不在：TypeScript 直接编译成 JavaScript，广泛用在各领域中。相比于 Java，TypeScript 有更为丰富的类型系统，更适合创建现代用户接口和网页应用。</li>
-</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Types]]></summary></entry><entry><title type="html">线性排序</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004.html" rel="alternate" type="text/html" title="线性排序" /><published>2022-09-08T00:00:00+08:00</published><updated>2022-09-08T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/08/%E7%AE%97%E6%B3%95-0004.html"><![CDATA[<h3 id="1-比较排序的时间复杂度下界">1. 比较排序的时间复杂度下界</h3>
-
-<p>之前通过 hash，可以用  Θ(n) 的空间，实现时间复杂度为 O(1) 的 find 操作。目前从前往后依次介绍了 Array、Sorted Array、Direct Access Array、Hash Table，那么能够实现快速的排序吗？</p>
-
-<p><strong>决策树模型：</strong></p>
-
-<ul>
-  <li>决策树是二叉树，每个结点代表一次比较后的结果，叶子结点代表最终结果</li>
-  <li>决策树的叶子节点数 L &gt;= 可能的输出结果数, 由于对长度为 n 的数组排序，输出结果数为 n!，因此 L &gt;= n!</li>
-  <li>树高度下界可根据 L 得出，为 Ω(log L)，替换 L 为 n!，log(n!) = Ω(n log n)。因此树高度下界为  Ω(nlogn)，即所需比较次数最少为 Ω(nlogn)。</li>
-</ul>
-
-<p>时间复杂度为 O(nlogn) 的<strong>归并排序</strong>在比较模型中已经是最优的排序算法，如果需要更快的排序算法，就不能采用比较的方法。</p>
-
-<h3 id="2-直接访问数组排序">2. 直接访问数组排序</h3>
-
-<ul>
-  <li>假设所有的键为独特的非负整数，范围为 {0,…,u-1}，且 n &lt;= u</li>
-  <li>把每个项插入到直接访问数组中，时间复杂度为 Θ(n)</li>
-  <li>按顺序读取数组中的值，时间复杂度为 Θ(u)</li>
-  <li>直接访问数组排序的时间复杂度为 Θ(u)</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def direct_access_sort(A):
-    "Sort A assuming items have distinct non-negative keys"
-    u = 1 + max([x.key for x in A])
-    D = [None] * u
-    for x in A:
-        D[x.key] = x
-    i = 0
-    for key in range(u):
-        if D[key] is not None:
-            A[i] = D[key]
-            i += 1
-</code></pre></div></div>
-
-<p>直接访问数组排序的时间复杂度与 u 有关。如果 u = Θ(n)，那么排序的时间复杂度为 Θ(n)。如果 u = Ω(n^2)，排序的时间复杂度很高。而且，直接访问数组无法处理存在重复键的情况。</p>
-
-<h4 id="21-u--ωn2-的情况">2.1 u = Ω(n^2) 的情况</h4>
-
-<p>当 u 比 n 大很多时，为了降低排序的时间复杂度，可以采用如下方法：</p>
-<ul>
-  <li>对于每一个项的键 k 来说，用元组 (a, b) 来表示，k = an + b</li>
-  <li>相当于 a = k // n，b = k % n</li>
-  <li>接下来对元组进行排序</li>
-</ul>
-
-<p><strong>元组排序 (Tuple Sort)</strong></p>
-<ul>
-  <li>项的键为元组，例如 x.key = (x.k1, x.k2, x.k3, …)，k1 是最高有效位</li>
-  <li>排序时对元组中的每个有效位依次排序，先排序最低有效位，最后排序最高有效位</li>
-  <li>例如：[32, 03, 44, 42, 22] =&gt; [42, 22, 32, 03, 44] =&gt; [03, 22, 32, 42, 44]</li>
-</ul>
-
-<p>按上面的方法，对元组可以有效的排序，但是当存在相同元组项时，如何进行排序呢？</p>
-
-<h4 id="22-计数排序-counting-sort">2.2. 计数排序 (Counting Sort)</h4>
-
-<p>为了存储有重复键的项，可以采取一下方法：</p>
-
-<ul>
-  <li>在数组每个索引位置，不仅仅是存储一个元素，而是存储一个 chain，保持具有多个相同索引值的项</li>
-  <li>为了排序稳定性，chain 中必须记录项的插入顺序，可以使用序列来维持插入顺序</li>
-  <li>排序时，按顺序读出所有的 chains</li>
-  <li>算法总的时间复杂度为 O(n+u)，当 u = O(n) 时，时间复杂度为 O(n)</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def counting_sort(A):
-    "Sort A assuming items have non-negative keys"
-    u = 1 + max([x.key for x in A])
-    D = [[] for i in range(u)]
-    for x in A:
-        D[x.key].append(x)
-    i = 0
-    for chain in D:
-        for x in chain:
-            A[i] = x
-            i += 1
-</code></pre></div></div>
-
-<h3 id="3-基数排序-radix-sort">3. 基数排序 (Radix Sort)</h3>
-
-<p>现在把元组排序和计数排序组合起来，得到基数排序，得到比直接访问数组排序更好的排序方法。</p>
-
-<ul>
-  <li>如果 u &lt; n^2，使用计数排序来排序元组 (a, b)</li>
-  <li>先对最低有效位 b 进行排序，接着对 a 进行排序</li>
-  <li>对元组一个有效位排序时间复杂度为 O(n)，总时间复杂度为 O(2n) = O(n)</li>
-</ul>
-
-<p>如果 key &lt; n^c, 每个 key 最多可以分成长度为 c 的元组。接着对元组进行元组排序，时间复杂度为 O(cn) = O(n)</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def radix_sort(A):
-    "Sort A assuming items have non-negative keys"
-    n = len(A)
-    u = 1 + max([x.key for x in A])
-    c = 1 + (u.bit_length() // n.bit_length())
-    class Obj: pass
-    D = [Obj() for a in A]
-    for i in range(n):
-        D[i].digits = []
-        D[i].item = A[i]
-        high = A[i].key
-        for j in range(c):
-            high, low  = divmod(high, n)
-            D[i].digits.append(low)
-    for i in range(c):
-        for j in range(n):
-            D[j].key = D[j].digits[i]
-        counting_sort(D)
-    for i in range(n):
-        A[i] = D[i].item
-</code></pre></div></div>
-
-<p>排序算法的时间复杂度：</p>
-
-<div align="center">
-<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0004-1.png" width="500" />
-<p></p>
-</div>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 比较排序的时间复杂度下界]]></summary></entry><entry><title type="html">Hashing</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/02/%E7%AE%97%E6%B3%95-0003.html" rel="alternate" type="text/html" title="Hashing" /><published>2022-09-02T00:00:00+08:00</published><updated>2022-09-02T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/02/%E7%AE%97%E6%B3%95-0003</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/02/%E7%AE%97%E6%B3%95-0003.html"><![CDATA[<h3 id="1-比较模型">1. 比较模型</h3>
-
-<div align="center">
-<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0003-1.png" width="500" />
-<p></p>
-</div>
-
-<p>在序列接口常用的操作中，普通的 Array 实现，时间复杂度都为 O(n)，这些操作都需要遍历整个数组。而 Sorted Array 由于在内部保持元素的有序性，在 find 操作上占优势。那么，可以实现更快的查找和动态操作吗，可以让 <strong>find 操作</strong>时间复杂度小于 O(log n)吗？</p>
-
-<p><strong>比较模型：</strong></p>
-<ul>
-  <li>在该模型中，算法仅能通过比较来区分不同的元素</li>
-  <li>可比较的项相当于一个黑盒，只能支持两个项之间的比较操作</li>
-  <li>比较操作有：&lt;, &lt;=, &gt;, &gt;=, ==, !=</li>
-  <li><strong>目标</strong>：在 n 个可比较项的集合上，实现 find(k) 操作</li>
-  <li>比较的次数决定了运行时间的下界，因此，评估时间复杂度，要数比较操作的次数。</li>
-</ul>
-
-<p><strong>决策树：</strong></p>
-<ul>
-  <li>任何比较模型的 find 算法可以看作执行比较操作的决策树(decision tree)</li>
-  <li>内部结点表示两个元素的比较，分支代表结果为 True 或 False</li>
-  <li>叶子结点代表算法结束，产生算法的输出</li>
-  <li>由根结点到叶子结点的路径表示在特定输出时算法所执行的操作</li>
-  <li>对于每个算法的输出，都需要一个叶子结点，因此决策树最少有 n+1 个叶子结点。这 n+1 个叶子结点分别对应数组内的 n 个元素，以及数组内不包含要查找元素这个特殊情况。</li>
-</ul>
-
-<p><strong>注意：</strong>这里的目的是实现 find 操作，决策树也是对应的 find 操作，与算法导论第 8 章中的排序决策树有差别。</p>
-
-<p>通过比较操作来查找某一元素的时间复杂度：</p>
-<ul>
-  <li>可以对比较操作进行计数，来确定时间复杂度的下界</li>
-  <li>由于最少有 n+1 个叶子结点，因此，二叉树的最小高度为 Ω(log n)，运行时间的下界为 Ω(log n)</li>
-</ul>
-
-<p>如何实现更快的 find 操作？</p>
-
-<h3 id="2-hashing">2. Hashing</h3>
-
-<p>通过比较操作来查找元素，下界为 Ω(log n)，假如要实现更快的 find 操作，可以通过直接访问的方法。这有点类似于内存访问。</p>
-
-<h3 id="21-直接访问数组-direct-access-arrays">2.1 直接访问数组 (Direct Access Arrays)</h3>
-
-<p>假如要存储 n 个项，给每个项分配一个在 [0, u-1] 范围内的独特整数值，那么可以直接把这 n 个项存储在长度为 u 的直接访问数组中。数组中索引为 i 个位置存储的是分配到整数 i 的项。如果要查找该项，只要访问数组中索引 i 位置即可。</p>
-
-<p>简单来说，直接访问数组是根据 x.key，直接放入与这个 key 一样的索引位置。就像在内存访问中，假如程序要访问 stack 中的一条数据，该数据有特定地址，这个地址就是数据的 key。程序访问内存中对应的地址，得到数据内容。</p>
-
-<p>直接访问数组的 order 操作时间复杂度会高，因为项并不是依次分配整数值，在数组中一个位置可能不存在项，但之后的位置可能存在项。要查找下一个元素，必须依次往后面找。</p>
-
-<p>直接访问数组的 find 操作时间复杂度取决于 n 和 u 的关系。当 u » n，不会发生冲突，但是数组中存在空间的浪费。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class DirectAccressArray:
-    def __init__(self, u):   self.A  =[None] * u   # 初始化空间为 u 的数组
-    def find(self, k):       return self.A[k]      # 查找索引为 k 的项
-    def insert(self, x):     self.A[x.key] = x     # 按 key 存入项
-    def delete(self, k):     self.A[k] = None      # 删除索引为 k 的项
-    def find_next(self, k):
-        for i in range(k, len(self.A)):   # 从索引 k 开始依次往后找
-            if A[i] is not None:
-                return A[i]
-    def find_max(self):                   # 从后往前找
-        for i in range(len(self.A)-1, -1, -1):
-            if A[i] is not None:
-                return A[i]
-    def delete_max(self):
-        for i in range(len(self.A)-1, -1, -1):
-            x = A[i]
-            if x is not None:
-                A[i] = None
-                return x
-</code></pre></div></div>
-
-<h3 id="22-hashing">2.2 hashing</h3>
-
-<p>直接访问数组可以 O(1) 时间复杂度实现 find，insert，delete操作，但是前提是 u » n。当 n « u 时，如何用 O(n) 空间来实现直接访问数组呢？哈希主要解决的就是直接访问数组的空间占用大问题，hashing 相比于直接访问数据，添加了映射过程。</p>
-
-<p>可以把 n 项存储在一个小空间的数组中，数组的尺寸不为 u，而是 m = O(n)。给项分配整数值后也不能直接存入数组，得通过映射过程，把 [0, u-1] 范围内的值映射到 [0, m-1]。这样的映射函数叫做 hash 函数。</p>
-
-<ul>
-  <li>通过 hash 函数，把项映射到数组中特定的位置</li>
-  <li>hash 函数：h(k) : {0, . . . , u − 1} → {0, . . . , m − 1}
-    <ul>
-      <li>u 是所有项可能的取值，m 是数组的尺寸</li>
-    </ul>
-  </li>
-  <li>长度比项所有可能取值 u 更小的直接访问数组，叫做 hash 表，空间为 m。</li>
-  <li>如果两个元素a，b，h(a) = h(b)，那么发生了冲突。
-    <ul>
-      <li>要么通过开放寻址来解决，存储在数组中的其他位置</li>
-      <li>要么通过链接来解决，把具有相同的 hash 值元素存储在一块，然后链接到索引位置。</li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="23-hash-函数">2.3 hash 函数</h3>
-
-<p>最简单的 hash 函数： h(k) = (k mod m)</p>
-<ul>
-  <li>当所有的 key 是均匀分布时，可以有好的效果</li>
-  <li>m 一般选大的质数</li>
-</ul>
-
-<p>通用 hash 函数： hab(k) = (((ak + b) mod p) mod m)</p>
-<ul>
-  <li>a, b ∈ {0, . . . , p − 1} and a 不为 0</li>
-  <li>在多个 hash 函数中，随机选择 a，b，确定一个 hash 函数</li>
-  <li>可以达到更短的链长度，即冲突少。m = Ω(n) 时，在每个索引位置的链长度期望值为 O(1)</li>
-</ul>
-
-<div align="center">
-<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0003-2.png" width="600" />
-<p></p>
-</div>
-
-<p>表中 Direct Access Array 的 u 代表 key 的最大取值；Hash Table 中的下标 e 代表是期望值，a 代表摊还分析 (amortized)</p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 比较模型]]></summary></entry></feed>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Types]]></summary></entry></feed>
