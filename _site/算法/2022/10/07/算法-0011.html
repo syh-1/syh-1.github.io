@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-cn"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Bellman-Ford 算法 | syh 的博客</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Bellman-Ford 算法" />
+<meta name="author" content="syh" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="1. Negative Cycle Witness" />
+<meta property="og:description" content="1. Negative Cycle Witness" />
+<link rel="canonical" href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011.html" />
+<meta property="og:url" content="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011.html" />
+<meta property="og:site_name" content="syh 的博客" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-10-07T00:00:00+08:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Bellman-Ford 算法" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"syh"},"dateModified":"2022-10-07T00:00:00+08:00","datePublished":"2022-10-07T00:00:00+08:00","description":"1. Negative Cycle Witness","headline":"Bellman-Ford 算法","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011.html"},"url":"http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="syh 的博客" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="msapplication-TileColor" content="#da532c">
+<meta name="theme-color" content="#ffffff"></head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">syh 的博客</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/%E7%AE%97%E6%B3%95.html">算法</a><a class="page-link" href="/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0.html">软件构造</a><a class="page-link" href="/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90.html">计算机组成</a><a class="page-link" href="/about/">关于我</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Bellman-Ford 算法</h1>
+    <p class="post-meta"><time class="dt-published" datetime="2022-10-07T00:00:00+08:00" itemprop="datePublished">
+        Oct 7, 2022
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h3 id="1-negative-cycle-witness">1. Negative Cycle Witness</h3>
+
+<p>练习：给定一个 SSSP 算法 A，其时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V|(|V| + |E|)</code>，如果在 <code class="language-plaintext highlighter-rouge">O(|V||E|)</code> 时间内解决 SSSP 问题。</p>
+
+<p>Solution:</p>
+<ul>
+  <li>运行 BFS 或者 DFS，找到从 s 可以到达的顶点，时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|E|)</code></li>
+  <li>标记其余不可达的顶点 δ(s, v) = ∞，时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V|)</code></li>
+  <li>创建 G’ = (V’, E’)，只包含可以从 s 到达的顶点，时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V|+ |E|)</code></li>
+  <li>在 G’ 上运行 A。G’是连通图， 因此 <code class="language-plaintext highlighter-rouge">|V'| = O(|E'|) = O(|E|)</code>，A 的运行时间是 <code class="language-plaintext highlighter-rouge">O(|V||E|)</code></li>
+</ul>
+
+<p>Bellman-Ford 算法的目的：在任意权重的 general graph 上，实现 SSSP 算法的时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V||E|)</code></p>
+
+<hr />
+
+<p><strong>简单最短路径：</strong></p>
+<ul>
+  <li>如果图中包含环路和负权重，那么可能包含负权重环路 (negative-weight cycles)</li>
+  <li>如果图中不包含 negative-weight cycles，最短路径是简单的</li>
+</ul>
+
+<p><strong>Claim 1：</strong>如果 δ(s, v) 是有限的，那么 s 到 v 的最短路径一定是简单路径</p>
+
+<p><strong>证明：</strong>：</p>
+<ul>
+  <li>反证法，假设 s 到 v 的最短路径 π 不是简单路径</li>
+  <li>π 不是简单路径，那么一定存在环路 C，C 是非负的权重。因为 C 如果是负权重环路， δ(s, v) 就是 −∞。</li>
+  <li>从 π 中移除 C，得到更少权重的路径，与 π 是最短路径矛盾。</li>
+</ul>
+
+<p>由 claim 1 可以看到，有限长度的最短路径一定是简单路径，因此绝不可能包含环路，任意的最短路径最多包含 <code class="language-plaintext highlighter-rouge">|V| − 1</code> 条边。</p>
+
+<hr />
+
+<p><strong>Negative Cycle Witness</strong></p>
+<ul>
+  <li>k-边距离 δ<sub>k</sub>(s, v)：从 s 到 v 的使用边数小于等于 k 的任何路径的最小权重</li>
+  <li>Idea：对于所有的顶点，计算 δ<sub>|V|−1</sub>(s, v) 和 δ<sub>|V|</sub>(s, v)
+    <ul>
+      <li>如果 δ(s, v) != -∞，δ(s, v) = δ<sub>|V|−1</sub>(s, v)，因为最短路径是简单路径</li>
+      <li>如果 δ<sub>|V|</sub>(s, v) &lt; δ<sub>|V|−1</sub>(s, v)，那么存在更短的非简单路径，所以 δ<sub>|V|</sub>(s, v) = -∞，并且把 v 叫做 negative cycle witness</li>
+      <li>但是，负环路上的顶点不全是 witness</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Claim 2: 如果 δ(s, v) = −∞，那么 v 可以从一个 witness 抵达</p>
+
+<p>证明：可以从 s 到达的每个负权环路上都包含一个见证</p>
+
+<h3 id="2-bellman-ford">2. Bellman-Ford</h3>
+
+<ul>
+  <li>Idea: 使用图重复，对图复制多份</li>
+  <li>新图有|V| + 1 层: 在 k 层的顶点 v<sub>k</sub> 表示从 v 到 s 使用 &lt;= k 条边</li>
+  <li>如果边仅仅在层与层之间连接，那么，得到的为 DAG</li>
+</ul>
+
+<p>步骤：</p>
+<ul>
+  <li>创建一个新 DAG G’ = (V’, E’)
+    <ul>
+      <li>G’ 有 <code class="language-plaintext highlighter-rouge">|V|(|V| + 1)</code> 个顶点 v<sub>k</sub>, k ∈ {0, . . . ,|V|}</li>
+      <li>G’ 有 <code class="language-plaintext highlighter-rouge">|V|(|V| + |E|)</code> 条边，|V|条边 (vk-1, vk), 且权重为 0。|V|条边 (uk-1, vk)，且权重为 w(u, v)。</li>
+      <li>相当于创建 |V| + 1 层图。顶点数很好计算。但是边连接的顶点要变一下，G’ 中有两种类型的边，一种是连接相邻两层、相同顶点的边，由于在顶点内部移动不产生权重，因此边权重为 0；另一种是原图中就有的边，现在连接相邻两层中与原图相对应的顶点，权重还是原图中的权重。</li>
+    </ul>
+  </li>
+  <li>在 G’ 上以 s<sub>0</sub> 为起点运行 DAG Relaxation</li>
+  <li>对于每个顶点，设置 d(s, v) = δ(s<sub>0</sub>, v<sub>|V| - 1</sub>)</li>
+  <li>接下来处理环路，对于每个 witness u，其  δ(s<sub>0</sub>, u<sub>|V|</sub>) &lt; δ(s<sub>0</sub>, u<sub>|V|−1</sub>):
+    <ul>
+      <li>对于图 G 中可以从 u 抵达的顶点 v，设置 d(s, v) = -∞</li>
+    </ul>
+  </li>
+</ul>
+
+<p>例子：</p>
+
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0011-1.png" width="500" />
+<p></p>
+</div>
+
+<p>正确性证明：</p>
+<ul>
+  <li>Claim 3：对于所有的 v，且 k ∈ {0, . . . ,|V|}，δ(s0, vk) = δ<sub>k</sub>(s, v)</li>
+  <li>Claim 4：当 Bellman-Ford 算法结束时，d(s, v) = δ(s, v)</li>
+</ul>
+
+<p>运行时间：<code class="language-plaintext highlighter-rouge">O(|V||E|)</code></p>
+
+  </div><a class="u-url" href="/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <ul class="contact-list">
+          <li class="p-name">syh</li>
+          <li><a class="u-email" href="mailto:songibicf@gmail.com">songibicf@gmail.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>记录计算机专业相关内容，Mens et Manus
+</p>
+      </div>
+    </div>
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">总访问量 <span id="busuanzi_value_site_pv"></span> 次</span>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/syh-1" target="_blank" title="syh-1"><svg class="svg-icon grey"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+    
+
+  </div>
+
+</footer>
+</body>
+
+</html>

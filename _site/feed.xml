@@ -1,5 +1,171 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-07T17:54:17+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">加权最短路径</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html" rel="alternate" type="text/html" title="加权最短路径" /><published>2022-10-03T00:00:00+08:00</published><updated>2022-10-03T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html"><![CDATA[<h3 id="1-加权图">1. 加权图</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-12T23:04:14+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">Dijkstra 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html" rel="alternate" type="text/html" title="Dijkstra 算法" /><published>2022-10-12T00:00:00+08:00</published><updated>2022-10-12T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html"><![CDATA[<h3 id="1-dijkstra-算法">1. Dijkstra 算法</h3>
+
+<p>处理 non-negative edge weights:</p>
+
+<p>idea：在加权图中泛化 BFS 方法
+    - 重复探索更近的顶点，从近到远探索</p>
+
+<p>如何在不知道距离的前提下探索顶点？</p>
+
+<p><strong>Observation 1：</strong>如果权重非负，那么沿着最短路径，距离是在增加的
+    - 例如，如果 u 出现在 s 到 v 的最短路径上，那么 δ(s, u) ≤ δ(s, v)
+    - 把从 s 起，经过距离 &lt;= x 可以到达的顶点集合记为 Vx
+    - 如果 v ∈ Vx，那么从 s 到 v 的最短路径只包含 Vx 中的顶点
+    - 那么可以在探索的时候逐渐扩充 Vx</p>
+
+<p><strong>Ovservation 2：</strong>如果把顶点按照距 s 的距离排列，那么可以很快的解决 SSSP 问题。
+    - 移除违反该顺序的边
+    - 对于所有顶点 v，使用 DAG relaxation 计算 δ(s, v)</p>
+
+<hr />
+
+<p><strong>Dijkstra 算法：</strong></p>
+<ul>
+  <li>idea：按照离 s 的距离递增顺序，依次松弛边</li>
+  <li>idea：利用数据结构，可以快速的找到顺序中的下一个顶点
+    <ul>
+      <li>changeable priority queue Q：存储的项带有 key 和独特的 id，可以删除最小 key 的项，也可以把某一个 id 项的 key 改变。</li>
+      <li>通过 cross-linking 来实现，把字典 D 映射到 ID，ID 映射到优先队列中的项 Q’</li>
+      <li>ID 可以是从 0 到 |V|-1 的整数，表示一个顶点</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Dijkstra 算法的步骤：</p>
+<ul>
+  <li>对于所有的 v，设置 d(s, v) = ∞，设置 d(s, s) = 0</li>
+  <li>创建 changeable priority queue Q，存储所有的 (v, d(s, v))，元组中分别为 id 和 key</li>
+  <li>当 Q 不为空时，从 Q 中删除 d(s, u) 最小的项 (u, d(s, u))
+    <ul>
+      <li>对于 u 的出邻接点 v：</li>
+      <li>如果 d(s, v) &gt; d(s, u) + w(u, v)，松弛边 (u, v)，即设置 d(s, v) = d(s, u) + w(u, v)。并且在 Q 中修改 v 的 key 为新的估计 d(s, v)</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>例子：</strong></p>
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0012-1.png" width="500" />
+<p></p>
+</div>
+
+<h3 id="2-证明">2. 证明</h3>
+
+<p>Claim：Dijkstra 算法结束时，对于所有的 v，d(s, v) = δ(s, v)
+Proof：</p>
+<ul>
+  <li>如果松弛时 d(s, v) 减少到了 δ(s, v)，那么在算法结束时 d(s, v) = δ(s, v)
+    <ul>
+      <li>松弛只能减少估计 d(s, v)</li>
+      <li>松弛是安全的，例如维持 d(s, v) 是从 s 到 v 一条路径的权重</li>
+    </ul>
+  </li>
+  <li>证明当顶点 v 从 Q 中移除时，d(s, v) = δ(s, v)
+    <ul>
+      <li>基本情况 (k=1)：s 是从 Q 移除的第一个顶点，d(s, s) = 0 = δ(s, s)</li>
+      <li>归纳步骤：假设对于 k &lt; k’为真，考虑第 k’ 个顶点 v’ 从 Q 中移除的情况</li>
+      <li>从 s 到 v’ 的最短路径表示为 π，用 (x, y) 表示 π 中 y 不在前 k’-1 个顶点的边。</li>
+      <li>当 x 从 Q 中移除，根据假设 d(s, x) = δ(s, x)。所以 d(s, y) &lt;= δ(s, x) + w(x, y) = δ(s, y) &lt;= δ(s, v’) &lt;= d(s, v’) &lt;= d(s, y)</li>
+      <li>所以 d(s, v’) = δ(s, v’)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>运行时间：</p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">O(|E| + |V|log|V|)</code></li>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. Dijkstra 算法]]></summary></entry><entry><title type="html">Bellman-Ford 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011.html" rel="alternate" type="text/html" title="Bellman-Ford 算法" /><published>2022-10-07T00:00:00+08:00</published><updated>2022-10-07T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/07/%E7%AE%97%E6%B3%95-0011.html"><![CDATA[<h3 id="1-negative-cycle-witness">1. Negative Cycle Witness</h3>
+
+<p>练习：给定一个 SSSP 算法 A，其时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V|(|V| + |E|)</code>，如果在 <code class="language-plaintext highlighter-rouge">O(|V||E|)</code> 时间内解决 SSSP 问题。</p>
+
+<p>Solution:</p>
+<ul>
+  <li>运行 BFS 或者 DFS，找到从 s 可以到达的顶点，时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|E|)</code></li>
+  <li>标记其余不可达的顶点 δ(s, v) = ∞，时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V|)</code></li>
+  <li>创建 G’ = (V’, E’)，只包含可以从 s 到达的顶点，时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V|+ |E|)</code></li>
+  <li>在 G’ 上运行 A。G’是连通图， 因此 <code class="language-plaintext highlighter-rouge">|V'| = O(|E'|) = O(|E|)</code>，A 的运行时间是 <code class="language-plaintext highlighter-rouge">O(|V||E|)</code></li>
+</ul>
+
+<p>Bellman-Ford 算法的目的：在任意权重的 general graph 上，实现 SSSP 算法的时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V||E|)</code></p>
+
+<hr />
+
+<p><strong>简单最短路径：</strong></p>
+<ul>
+  <li>如果图中包含环路和负权重，那么可能包含负权重环路 (negative-weight cycles)</li>
+  <li>如果图中不包含 negative-weight cycles，最短路径是简单的</li>
+</ul>
+
+<p><strong>Claim 1：</strong>如果 δ(s, v) 是有限的，那么 s 到 v 的最短路径一定是简单路径</p>
+
+<p><strong>证明：</strong>：</p>
+<ul>
+  <li>反证法，假设 s 到 v 的最短路径 π 不是简单路径</li>
+  <li>π 不是简单路径，那么一定存在环路 C，C 是非负的权重。因为 C 如果是负权重环路， δ(s, v) 就是 −∞。</li>
+  <li>从 π 中移除 C，得到更少权重的路径，与 π 是最短路径矛盾。</li>
+</ul>
+
+<p>由 claim 1 可以看到，有限长度的最短路径一定是简单路径，因此绝不可能包含环路，任意的最短路径最多包含 <code class="language-plaintext highlighter-rouge">|V| − 1</code> 条边。</p>
+
+<hr />
+
+<p><strong>Negative Cycle Witness</strong></p>
+<ul>
+  <li>k-边距离 δ<sub>k</sub>(s, v)：从 s 到 v 的使用边数小于等于 k 的任何路径的最小权重</li>
+  <li>Idea：对于所有的顶点，计算 δ<sub>|V|−1</sub>(s, v) 和 δ<sub>|V|</sub>(s, v)
+    <ul>
+      <li>如果 δ(s, v) != -∞，δ(s, v) = δ<sub>|V|−1</sub>(s, v)，因为最短路径是简单路径</li>
+      <li>如果 δ<sub>|V|</sub>(s, v) &lt; δ<sub>|V|−1</sub>(s, v)，那么存在更短的非简单路径，所以 δ<sub>|V|</sub>(s, v) = -∞，并且把 v 叫做 negative cycle witness</li>
+      <li>但是，负环路上的顶点不全是 witness</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Claim 2: 如果 δ(s, v) = −∞，那么 v 可以从一个 witness 抵达</p>
+
+<p>证明：可以从 s 到达的每个负权环路上都包含一个见证</p>
+
+<h3 id="2-bellman-ford">2. Bellman-Ford</h3>
+
+<ul>
+  <li>Idea: 使用图重复，对图复制多份</li>
+  <li>新图有|V| + 1 层: 在 k 层的顶点 v<sub>k</sub> 表示从 v 到 s 使用 &lt;= k 条边</li>
+  <li>如果边仅仅在层与层之间连接，那么，得到的为 DAG</li>
+</ul>
+
+<p>步骤：</p>
+<ul>
+  <li>创建一个新 DAG G’ = (V’, E’)
+    <ul>
+      <li>G’ 有 <code class="language-plaintext highlighter-rouge">|V|(|V| + 1)</code> 个顶点 v<sub>k</sub>, k ∈ {0, . . . ,|V|}</li>
+      <li>G’ 有 <code class="language-plaintext highlighter-rouge">|V|(|V| + |E|)</code> 条边，|V|条边 (vk-1, vk), 且权重为 0。|V|条边 (uk-1, vk)，且权重为 w(u, v)。</li>
+      <li>相当于创建 |V| + 1 层图。顶点数很好计算。但是边连接的顶点要变一下，G’ 中有两种类型的边，一种是连接相邻两层、相同顶点的边，由于在顶点内部移动不产生权重，因此边权重为 0；另一种是原图中就有的边，现在连接相邻两层中与原图相对应的顶点，权重还是原图中的权重。</li>
+    </ul>
+  </li>
+  <li>在 G’ 上以 s<sub>0</sub> 为起点运行 DAG Relaxation</li>
+  <li>对于每个顶点，设置 d(s, v) = δ(s<sub>0</sub>, v<sub>|V| - 1</sub>)</li>
+  <li>接下来处理环路，对于每个 witness u，其  δ(s<sub>0</sub>, u<sub>|V|</sub>) &lt; δ(s<sub>0</sub>, u<sub>|V|−1</sub>):
+    <ul>
+      <li>对于图 G 中可以从 u 抵达的顶点 v，设置 d(s, v) = -∞</li>
+    </ul>
+  </li>
+</ul>
+
+<p>例子：</p>
+
+<div align="center">
+<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0011-1.png" width="500" />
+<p></p>
+</div>
+
+<p>正确性证明：</p>
+<ul>
+  <li>Claim 3：对于所有的 v，且 k ∈ {0, . . . ,|V|}，δ(s0, vk) = δ<sub>k</sub>(s, v)</li>
+  <li>Claim 4：当 Bellman-Ford 算法结束时，d(s, v) = δ(s, v)</li>
+</ul>
+
+<p>运行时间：<code class="language-plaintext highlighter-rouge">O(|V||E|)</code></p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. Negative Cycle Witness]]></summary></entry><entry><title type="html">加权最短路径</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html" rel="alternate" type="text/html" title="加权最短路径" /><published>2022-10-03T00:00:00+08:00</published><updated>2022-10-03T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/03/%E7%AE%97%E6%B3%95-0010.html"><![CDATA[<h3 id="1-加权图">1. 加权图</h3>
 
 <p>review:</p>
 <ul>
@@ -890,190 +1056,4 @@ F 的 skew 为 -1，那么得先对 F 执行右旋，再左旋。证明和上面
 <div align="center">
 <img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0005-1.png" width="500" />
 <p></p>
-</div>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 二叉树]]></summary></entry><entry><title type="html">环境配置</title><link href="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/14/%E8%BD%AF%E4%BB%B6-0001.html" rel="alternate" type="text/html" title="环境配置" /><published>2022-09-14T00:00:00+08:00</published><updated>2022-09-14T00:00:00+08:00</updated><id>http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/14/%E8%BD%AF%E4%BB%B6-0001</id><content type="html" xml:base="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/14/%E8%BD%AF%E4%BB%B6-0001.html"><![CDATA[<p>课程名称是 Software Construction，网站为：<a href="https://web.mit.edu/6.031/www/sp22/">https://web.mit.edu/6.031/www/sp22/</a>。课程用的是 JavaScript，开始先安装软件。全部在 WSL 下安装。</p>
-
-<h3 id="1-安装-typescript">1. 安装 TypeScript</h3>
-<h4 id="11-node">1.1 node</h4>
-
-<p>按照说明安装</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>https://github.com/nodesource/distributions/blob/master/README.md
-</code></pre></div></div>
-
-<p>检查：</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>node --version
-</code></pre></div></div>
-
-<h4 id="12-install-typescript">1.2 install TypeScript</h4>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo -H npm install -g typescript
-
-# 检查
-tsc --version
-</code></pre></div></div>
-
-<h3 id="2-git-配置">2. Git 配置</h3>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 用户名和邮箱
-git config --global user.name "Your Name"
-git config --global user.email email@email
-
-# 设置 alias，以后输入 git lol 就可代替 log 后面的一串命令
-git config --global alias.lol "log --graph --oneline --decorate --color --all"
-
-# 列出目前的 config
-git config --list
-</code></pre></div></div>
-
-<h4 id="21-git-基础概念">2.1 Git 基础概念</h4>
-
-<p>Git 是一种版本控制系统 (version control system, VCS)。一些基础的概念：</p>
-<ul>
-  <li>存储库 (repository)：包含与项目相关所有文件的文件夹，以及对这些文件的整个提交历史。</li>
-  <li>提交 (commit)：给定时间点时存储库中文件的快照。</li>
-  <li>添加/暂存 (add/stage)：在对文件的更改可以提交到存储库之前，必须添加或暂存相关文件。</li>
-  <li>克隆 (clone)：开发人员可以从 github 上 “克隆” 远程存储库，得到一份本地存储库。之后可以对本地存储库进行修改。</li>
-  <li>push：将本地的 commit 发送到远程存储库中，相当于上传修改。</li>
-  <li>pull：检查远程存储库的提交，并将远程存储库中的修改写入本地存储库，相当于得到最新版本。</li>
-</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[课程名称是 Software Construction，网站为：https://web.mit.edu/6.031/www/sp22/。课程用的是 JavaScript，开始先安装软件。全部在 WSL 下安装。]]></summary></entry><entry><title type="html">静态检查</title><link href="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/14/%E8%BD%AF%E4%BB%B6-0002.html" rel="alternate" type="text/html" title="静态检查" /><published>2022-09-14T00:00:00+08:00</published><updated>2022-09-14T00:00:00+08:00</updated><id>http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/14/%E8%BD%AF%E4%BB%B6-0002</id><content type="html" xml:base="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/14/%E8%BD%AF%E4%BB%B6-0002.html"><![CDATA[<h3 id="1-types">1. Types</h3>
-
-<p>数据类型：值 + 操作</p>
-
-<p>TypeScript 的几个内建类型：</p>
-<ul>
-  <li>number，表示整数和浮点数</li>
-  <li>boolean</li>
-  <li>string，表示字符序列</li>
-</ul>
-
-<p>Operation：有输入，并且产生输出的<strong>函数</strong>，syntax 包括：</p>
-<ul>
-  <li>operator</li>
-  <li>function</li>
-  <li>method</li>
-  <li>property</li>
-</ul>
-
-<p>TypeScript 是静态类型语言，变量可以被指定一个类型，在编译时会进行类型检查，并且编译器可以推导出表达式的类型。JavaScript 和 Python 是动态类型语言，只有在运行时才可进行类型检查。</p>
-
-<p>TypeScript 相比于 JavaScript 增加了静态类型检查，反映了软件工程领域一条规则，即对于创建和维护大型的软件来说，使用静态类型是不可或缺的。</p>
-
-<h3 id="2-静态检查动态检查不检查">2. 静态检查，动态检查，不检查</h3>
-
-<p>语言可以提供的三类自动检查：</p>
-<ul>
-  <li>静态检查：在编译时就可以发现程序中的类型错误</li>
-  <li>动态检查：在代码实际运行时发现错误</li>
-  <li>不检查：语言不提供任何检查功能</li>
-</ul>
-
-<p>提供静态检查比提供动态检查要好，提供动态检查比不检查要好。</p>
-
-<p>静态检查能发现的错误：</p>
-<ul>
-  <li>句式错误：例如多余的标点符号或者可疑的词。</li>
-  <li>错误拼写的名称：例如 Math.sine(2)</li>
-  <li>错误的参数数目：例如 Math.sin(30, 20)</li>
-  <li>错误的参数类型：例如 Math.sin(“30”)</li>
-  <li>错误的返回值：  例如一个函数声明返回 number，却 return “30”，</li>
-</ul>
-
-<p>动态检查可以发现的错误：</p>
-<ul>
-  <li>特定的不合法的参数值：例如表达式 x/y，当 y 是 0 时，引发错误。</li>
-  <li>不合法的类型转换：例如 int(“hello”)</li>
-  <li>索引越界：数组中的 IndexError</li>
-  <li>在错误的对象引用上调用方法：例如 underfined 或者 null 上调用方法</li>
-</ul>
-
-<p>静态类型可以检测与变量类型有关的错误，但是通常不能发现与合法类型中特定值有关的错误。</p>
-
-<p>在 TypeScript 中，TypeScript 提供静态检查，但是运行时的行为完全由 JavaScript 提供。但是 JavaScript 在设计时，对于大多数的动态检查都不支持。例如，当 string 或者 array 越界，JavaScript 返回一个特殊的值 undefined，而不是像 Python 一样 throw IndexError；当除以 0 时，JavaScript 返回代表 infinity 的特殊值，同样不是引发错误。不提供检查使得 bug 更难被发现，因为特殊的值可能会继续进行接下来的计算，直到发生错误。</p>
-
-<h4 id="21-surprisenumber-is-not-a-true-number">2.1 Surprise：<code class="language-plaintext highlighter-rouge">number</code> is not a true number</h4>
-
-<p>TypeScript 的另一个陷阱是，数字类型有几个例子，与常见的实数运算不同。</p>
-
-<ul>
-  <li>整数的有限精度：在 TypeScript 中，所有的数字都是浮点数，这意味着大的整数只能近似表示。从 -2^53 到 2^53 的整数可以准确表示，但是当超过这个范围，只能保留最高有效二进制位。</li>
-  <li>特殊的值：<code class="language-plaintext highlighter-rouge">number</code> 有几个特殊的值，这些值不是实数，例如 <code class="language-plaintext highlighter-rouge">Number.NaN</code>， <code class="language-plaintext highlighter-rouge">Number.POSITIVE_INFINITY</code>, <code class="language-plaintext highlighter-rouge">Number.NEGATIVE_INFINITY</code></li>
-  <li>overflow 和 underflow：不能表示非常大的数与非常小的数。当表示超过 Number.MAX_VALUE 的数，结果是 POSITIVE_INFINITY。</li>
-</ul>
-
-<h3 id="3-javascript">3. JavaScript</h3>
-
-<h4 id="31-array">3.1 Array</h4>
-
-<p>Array：可变长度的序列，可以保持任何的类型，与 Python 中的 list 相似。</p>
-
-<p>创建空数组：</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let array: Arary&lt;number&gt; = [];
-</code></pre></div></div>
-
-<h4 id="32-functions">3.2 Functions</h4>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/**
- * Compute a hailstone sequence.
- * @param n starting number for sequence. Assumes n &gt; 0
- * @returns hailstone sequence starting with n and ending with 1
- */
-function hailstoneSequence(n:number): Array&lt;number&gt; {
-    let array: Array&lt;number&gt; = [];
-    while (n != 1) {
-        array.push(n);
-        if (n % 2 === 0) {
-            n = n / 2;
-        } else {
-            n = 3 * n + 1;
-        }
-    }
-    array.push(n);
-    return array;
-}
-</code></pre></div></div>
-
-<h4 id="33-可修改的值-vs-重新分配变量">3.3 可修改的值 vs. 重新分配变量</h4>
-
-<p>不可变类型：一旦创建，值不能改变的类型。string 类型在 Python 和 JavaScript 中都不可变。</p>
-
-<p>TypeScript 允许声明不可变引用。变量一旦被赋值，永远不能重新分配。使用 const 来声明不可变引用。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const n: number = 5;
-</code></pre></div></div>
-
-<h3 id="4-文档假设">4. 文档假设</h3>
-
-<p>写变量的类型其实对变量做出了假设，变量有自己的取值范围。 程序员必须有以下两个目标：</p>
-<ul>
-  <li>与计算机交流。首先得让编译器知道程序是正确的，例如句式是正确的，类型也正确。</li>
-  <li>与其他人交流。程序得益于理解，其他人可以修改程序。</li>
-</ul>
-
-<h4 id="41-hacking-vs-engineering">4.1 hacking vs. engineering</h4>
-
-<p>haching：</p>
-<ul>
-  <li>不进行代码测试</li>
-  <li>把所有的细节都记在脑子里，假设你会永远记住它们，而不是把它们写在你的代码中。</li>
-  <li>假设 bug 不存在或者很容易修复</li>
-</ul>
-
-<p>工程：</p>
-<ul>
-  <li>一次写一点，逐步测试</li>
-  <li>在代码内附带上你的假设</li>
-  <li>远离愚蠢的错误，静态检查有许多帮助</li>
-</ul>
-
-<p>6.031 目标：</p>
-<ul>
-  <li>Safe from bugs</li>
-  <li>Easy to understand</li>
-  <li>Ready for change</li>
-</ul>
-
-<p>为什么使用 TypeScript：</p>
-
-<ul>
-  <li>安全：TypeScript 有静态检查</li>
-  <li>无处不在：TypeScript 直接编译成 JavaScript，广泛用在各领域中。相比于 Java，TypeScript 有更为丰富的类型系统，更适合创建现代用户接口和网页应用。</li>
-</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Types]]></summary></entry></feed>
+</div>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 二叉树]]></summary></entry></feed>
