@@ -1,5 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-12T23:04:14+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">Dijkstra 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html" rel="alternate" type="text/html" title="Dijkstra 算法" /><published>2022-10-12T00:00:00+08:00</published><updated>2022-10-12T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html"><![CDATA[<h3 id="1-dijkstra-算法">1. Dijkstra 算法</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-13T22:09:39+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">APSP 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html" rel="alternate" type="text/html" title="APSP 算法" /><published>2022-10-13T00:00:00+08:00</published><updated>2022-10-13T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html"><![CDATA[<h3 id="1-apsp">1. APSP</h3>
+
+<p>APSP (All-Pairs Shortest Paths) 问题：</p>
+<ul>
+  <li>输入: 有向图 G = (V, E)，带有权重函数 w</li>
+  <li>输出：输出所有的 δ(u, v)，如果 G 包含负权重环路，记录该顶点</li>
+</ul>
+
+<p>可以简单的运行 SSSP 算法 |V| 次。但是在包含负权重的图中，Johnson 算法可以把复杂度降低为 <code class="language-plaintext highlighter-rouge">|V|·O(|V|log|V|+|E|)</code></p>
+
+<p>方法：</p>
+<ul>
+  <li>Idea：在保留最短路径的前提下，让所有边的权重变为非负。例如，让 G 变为 G’，且 G’ 中没有负权重，在这个过程中，G 中的最短路径和 G’ 中的最短路径要保持一致。如果图中没有负权重，那么可以使用 Dijkstra 算法运行 |V| 次来解决 APSP。</li>
+  <li>Claim：可以从 G’ 中的距离计算出 G 中的距离，且时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V|(|V|+|E|))</code>
+    <ul>
+      <li>对于 V’ 中的每个顶点 s，从距离中可以计算出最短路径树，时间复杂度为 <code class="language-plaintext highlighter-rouge">O(|V| + |E|)</code></li>
+      <li>这也是 G 中的最短路径树，所以用 DFS 遍历树，可以计算出 G 中的距离</li>
+      <li>总共花费 <code class="language-plaintext highlighter-rouge">O(|V|(|V|+|E|))</code>时间</li>
+    </ul>
+  </li>
+  <li>Claim：如果 G 中包含负权重环路，无法把 G 转变为非负权重图 G’</li>
+  <li>Proof：如果一个图为非负权重，那么其最短路径是简单路径。但是在有负权重环路的图中，最短路径不一定是简单路径。无法做到 G 和 G’ 中的最短路径保持不变。</li>
+</ul>
+
+<h3 id="2-权重变为非负">2. 权重变为非负</h3>
+
+<p>如果图 G 有负权重，但是没有负权重环路，如何把权重变为非负：</p>
+<ul>
+  <li>Idea：在每条的权重上，增加最小权重的负值，那么得到的所有权重都是非负的</li>
+  <li>上述 idea 不可行，因为，没有保留最短路径不变， G’ 中最短路径偏向于选择更少边的路径。</li>
+  <li>Idea：给定顶点 v，在所有的出边上加 h，在所有的入边上减少 h</li>
+  <li>Claim：在上述的重新赋权重后，最短路径得到了保留</li>
+  <li>Proof：
+    <ul>
+      <li>v 开始的每条路径权重改变了 h</li>
+      <li>以 v 结束的每条路径权重改变了 -h</li>
+      <li>经过 v 的路径权重局部不改变</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>potential function h：</strong>把 V 映射到整数</p>
+
+<p>图 G’ 此时由 G 创建而来，但是边 (u, v) 的权重 w’(u, v) = w(u, v) + h(u) - h(v)</p>
+
+<p>Claim: 图 G 中的最短路径还是 G’ 中的最短路径</p>
+
+<p>Proof：</p>
+<ul>
+  <li>G 中路径 π = (v0, …, vk) 权重为 w(π)。该路径在 G’中的权重是 w(π) + h(v0) - h(vk)</li>
+  <li>从 v0 到 vk 所有的路径都是改变了相同的量，都是 h(v0)-h(vk)</li>
+  <li>所以图 G 中的最短路径还是 G’ 中的最短路径</li>
+</ul>
+
+<hr />
+
+<p>找到 potential function：</p>
+<ul>
+  <li>需要满足对于任意的边 (u, v)，w(u,v) + h(u) - h(v) &gt;= 0</li>
+  <li>变形后得到：h(v) &lt;= h(u)+w(u, v)，形式类似于三角不等式</li>
+  <li>Idea：选 h(v) = δ(s, v)，那么上述条件可能满足，但是图中可能存在不连通的点，因此 h(v) 不能简单的选为 δ(s, v)</li>
+  <li>
+    <p>Idea：增加一个新顶点 s，该顶点有指向任一顶点的出边，且这些出边的权重为 0。通过增加新顶点和权重为 0 的边，避免了图不连通的问题。 h(v) 可以选为 δ(s, v)。</p>
+  </li>
+  <li>Claim：如果 δ(s, v) = −∞，那么原始的图中存在负权重环路</li>
+  <li>Proof：
+    <ul>
+      <li>在图中增加的新顶点 s 不会添加环路，因为 s 只有出边</li>
+      <li>如果没有负权重环路，那么 δ(s, v) &lt;= 0，如果 δ(s, v) = −∞，那么原始的图中存在负权重环路</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Johnson’s 算法：</strong></p>
+<ul>
+  <li>从图 G 增加一个顶点 x，x 有权重为 0 的出边连接到每一个顶点，得到图 Gx</li>
+  <li>使用 Bellman-Ford 算法计算 δ(x, v)</li>
+  <li>如果 δ(x, v) = −∞，那么对于该顶点 v：
+    <ul>
+      <li>Abort</li>
+    </ul>
+  </li>
+  <li>否则：
+    <ul>
+      <li>更改边的权重为 w’(u, v) = w(u, v) + δ(x, u) - δ(x, v)，形成图 G’</li>
+      <li>对于每个顶点 u：</li>
+      <li>使用 Dijkstra 算法计算到每个顶点 v 的 δ’(u, v)</li>
+      <li>图 G 中的距离 δ(u, v) = δ’(u, v) − δ(x, u) + δ(x, v)</li>
+    </ul>
+  </li>
+</ul>
+
+<p>运行时间：
+<code class="language-plaintext highlighter-rouge">O(|V| * (|V|log|V| + |E|))</code></p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. APSP]]></summary></entry><entry><title type="html">Dijkstra 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html" rel="alternate" type="text/html" title="Dijkstra 算法" /><published>2022-10-12T00:00:00+08:00</published><updated>2022-10-12T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html"><![CDATA[<h3 id="1-dijkstra-算法">1. Dijkstra 算法</h3>
 
 <p>处理 non-negative edge weights:</p>
 
@@ -261,7 +354,7 @@ Proof：</p>
   </li>
 </ul>
 
-<p>在 DAG 中，不存在环路，relaxation 最后一定会结束。按照拓扑顺序依次放松出边，可以正确的计算出最短路径。该算法叫做 DAG Relaxation。</p>
+<p>在 DAG 中，不存在环路，relaxation 最后一定会结束。按照拓扑顺序依次松弛出边，可以正确的计算出最短路径。该算法叫做 DAG Relaxation。</p>
 
 <p>步骤：</p>
 <ul>
@@ -924,136 +1017,4 @@ F 的 skew 为 -1，那么得先对 F 执行右旋，再左旋。证明和上面
 <ul>
   <li>为了在二叉树中增添子树属性 p，需要在每个结点处存储属性 p，并且可以用 O(1) 时间，从结点的孩子结点计算出属性值。</li>
   <li>那么，增加属性 p，不会改变动态操作的时间复杂度。</li>
-</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 平衡二叉树]]></summary></entry><entry><title type="html">二叉树 I</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/16/%E7%AE%97%E6%B3%95-0005.html" rel="alternate" type="text/html" title="二叉树 I" /><published>2022-09-16T00:00:00+08:00</published><updated>2022-09-16T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/16/%E7%AE%97%E6%B3%95-0005</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/16/%E7%AE%97%E6%B3%95-0005.html"><![CDATA[<h3 id="1-二叉树">1. 二叉树</h3>
-
-<p>序列结构介绍了数组、链表、动态数组，操作的时间复杂度见上表。集合数据结构介绍了数组、有序数组、直接访问数组、hash 表。但是这些数据结构在某一项或者两项操作的时间复杂度占优势，无法兼顾全部操作的时间复杂度。而通过二叉树可以实现 “Goal” 一栏的时间复杂度。</p>
-
-<p>二叉树是基于指针的数据结构，每个结点包含三个指针，分别为 node.parent, node.left, node.right。</p>
-
-<p><strong>术语</strong>：</p>
-<ul>
-  <li>根：在树中如果某一结点没有父结点，那么该结点叫做树的根</li>
-  <li>叶结点：没有孩子结点</li>
-  <li>结点 x 的深度：从根结点到该结点的路径长度</li>
-  <li>结点 x 的高度：以 x 为根的子树的最大深度</li>
-</ul>
-
-<p>为什么要使用树结构？</p>
-
-<p>树结构也是也指针为基础的，每个结点包含三个指针。但是与链表不同，在链表中每访问一个结点都得从前往后开始遍历，时间复杂度为 O(n)。二叉树通过每个结点的 2 个分支，将树的高度最低可以降到 O(logn)。</p>
-
-<p>因此，二叉树所有算法的基本 idea 为：对于树高为 h 的树，设计算法，使得操作的时间复杂度为 O(h), 并且尽可能维持 h = O(logn)，使得最后算法的时间复杂度为 O(h)=O(logn)</p>
-
-<p>二叉树的遍历，如果按照中序遍历：</p>
-<ul>
-  <li>结点 x 左子树的结点在 x 之前</li>
-  <li>结点 x 右子树的结点在 x 之后</li>
-  <li>从根结点开始递归遍历</li>
-</ul>
-
-<h3 id="2-树的遍历">2. 树的遍历</h3>
-
-<p>以下全部按中序遍历，介绍了遍历中结点出现的顺序。</p>
-
-<p>以结点 x 为根的子树中<strong>第一个结点</strong>：</p>
-<ul>
-  <li>如果 x 有左孩子，递归返回左子树的第一个结点</li>
-  <li>否则，x 是第一个结点，返回 x</li>
-  <li>运行时间为 O(h)</li>
-</ul>
-
-<p>以结点 x 为根的子树中<strong>最后一个结点</strong>：</p>
-<ul>
-  <li>如果 x 有右孩子，递归返回右子树的最后一个结点</li>
-  <li>否则，x 是最后一个结点，返回 x</li>
-</ul>
-
-<p>结点 x 的<strong>后继结点</strong>：</p>
-<ul>
-  <li>如果 x 有右子树，返回右子树第一个结点</li>
-  <li>否则，返回 x 的最低祖先结点，且 x 要在该祖先结点的左子树中</li>
-  <li>运行时间为 O(h)</li>
-</ul>
-
-<p>结点 x 的<strong>前驱结点</strong>：</p>
-<ul>
-  <li>如果 x 有左子树，返回左子树最后一个结点</li>
-  <li>否则，返回 x 的最低祖先结点，x 要在该祖先结点的右子树中</li>
-</ul>
-
-<h3 id="3-动态操作">3. 动态操作</h3>
-
-<p>在 x 结点之后<strong>插入</strong>新结点 y：</p>
-<ul>
-  <li>如果 x 没有右子树，把 y 放入 x 的右孩子结点</li>
-  <li>否则，把 y 放入 x 后继结点 s 的左孩子结点中。s 一定没有左孩子，因为 s 是 x 右子树第一个结点。y 相当于放在 s 的前面。</li>
-</ul>
-
-<p><strong>删除</strong>结点 x：</p>
-<ul>
-  <li>如果 x 是叶子结点，直接删除</li>
-  <li>否则，x 有孩子结点。此时不能直接删除 x，得与其他结点交换，让 x 变到叶子结点。
-    <ul>
-      <li>如果 x 有左孩子，让 x 与其<strong>前驱结点</strong>交换，递归删除 x 结点</li>
-      <li>否则，让 x 与其<strong>后继结点</strong>交换，递归删除 x 结点</li>
-    </ul>
-  </li>
-  <li>运行时间为 O(h)</li>
-</ul>
-
-<h3 id="4-应用">4. 应用</h3>
-
-<h4 id="41-set">4.1 Set</h4>
-
-<ul>
-  <li>idea：集合中重要的是 <strong>find</strong> 操作，为了用树实现比较，常用的是二叉搜索树 (Binary Search Tree / BST)。
-    <ul>
-      <li>中序遍历得到的结果是按键排列好的</li>
-      <li>等价的 BST 属性：对于每个结点，左子树中的值小于结点的值，右子树中的值大于结点的值。</li>
-    </ul>
-  </li>
-  <li>在树中查找键值 k
-    <ul>
-      <li>如果 k 小于结点 x 的值，在左子树中递归查找</li>
-      <li>如果 k 大于结点 x 的值，在右子树中递归查找</li>
-      <li>否则，返回 x</li>
-    </ul>
-  </li>
-</ul>
-
-<h4 id="42-sequence">4.2 Sequence</h4>
-
-<ul>
-  <li>idea：使得中序遍历得到的顺序是按序列顺序排列的</li>
-  <li>查找 i 结点的操作，调用 subtree_at(i)。但是需要从头开始进行中序遍历，时间复杂度为 O(n)。</li>
-  <li>但是，如果可以用 O(1) 的时间复杂度得到<strong>子树的大小</strong> (size)，访问 i 结点的操作时间复杂度可以降到 O(h)。子树大小指子树中结点的总个数。
-    <ul>
-      <li>首先检查<strong>左子树</strong>的大小 n<sub>L</sub>，并且与 i 比较</li>
-      <li>如果 i &lt; n<sub>L</sub>，说明第 i 个结点在左子树，递归查找</li>
-      <li>如果 i &gt; n<sub>L</sub>，在右子树上递归查找，且 i’ = i - n<sub>L</sub> - 1</li>
-      <li>否则，i = n<sub>L</sub>，则根结点索引值为 i，返回根结点</li>
-    </ul>
-  </li>
-  <li>通过扩增 (augmentation) 来记录每个结点子树的尺寸
-    <ul>
-      <li>在 node 中加入属性 node.size</li>
-      <li>当加入一个新的叶子结点，对于该结点的所有祖先结点，size 都加 1</li>
-      <li>当删除一个叶子结点，对于该结点的所有祖先结点，size 减少 1</li>
-    </ul>
-  </li>
-  <li>subtree augmentation：
-    <ul>
-      <li>每个结点存储 O(1) 额外的属性</li>
-      <li>subtree 的属性可以从其左子树和右子树的属性用 O(1) 时间计算出来</li>
-      <li>无论对树进行什么修改操作，都得更新结点的属性</li>
-      <li>可能的 subtree properties：sum，product，min，max，height</li>
-      <li>不能作为 subtree properties：index，depth</li>
-    </ul>
-  </li>
-</ul>
-
-<p>时间复杂度：</p>
-<div align="center">
-<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0005-1.png" width="500" />
-<p></p>
-</div>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 二叉树]]></summary></entry></feed>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 平衡二叉树]]></summary></entry></feed>
