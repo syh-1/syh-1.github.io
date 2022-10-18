@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-13T22:09:39+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-10-18T11:27:40+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
 </subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">APSP 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html" rel="alternate" type="text/html" title="APSP 算法" /><published>2022-10-13T00:00:00+08:00</published><updated>2022-10-13T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html"><![CDATA[<h3 id="1-apsp">1. APSP</h3>
 
 <p>APSP (All-Pairs Shortest Paths) 问题：</p>
@@ -92,7 +92,155 @@
 </ul>
 
 <p>运行时间：
-<code class="language-plaintext highlighter-rouge">O(|V| * (|V|log|V| + |E|))</code></p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. APSP]]></summary></entry><entry><title type="html">Dijkstra 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html" rel="alternate" type="text/html" title="Dijkstra 算法" /><published>2022-10-12T00:00:00+08:00</published><updated>2022-10-12T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html"><![CDATA[<h3 id="1-dijkstra-算法">1. Dijkstra 算法</h3>
+<code class="language-plaintext highlighter-rouge">O(|V| * (|V|log|V| + |E|))</code></p>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. APSP]]></summary></entry><entry><title type="html">递归算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0014.html" rel="alternate" type="text/html" title="递归算法" /><published>2022-10-13T00:00:00+08:00</published><updated>2022-10-13T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0014</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0014.html"><![CDATA[<h3 id="1-如何解决算法问题">1. 如何解决算法问题</h3>
+<ol>
+  <li>使用已有的算法
+    <ul>
+      <li>search data structure：数组、链表、动态数组、有序数组、直接访问数组、哈希表、AVL 树、堆</li>
+      <li>排序算法：插入排序、选择排序、归并排序、计数排序、基数排序、AVL 排序、堆排序</li>
+      <li>图算法：BFS、DFS、DAG relaxation、Dijkstra、Bellman-Ford、Johnson</li>
+    </ul>
+  </li>
+  <li>设计递归算法</li>
+</ol>
+
+<hr />
+
+<p>如何递归的解决问题：</p>
+<ol>
+  <li>Subproblem definition</li>
+  <li>Relate subproblem solutions recursively</li>
+  <li>Topological order on subproblems</li>
+  <li>Base cases of relation</li>
+  <li>original problem solution via subproblem</li>
+  <li>Time analysis</li>
+</ol>
+
+<p>Merge Sort 例子：</p>
+<ul>
+  <li>Subproblem：S(i, j) = 对原数组 A[i:j] 排好序的数组</li>
+  <li>Relation：S(i, j) = merge(S(i, m), S(m, j)), m = (i+j)/2</li>
+  <li>Topo. order：j-i 的值越来越大</li>
+  <li>Base cases：S(i, i+1) = <code class="language-plaintext highlighter-rouge">[A[i]]</code></li>
+  <li>Original：S(0, n)</li>
+  <li>Time: T(n) = 2T(n/2) + O(n) = O(nlgn)</li>
+</ul>
+
+<p>Fibonacci Numbers 例子:</p>
+<ul>
+  <li>Subproblem: F(i) = 第 i 个 fibonacci 数</li>
+  <li>Relation：F(i) = F(i-1) + F(i-2)</li>
+  <li>Topo. order：i 从小到大</li>
+  <li>Base cases：F(0) = 0, F(1) = 1</li>
+  <li>Original: F(n)</li>
+  <li>Time: T(n) = T(n-1) + T(n-2) + O(1)
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def fib(n):
+  if n &lt; 2:
+      return n
+  return fib(n-1) + fib(n-2)
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<p>为了避免重复计算子问题，可以重新使用已经得到的子问题的解，有两种方法：</p>
+<ul>
+  <li>子问题的依赖图是 DAG</li>
+  <li>为了重新使用子问题的解：
+    <ul>
+      <li>自上往下：在内存中记录子问题的解，并且重新使用解 (recursive + memoization)</li>
+      <li>自下往上：按照拓扑排序的顺序来求解子问题 (via loops)</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># recursive solution （top down)
+def fib(n):
+    memo = {}
+    def F(i):
+        if i &lt; 2:
+            return i
+        if i not in memo:
+            memo[i] = F(i-1) + F(i-2)
+        return memo[i]
+    return F(n)
+
+# iterative solution (bottom up)
+def fib(n):
+    F = {}
+    F[0], F[1] = 0, 1
+    for i in range(2, n+1):
+        F[i] = F[i-1] + F[i-2]
+    return F[n]
+</code></pre></div></div>
+
+<h3 id="2-动态规划">2. 动态规划</h3>
+<ul>
+  <li>可以使用递归意味着问题可以分解成子问题</li>
+  <li>递归算法意味着计算过程可以表示成图</li>
+  <li>如果子问题依赖有重叠 (DAG 图中的入度 &gt; 1)，那么可以使用动态规划</li>
+</ul>
+
+<p>动态规划是分治法的泛化，在分治法中，子问题依赖形成的是树，而在动态规划中，子问题依赖是有向无环图。动态规划经常用于优化问题，例如最大化或最小化单个标量值。</p>
+
+<p>当选择好子问题，并且子问题依赖确定的话，有两种方法来求解问题：</p>
+<ol>
+  <li>“Recurse but re-use” (top down: record and lookup subproblem solutions)</li>
+  <li>“Careful brute force” (Bottom up: do each subproblem in order)</li>
+</ol>
+
+<p>这两种方法中都要用到 Memoization，需要在过程中记录之前计算得到的值。</p>
+
+<hr />
+
+<p>如何递归的解决问题 (SRT BOT)</p>
+<ol>
+  <li>Subproblem definition
+    <ul>
+      <li>用语言描述子问题的含义</li>
+      <li>经常是输入的子集：序列的前缀、后缀、连续子字符串</li>
+      <li>经常记录部分状态：通过增加一些辅助变量创建子问题</li>
+    </ul>
+  </li>
+  <li>Relate subproblem solutions recursively
+    <ul>
+      <li>找到子问题之间的关系</li>
+    </ul>
+  </li>
+  <li>Topological order to argue relation is acyclic and subproblems form a DAG
+    <ul>
+      <li>找到拓扑排序，证明关系是无环的，子问题形成一个 DAG</li>
+    </ul>
+  </li>
+  <li>Base cases
+    <ul>
+      <li>所有的基础情况</li>
+    </ul>
+  </li>
+  <li>Original problem
+    <ul>
+      <li>根据子问题，计算原始问题</li>
+      <li>可以使用父指针来得到实际的解</li>
+    </ul>
+  </li>
+  <li>Time analysis
+    <ul>
+      <li>子问题的个数 * 子问题关系计算中的非递归代价</li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<p>DAG Shortest Paths 例子：</p>
+<ul>
+  <li>Subproblems： 计算 δ(s, v)</li>
+  <li>Relation：δ(s, v) = min{δ(s, u) + w(u, v) | u ∈ Adj<sup>-</sup>(v) }</li>
+  <li>Topo. order: G 的拓扑排序</li>
+  <li>Base cases: δ(s, s) = 0</li>
+  <li>Original: 所有的子问题</li>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 如何解决算法问题 使用已有的算法 search data structure：数组、链表、动态数组、有序数组、直接访问数组、哈希表、AVL 树、堆 排序算法：插入排序、选择排序、归并排序、计数排序、基数排序、AVL 排序、堆排序 图算法：BFS、DFS、DAG relaxation、Dijkstra、Bellman-Ford、Johnson 设计递归算法]]></summary></entry><entry><title type="html">Dijkstra 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html" rel="alternate" type="text/html" title="Dijkstra 算法" /><published>2022-10-12T00:00:00+08:00</published><updated>2022-10-12T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/12/%E7%AE%97%E6%B3%95-0012.html"><![CDATA[<h3 id="1-dijkstra-算法">1. Dijkstra 算法</h3>
 
 <p>处理 non-negative edge weights:</p>
 
@@ -893,128 +1041,4 @@ npm：”Node Package Manager”，有两个功能。首先，它管理用于程
 <ol>
   <li>npm install ts-node</li>
   <li>npx ts-node</li>
-</ol>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Snapshot 图 snapshot 图：表示程序运行时的内部状态，包括 stack (运行中的方法和局部变量) 和 heap (当前存在的对象)。]]></summary></entry><entry><title type="html">二叉树 II</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006.html" rel="alternate" type="text/html" title="二叉树 II" /><published>2022-09-21T00:00:00+08:00</published><updated>2022-09-21T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/09/21/%E7%AE%97%E6%B3%95-0006.html"><![CDATA[<h3 id="1-平衡二叉树">1. 平衡二叉树</h3>
-
-<p>之前提到二叉树目的是对于树高为 h 的树，使得算法的时间复杂度为 O(h), 并且尽可能维持 h = O(logn)，最终 O(h)=O(logn)。那么，如何维持树的高度 h = O(logn) ?</p>
-
-<p><strong>平衡二叉树</strong>：在动态操作时，例如 insert(x), delete(x), 可以维持高度为 O(logn) 的二叉树。有许多平衡的范式 (Red-Black Trees, Splay Trees, 2-3 Trees,…)。最早提出的平衡范式为 AVL 树 (Adelson-Velsky and Landis, 1962)。</p>
-
-<p>树的旋转：</p>
-<ul>
-  <li>目的：降低树的高度，但是不改变遍历顺序</li>
-  <li>旋转操作只是修改了指针，时间复杂度为 O(1)</li>
-</ul>
-
-<div align="center">
-<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0006-1.png" width="500" />
-<p></p>
-</div>
-
-<p>旋转的特性：O(n) 次旋转可以将二叉树转换为具有相同遍历顺序的任何其他二叉树。</p>
-
-<h3 id="2-avl-树">2. AVL 树</h3>
-
-<ul>
-  <li>AVL 树保持了 height-balance
-    <ul>
-      <li>一个结点叫做 height-balance，如果左子树和右子树的高度最多差 1</li>
-      <li>一个结点的偏斜 (skew) 为其右子树的高度减去左子树的高度</li>
-      <li>如果 skew 为 -1， 0， 1， 那么该结点是 height-balance</li>
-    </ul>
-  </li>
-  <li>所有结点为 height-balance 的二叉树，其高度 h = O(log n)
-    <ul>
-      <li>高度为 h 二叉树的结点树 F(h) = 1 + F(h-1) + F(h-2) &gt;= 2F(h-2)</li>
-    </ul>
-  </li>
-  <li>假设增加或者删除叶子结点，导致原先 height-balance 的树不平衡
-    <ul>
-      <li>那么仅叶子结点的祖先结点在高度或者 skew 上有改变</li>
-      <li>高度最多改变 ±1, 所以 skew 的绝对值还是  ≤ 2</li>
-      <li>修复的 idea: 从叶子结点开始，一直到根结点，依次修复，使得叶子结点的所有祖先结点 height-balance</li>
-    </ul>
-  </li>
-</ul>
-
-<h4 id="21-avl-树的-rebalance">2.1 AVL 树的 Rebalance</h4>
-
-<p><strong>Local Rebalance</strong>：给定一个二叉树结点 B</p>
-<ul>
-  <li>假设其 skew 为 2</li>
-  <li>B 子树中其他结点为 height-balanced</li>
-  <li>那么，B 子树通过一次或者两次旋转操作可以变平衡</li>
-</ul>
-
-<hr />
-
-<p><strong>证明</strong>：
-因为 B 的 skew 为 2，那么 B 的右孩子结点一定存在，记为 F。</p>
-
-<p><strong>Case 1</strong>: F 的 skew 为 0。</p>
-
-<p><strong>Case 2</strong>: F 的 skew 为 1。</p>
-
-<p>对于这两种情况，都是对 B 执行左旋操作。</p>
-
-<div align="center">
-<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0006-2.png" width="500" />
-<p></p>
-</div>
-
-<p>假设 h = height(A), 那么原始状态下 height(G) = h+1, 情况 1 中 height(D) = h+1, 情况 2 中 height(D) = h。
-旋转后，B 的 skew 在情况 1 为 1，情况 2 为 0，所以 B 是 height-balanced。旋转后，F 的 skew 为 -1，F height-balanced。</p>
-
-<p><strong>Case 3</strong>：
-F 的 skew 为 -1，那么得先对 F 执行右旋，再左旋。证明和上面类似。</p>
-
-<div align="center">
-<img src="/image/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95-0006-3.png" width="500" />
-<p></p>
-</div>
-
-<hr />
-
-<p><strong>Global Rebalance</strong>：对于 height-balanced 树 T，增加或者移除一个叶子结点，得到 T’。之后可以通过最多 O(logn) 次旋转，重新得到平衡二叉树 T’‘。</p>
-
-<p><strong>证明</strong>：</p>
-<ul>
-  <li>仅叶子结点的祖先，高度受到了影响。且最多有 O(logn) 个祖先。</li>
-  <li>把最低的受到影响的祖先记为 X</li>
-  <li>如果 T 中是增加了一个叶子结点：
-    <ul>
-      <li>插入操作增加了 X 的高度，可以对 X 进行 local rebalance 操作</li>
-      <li>在旋转后保持了平衡</li>
-    </ul>
-  </li>
-  <li>如果 T 中移除了一个叶子结点
-    <ul>
-      <li>删除可能减少了 X 的一个孩子结点的高度，但是 X 的高度未受影响</li>
-      <li>删除也可能导致 X 的高度减少 1，X 的父结点也可能不平衡</li>
-      <li>所以得重新平衡 X 的祖先，但是最多 O(logn) 次</li>
-    </ul>
-  </li>
-  <li>因此，O(logn) 次旋转操作可以变回平衡二叉树</li>
-</ul>
-
-<h3 id="3-计算高度">3. 计算高度</h3>
-
-<p>如果判断结点 X 是否 height-balanced? 这需要知道子树的高度，因此要计算子树的高度。</p>
-
-<p>方法：subtree augmentation</p>
-<ul>
-  <li>在结点处附加上<strong>子树高度</strong>的属性</li>
-  <li>
-    <p>X 结点的子树高度可以用 O(1) 时间计算出来</p>
-
-    <p>h(X) = max( h(X.left), h(X.right) ) + 1</p>
-  </li>
-  <li>在动态操作时，也必须维持高度属性</li>
-</ul>
-
-<hr />
-
-<p>Steps to Augment a Binary Tree:</p>
-<ul>
-  <li>为了在二叉树中增添子树属性 p，需要在每个结点处存储属性 p，并且可以用 O(1) 时间，从结点的孩子结点计算出属性值。</li>
-  <li>那么，增加属性 p，不会改变动态操作的时间复杂度。</li>
-</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="算法" /><summary type="html"><![CDATA[1. 平衡二叉树]]></summary></entry></feed>
+</ol>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Snapshot 图 snapshot 图：表示程序运行时的内部状态，包括 stack (运行中的方法和局部变量) 和 heap (当前存在的对象)。]]></summary></entry></feed>
