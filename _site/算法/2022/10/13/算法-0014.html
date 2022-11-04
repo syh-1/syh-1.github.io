@@ -164,12 +164,14 @@ def fib(n):
     <ul>
       <li>用语言描述子问题的含义</li>
       <li>经常是输入的子集：序列的前缀、后缀、连续子字符串</li>
+      <li>如果有多个输入，经常是可能子集的乘积</li>
       <li>经常记录部分状态：通过增加一些辅助变量创建子问题</li>
     </ul>
   </li>
   <li>Relate subproblem solutions recursively
     <ul>
       <li>找到子问题之间的关系</li>
+      <li>locally brute-force all possible answers to the question</li>
     </ul>
   </li>
   <li>Topological order to argue relation is acyclic and subproblems form a DAG
@@ -195,9 +197,9 @@ def fib(n):
   </li>
 </ol>
 
-<hr />
+<h3 id="3-动态规划例子">3. 动态规划例子</h3>
 
-<p>DAG Shortest Paths 例子：</p>
+<p>DAG Shortest Paths：</p>
 <ul>
   <li>Subproblems： 计算 δ(s, v)</li>
   <li>Relation：δ(s, v) = min{δ(s, u) + w(u, v) | u ∈ Adj<sup>-</sup>(v) }</li>
@@ -205,6 +207,15 @@ def fib(n):
   <li>Base cases: δ(s, s) = 0</li>
   <li>Original: 所有的子问题</li>
 </ul>
+
+<p>其余例子：</p>
+<ul>
+  <li>Longest Common Subsequence</li>
+  <li>Longest Increasing Subsequence</li>
+  <li>Max Subarray Sum</li>
+  <li>Edit Distance</li>
+</ul>
+
 
   </div><a class="u-url" href="/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0014.html" hidden></a>
 </article>
