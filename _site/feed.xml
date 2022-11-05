@@ -1,5 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-04T12:31:51+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
-</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">APSP 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html" rel="alternate" type="text/html" title="APSP 算法" /><published>2022-10-13T00:00:00+08:00</published><updated>2022-10-13T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html"><![CDATA[<h3 id="1-apsp">1. APSP</h3>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-05T17:42:57+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">syh 的博客</title><subtitle>记录计算机专业相关内容，Mens et Manus
+</subtitle><author><name>syh</name><email>songibicf@gmail.com</email></author><entry><title type="html">代码审查</title><link href="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/11/04/%E8%BD%AF%E4%BB%B6-0005.html" rel="alternate" type="text/html" title="代码审查" /><published>2022-11-04T00:00:00+08:00</published><updated>2022-11-04T00:00:00+08:00</updated><id>http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/11/04/%E8%BD%AF%E4%BB%B6-0005</id><content type="html" xml:base="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/11/04/%E8%BD%AF%E4%BB%B6-0005.html"><![CDATA[<h3 id="1-code-review">1. Code review</h3>
+
+<p>代码审查的目的：</p>
+<ol>
+  <li>改进代码：查找错误，预测可能的错误，检查代码的清晰度，并检查与项目标准的一致性。</li>
+  <li>学习编程：代码审查是程序员互相学习的重要方式，包括学习新的语言特定，改变项目的设计或编码标准。</li>
+</ol>
+
+<p>通常，代码审查是维持代码质量的重要一步。<a href="https://google.github.io/eng-practices/review/">Code Review Developer Guide</a></p>
+
+<h3 id="2-如何进行代码审查">2. 如何进行代码审查</h3>
+
+<p>代码审查的目的是确保代码质量可以逐步提升。通常，一旦代码肯定会改善当前系统的整体代码运行状况，审阅者应该赞成批准 CL (change list)，即使 CL 并不完美。关键一点是不存在 “perfect” 代码，只有更好的代码。</p>
+
+<p>代码审查看什么：</p>
+<ul>
+  <li>Design：CL 是否设计良好？CL 是否适合系统其余部分？需要增加该功能吗？</li>
+  <li>功能性：代码达到预期的功能了吗？代码对于使用者来说好用吗？</li>
+  <li>复杂度：代码能够更简单吗？一行的代码是否太复杂？别的开发者可以容易理解和使用代码吗？</li>
+  <li>测试：代码有正确的、设计良好的自动测试吗？单元测试，集成测试通过了吗？</li>
+  <li>命名：变量、类、方法有清晰的命名吗？</li>
+  <li>注释：注释清晰有用吗？通常注释用来解释为什么代码这样写，而不是解释代码在做什么。</li>
+  <li>风格：代码符合 style guides 吗？</li>
+  <li>文档：相关的文档与代码一致吗？</li>
+</ul>
+
+<p>代码审查的步骤：</p>
+<ol>
+  <li>全面浏览改变的地方</li>
+  <li>检查 CL 主要的部分</li>
+  <li>按照合适的顺序查看 CL 的其余部分</li>
+</ol>
+
+<p>如何写代码审查评论：</p>
+<ul>
+  <li>解释理由</li>
+  <li>在给出具体的方向和单指出问题之间取舍</li>
+  <li>鼓励开发者简化代码，或者增加注释</li>
+</ul>
+
+<p>如何写 CL 描述：</p>
+<ul>
+  <li>CL 描述记录了改变了什么代码，为什么改变</li>
+  <li>第一行：简短的描述做了什么，使用完整的句子</li>
+  <li>body 要描述细节，描述解决了什么问题，为什么要这样解决</li>
+  <li>CL 的大小：改变应该是自我包含的改变</li>
+</ul>
+
+<h3 id="3-style-standards">3. Style standards</h3>
+
+<p><a href="https://google.github.io/styleguide/">Google style guides</a></p>
+
+<p>好的代码原则：</p>
+<ul>
+  <li>Don’t repeat yourself</li>
+  <li>在需要的地方写注释</li>
+  <li>Fail fast</li>
+  <li>Avoid magic numbers</li>
+  <li>One purpose for each variable</li>
+  <li>Use good names</li>
+  <li>Don’t use global variables</li>
+  <li>函数应该返回值，而不是打印出来</li>
+  <li>Avoid special-case code</li>
+</ul>
+
+<p>三种变量：</p>
+<ul>
+  <li>局部变量：函数内的变量</li>
+  <li>实例变量：在对象的实例内，也被叫做 property、member variable、attribute、field</li>
+  <li>全局变量：在函数外的变量</li>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Code review]]></summary></entry><entry><title type="html">APSP 算法</title><link href="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html" rel="alternate" type="text/html" title="APSP 算法" /><published>2022-10-13T00:00:00+08:00</published><updated>2022-10-13T00:00:00+08:00</updated><id>http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013</id><content type="html" xml:base="http://localhost:4000/%E7%AE%97%E6%B3%95/2022/10/13/%E7%AE%97%E6%B3%95-0013.html"><![CDATA[<h3 id="1-apsp">1. APSP</h3>
 
 <p>APSP (All-Pairs Shortest Paths) 问题：</p>
 <ul>
@@ -1052,199 +1122,4 @@ function max(a:number, b:number): number
   <li>白盒测试和语句覆盖率</li>
   <li>单元测试，自动回归测试</li>
   <li>迭代开发</li>
-</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Validation]]></summary></entry><entry><title type="html">TypeScript 基础</title><link href="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/23/%E8%BD%AF%E4%BB%B6-0003.html" rel="alternate" type="text/html" title="TypeScript 基础" /><published>2022-09-23T00:00:00+08:00</published><updated>2022-09-23T00:00:00+08:00</updated><id>http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/23/%E8%BD%AF%E4%BB%B6-0003</id><content type="html" xml:base="http://localhost:4000/%E8%BD%AF%E4%BB%B6%E6%9E%84%E9%80%A0/2022/09/23/%E8%BD%AF%E4%BB%B6-0003.html"><![CDATA[<h3 id="1-snapshot-图">1. Snapshot 图</h3>
-<p>snapshot 图：表示程序运行时的内部状态，包括 stack (运行中的方法和局部变量) 和 heap (当前存在的对象)。</p>
-
-<p>改变一个变量或字段：改变了变量的箭头指向
-改变一个可修改对象的内容：改变值内部的引用</p>
-
-<p>string 是不可修改的类型，当创建之后，<strong>值</strong>不能被改变。可修改对象则是可以改变对象的值。</p>
-
-<p><strong>不可重新分配的引用</strong>：变量只能赋值一次，并且永远不能被重新赋值，用 const 来声明。</p>
-
-<p>不可重新分配的引用可以指向可修改的值，例如</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const arr:Array&lt;string&gt; = ["a"];
-arr.push("b")
-</code></pre></div></div>
-
-<p>可重新分配的引用可以指向不可修改的值，此时变量的值可以改变。例如：</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let s:string = "a";
-s = "ab";
-</code></pre></div></div>
-
-<p>函数调用中参数传递为值传递，即参数接受一个初始值，在函数内部参数可以任意的重新分配，不会影响到 caller。大多数的编程语言都是值传递，例如 Python, Java, C。少数语言，如 C++，C# 提供引用传递。</p>
-
-<h3 id="2-typescript-基础">2. TypeScript 基础</h3>
-
-<p>TypeScript 中的 Array 与 Python 中的 list 类似。</p>
-
-<table>
-  <tbody>
-    <tr>
-      <td>TypeScript</td>
-      <td>Python</td>
-    </tr>
-    <tr>
-      <td>lst.length</td>
-      <td>len(lst)</td>
-    </tr>
-    <tr>
-      <td>lst.push(e)</td>
-      <td>lst.append(e)</td>
-    </tr>
-    <tr>
-      <td>if (lst.length === 0)</td>
-      <td>if not list: …</td>
-    </tr>
-    <tr>
-      <td>lst.includes(e)</td>
-      <td>e in lst</td>
-    </tr>
-    <tr>
-      <td>lst.splice(i, 1)</td>
-      <td>del lst[i]</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Map 与 Python 中字典相似。在 Python 中，键必须是可哈希的。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Python 中的可哈希：一个对象的哈希值如果在其生命周期内绝不改变，并可以同其他对象进行比较 (具有 __eq__ 方法)，就被称为可哈希的 (它需要具有 __hash__ 方法)。
-
-可哈希行使得对象能够作为字典键或集合成员使用，这些数据结构在内部使用哈希值。
-</code></pre></div></div>
-
-<table>
-  <tbody>
-    <tr>
-      <td>TypeScript</td>
-      <td>Python</td>
-    </tr>
-    <tr>
-      <td>map.set(key, val)</td>
-      <td>map[key] = val</td>
-    </tr>
-    <tr>
-      <td>map.get(key)</td>
-      <td>map[key]</td>
-    </tr>
-    <tr>
-      <td>map.has(key)</td>
-      <td>key in map</td>
-    </tr>
-    <tr>
-      <td>map.delete(key)</td>
-      <td>del map[key]</td>
-    </tr>
-    <tr>
-      <td>map.size</td>
-      <td>len(map)</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Set 类型
-| TypeScript | Python |
-| s.has(e) | e in s|
-| s.add(e) | s.add(e) |
-| s.delete(e) | s.remove(e) |
-| s.size | len(s) |</p>
-
-<h4 id="21-generics">2.1 Generics</h4>
-<p>不像 Python 中的容器类型。 TypeScript 中的容器可以严格限定容器中对象的类型。当向容器中添加项时，TypeScript 会对项进行静态检查。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># 容器例子
-let cities: Array&lt;string&gt;;
-let cities: string[]
-let number: Set&lt;number&gt;;
-let turtles: Map&lt;string, Turtle&gt;
-</code></pre></div></div>
-
-<h4 id="22-iteration">2.2 Iteration</h4>
-
-<p>Python 中：</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for city in cities:
-    print(city)
-
-for num in numbers:
-    print(num)
-
-for key in turtles:
-    print("%s: %s" %(key, turtles[key]))
-</code></pre></div></div>
-
-<p>TypeScript:</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>for (const city of cities) {
-    console.log(city);
-}
-
-for (const num of numbers) {
-    console.log(num);
-}
-
-for (const key of turtles.keys()) {
-    console.log(key + ":" + turtles.get(key));
-}
-</code></pre></div></div>
-
-<p>在 array 和 map 中使用 <code class="language-plaintext highlighter-rouge">get()</code> 去访问一个 key，如果 key 不存在，会返回特殊的值 <code class="language-plaintext highlighter-rouge">undefined</code></p>
-
-<p>JavaScript 中数组实际上是 sparse 的，可以在任意的索引位置放置一个新元素。</p>
-
-<h4 id="23-变量声明">2.3 变量声明</h4>
-
-<p>JavaScript 中可以使用 let、const、var 来声明一个变量。let 声明的变量可重新赋值，const 声明的为不可重新分配的变量。var 为旧的风格，因为声明变量的 scope 为整个 functions，而 let 声明的变量 scope 为闭合花括号内。</p>
-
-<h4 id="24-对象字面量和对象类型">2.4 对象字面量和对象类型</h4>
-
-<p>record type: 一个对象，只有 named fields，没有方法。在 C/C++ 里面叫做 struct。</p>
-
-<p>TypeScript 可以使用 {field1:value1, field2:value2, …}，快速创建具有特定值的 record type 对象。</p>
-
-<p>解构赋值：通过解构赋值，可以将属性/值从对象/数组中取出，赋值给其他变量。</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>let a, b, rest;
-[a, b] = [10, 20]
-
-[a, b, ...rest] = [10, 20, 30, 40, 50];
-
-({a, b} = {a:10, b:20});
-</code></pre></div></div>
-
-<h3 id="3-api-文档与工具">3. API 文档与工具</h3>
-
-<ul>
-  <li>MDN： JavaScript 的通用功能，包含浏览器指定的 API</li>
-  <li>Node.js: outside-the-browser API</li>
-  <li>TypeScript Handbook：与 TypeScript 有关的 API</li>
-</ul>
-
-<p>MDN 文档的结构：</p>
-
-<ol>
-  <li>Description
-    <ul>
-      <li>类的简短描述</li>
-    </ul>
-  </li>
-  <li>Constructor</li>
-  <li>Instance properties</li>
-  <li>Instance methods
-    <ul>
-      <li>method signature</li>
-      <li>full description</li>
-      <li>parameters</li>
-      <li>returns</li>
-    </ul>
-  </li>
-</ol>
-
-<p>Node.js：JavaScript 的解释器
-npm：”Node Package Manager”，有两个功能。首先，它管理用于程序的外部包库。其次，npm 是其他编程工具的通用运行环境。</p>
-
-<p>使用 TypeScript prompt:</p>
-<ol>
-  <li>npm install ts-node</li>
-  <li>npx ts-node</li>
-</ol>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Snapshot 图 snapshot 图：表示程序运行时的内部状态，包括 stack (运行中的方法和局部变量) 和 heap (当前存在的对象)。]]></summary></entry></feed>
+</ul>]]></content><author><name>syh</name><email>songibicf@gmail.com</email></author><category term="软件构造" /><summary type="html"><![CDATA[1. Validation]]></summary></entry></feed>
