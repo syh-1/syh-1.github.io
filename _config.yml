@@ -50,6 +50,7 @@ minima:
 header_pages:
  - 算法.md
  - 软件构造.md
+ - Git.md
  - 计算机组成.md
  - about.md
 
