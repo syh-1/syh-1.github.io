@@ -48,11 +48,13 @@ minima:
 # If you want to link only specific pages in your header, uncomment
 # this and add the path to the pages in order as they should show up
 header_pages:
- - 算法.md
+ - 计算机系统.md
  - 软件构造.md
+ - 算法.md
  - 编程语言.md
- - Git.md
  - 计算机组成.md
+ - Git.md
+ - Linux.md
  - about.md
 
 # Build settings
